@@ -42,7 +42,7 @@ $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
 따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다.">
 <meta itemprop="datePublished" content="2020-05-20T23:01:29&#43;09:00" />
 <meta itemprop="dateModified" content="2020-05-20T23:01:29&#43;09:00" />
-<meta itemprop="wordCount" content="291">
+<meta itemprop="wordCount" content="283">
 <meta itemprop="image" content="https://axect.github.io"/>
 
 
@@ -218,7 +218,7 @@ $$</p>
 <p>이것을 바로 증명하기에는 어려움이 있으므로 제곱 꼴을 고려해야 합니다.
 $$\left(\int_{-\infty}^\infty e^{-\alpha x^2}\right)^2 = \int_{-\infty}^\infty \int_{-\infty}^\infty e^{-\alpha(x^2 + y^2)} dx dy$$
 이것을 $x^2 + y^2 = r^2,~dxdy = rdrd\theta$임을 이용하여 극좌표계 적분으로 변환합니다. 그렇다면 아주 간단한 치환 적분으로 적분을 계산할 수 있습니다.
-$$\int_{0}^\infty \int_{0}^{2\pi} re^{-\alpha r^2} dr d\theta = 2\pi\int_0^\infty e^{-t} \frac{dt}{2\alpha} = \frac{\pi}{\alpha}$$
+$$\int_{0}^\infty \int_{0}^{2\pi} re^{-\alpha r^2} dr d\theta = \frac{\pi}{\alpha}$$
 가우스 적분의 제곱이 위와 같은 결과가 되었고, 가우시안 함수($e^{-\alpha x^2}$)는 항상 양수이므로 위 식이 성립함을 알 수 있습니다.</p>
 </blockquote>
 <p>보통 물리학이나 통계학에서 자주 사용되는 가우스 적분은 다음과 같은 형태입니다.</p>
@@ -232,7 +232,7 @@ $$</p>
 $$</p>
 <blockquote>
 <p>단순히 완전제곱식을 이용하여 정리하면 해결되는 적분입니다.
-$$\int_{-\infty}^\infty e^{-\frac{a}{2}(y - \frac{J}{a})^2 + \frac{J^2}{2a}} = \int_{-\infty}^\infty e^{-\frac{a}{2}t^2} dt \cdot e^{\frac{J^2}{2a}} = (2\pi)^{\frac{1}{2}} a^{-\frac{1}{2}} e^{\frac{J^2}{2a}}$$</p>
+$$\int_{-\infty}^\infty e^{-\frac{a}{2}(y - \frac{J}{a})^2 + \frac{J^2}{2a}} = \int_{-\infty}^\infty e^{-\frac{a}{2}t^2} dt \cdot e^{\frac{J^2}{2a}}$$</p>
 </blockquote>
 <hr>
 <h2 id="-단변수-가우시안-single-variate-gaussian">🐪 단변수 가우시안 (Single variate Gaussian)</h2>
@@ -248,7 +248,7 @@ $$\int_{-\infty}^\infty e^{-\frac{a}{2}(y - \frac{J}{a})^2 + \frac{J^2}{2a}} = \
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/mathematics">mathematics</a></span><span class="tag"><a href="https://axect.github.io/tags/statistics">statistics</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>291 Words</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>283 Words</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-20 23:01 &#43;0900</p>
         </div>
