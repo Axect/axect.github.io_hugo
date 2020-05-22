@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Socialst</title>
-    <link>https://axect.github.io/</link>
-    <description>Recent content on Socialst</description>
+    <title>gaussian on Socialst</title>
+    <link>https://axect.github.io/tags/gaussian/</link>
+    <description>Recent content in gaussian on Socialst</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 21 May 2020 15:15:36 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2020 17:00:31 +0900</lastBuildDate>
     
-	<atom:link href="https://axect.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://axect.github.io/tags/gaussian/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -22,17 +22,6 @@
 $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
 이공계 대학생이라면 1학년 미적분학 시간에 극좌표계(Polar coordinate)를 이용한 이중적분을 다룰 때 나오는 가장 기본문제로 가우스 적분을 기억할겁니다. 그러나 항상 거의 모두가 그렇듯이 시간이 지나면 지날 수록 기억은 풍화되고 거의 망각의 단계에 이르렀을 때에 갑자기 튀어나오는 낯선 형태의 가우스 적분들은 대처하기가 난감합니다.
 따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://axect.github.io/about/</link>
-      <pubDate>Thu, 21 May 2020 15:15:36 +0900</pubDate>
-      
-      <guid>https://axect.github.io/about/</guid>
-      <description>About Tae Geun Kim (Axect)
- I am Graduate student &amp;amp; Rustacean
- Education  Ph.D: Department of Physics, Yonsei University (2020 ~ ) M.S.: Department of Physics, Yonsei University (2017 ~ 2019) B.S.: Department of Astronomy, Yonsei University (2012 ~ 2017)   Research Area  Numerical Relativity Scientific Computation Particle Physics (Phenomenology)   Skills Mathematics  Functional Analysis Numerical Analysis  Finite Difference Method Finite Element Method   Differential Geometry Topology  Physics  General Relativity Quantum Field Theory Mathematical Physics  Programming  Main language: Rust Sub languages: Python, C++, Julia, R Frameworks or Libraries  Numerical: peroxide, BLAS, LAPACK, numpy, scipy Visualization: matplotlib, vegas, ggplot2, plotly Web: Django, Vue, Firebase, Surge, Hugo Machine Learning: Tensorflow, Torch     Project   Peroxide: Numerical library for Rust (Maintainer)</description>
     </item>
     
   </channel>

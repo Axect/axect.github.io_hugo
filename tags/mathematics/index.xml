@@ -7,15 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 20 May 2020 23:01:29 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2020 17:00:31 +0900</lastBuildDate>
     
 	<atom:link href="https://axect.github.io/tags/mathematics/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>🐪 Gaussian Conquest</title>
+      <title>🐪 Gaussian Conquest 01: Single variable</title>
       <link>https://axect.github.io/posts/01_gaussian/</link>
-      <pubDate>Wed, 20 May 2020 23:01:29 +0900</pubDate>
+      <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>
       
       <guid>https://axect.github.io/posts/01_gaussian/</guid>
       <description>물리학이나 통계학 등을 하다보면 항상 마주치는 원수 같은 존재가 있습니다. 별로 어렵지는 않은데 마주칠 때마다 헷갈리는 그 존재는 바로 가우스 적분(Gaussian Integral)입니다.
