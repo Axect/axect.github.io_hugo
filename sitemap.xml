@@ -3,6 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://axect.github.io/tags/automatic-differentiation/</loc>
+    <lastmod>2020-05-24T02:44:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://axect.github.io/tags/numerical/</loc>
+    <lastmod>2020-05-24T02:44:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://axect.github.io/posts/</loc>
+    <lastmod>2020-05-24T02:44:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://axect.github.io/tags/rust/</loc>
+    <lastmod>2020-05-24T02:44:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://axect.github.io/tags/</loc>
+    <lastmod>2020-05-24T02:44:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://axect.github.io/posts/02_ad_1/</loc>
+    <lastmod>2020-05-24T02:44:11+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://axect.github.io/tags/gaussian/</loc>
     <lastmod>2020-05-22T17:00:31+09:00</lastmod>
   </url>
@@ -13,17 +43,7 @@
   </url>
   
   <url>
-    <loc>https://axect.github.io/posts/</loc>
-    <lastmod>2020-05-22T17:00:31+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://axect.github.io/tags/statistics/</loc>
-    <lastmod>2020-05-22T17:00:31+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://axect.github.io/tags/</loc>
     <lastmod>2020-05-22T17:00:31+09:00</lastmod>
   </url>
   

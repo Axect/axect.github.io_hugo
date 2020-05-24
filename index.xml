@@ -13,6 +13,16 @@
     
     
     <item>
+      <title>🧙 Differentiation with Rust 01: Numerical Differentiation</title>
+      <link>https://axect.github.io/posts/02_ad_1/</link>
+      <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
+      
+      <guid>https://axect.github.io/posts/02_ad_1/</guid>
+      <description>미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
+당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다.</description>
+    </item>
+    
+    <item>
       <title>🐪 Gaussian Conquest 01: Single variable</title>
       <link>https://axect.github.io/posts/01_gaussian/</link>
       <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>

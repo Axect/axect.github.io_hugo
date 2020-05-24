@@ -7,10 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 22 May 2020 17:00:31 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2020 02:44:11 +0900</lastBuildDate>
     
 	<atom:link href="https://axect.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>automatic differentiation</title>
+      <link>https://axect.github.io/tags/automatic-differentiation/</link>
+      <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/automatic-differentiation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>numerical</title>
+      <link>https://axect.github.io/tags/numerical/</link>
+      <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/numerical/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://axect.github.io/tags/rust/</link>
+      <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>gaussian</title>

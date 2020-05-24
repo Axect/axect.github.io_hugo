@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rust on Socialst</title>
-    <link>https://axect.github.io/tags/rust/</link>
-    <description>Recent content in rust on Socialst</description>
+    <title>automatic differentiation on Socialst</title>
+    <link>https://axect.github.io/tags/automatic-differentiation/</link>
+    <description>Recent content in automatic differentiation on Socialst</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 24 May 2020 02:44:11 +0900</lastBuildDate>
     
-	<atom:link href="https://axect.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://axect.github.io/tags/automatic-differentiation/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

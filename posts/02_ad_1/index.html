@@ -1,23 +1,195 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Posts on Socialst</title>
-        <link>https://axect.github.io/posts/</link>
-        <description>Recent content in Posts on Socialst</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
-        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 24 May 2020 02:44:11 +0900</lastBuildDate>
-        <atom:link href="https://axect.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
+당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다." />
+<meta name="keywords" content=", numerical, automatic differentiation, rust" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://axect.github.io/posts/02_ad_1/" />
+
+
+    <title>
         
-        <item>
-            <title>🧙 Differentiation with Rust 01: Numerical Differentiation</title>
-            <link>https://axect.github.io/posts/02_ad_1/</link>
-            <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
+            🧙 Differentiation with Rust 01: Numerical Differentiation :: Socialst  — Axect&#39;s Blog
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.a7a124d841975603b9bf09215e55019839b2c4592e6ad5af28da465e0df9ad44.css">
+
+
+
+
+
+
+<meta itemprop="name" content="🧙 Differentiation with Rust 01: Numerical Differentiation">
+<meta itemprop="description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
+당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다.">
+<meta itemprop="datePublished" content="2020-05-24T02:44:11&#43;09:00" />
+<meta itemprop="dateModified" content="2020-05-24T02:44:11&#43;09:00" />
+<meta itemprop="wordCount" content="985">
+<meta itemprop="image" content="https://axect.github.io"/>
+
+
+
+<meta itemprop="keywords" content="numerical,automatic differentiation,rust," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://axect.github.io"/>
+
+<meta name="twitter:title" content="🧙 Differentiation with Rust 01: Numerical Differentiation"/>
+<meta name="twitter:description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
+당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다."/>
+
+
+
+    <meta property="og:title" content="🧙 Differentiation with Rust 01: Numerical Differentiation" />
+<meta property="og:description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
+당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://axect.github.io/posts/02_ad_1/" />
+<meta property="og:image" content="https://axect.github.io"/>
+<meta property="article:published_time" content="2020-05-24T02:44:11+09:00" />
+<meta property="article:modified_time" content="2020-05-24T02:44:11+09:00" /><meta property="og:site_name" content="Socialst" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2020-05-24 02:44:11 &#43;0900 KST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">cd /home/axect/</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
             
-            <guid>https://axect.github.io/posts/02_ad_1/</guid>
-            <description>미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
-당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다.</description>
-            <content type="html"><![CDATA[<p>미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다.
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://axect.github.io/about">About</a></li><li><a href="https://axect.github.io/posts">Blog</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+
+    <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  },
+  "HTML-CSS": { scale: 75, linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } },
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://axect.github.io/posts/02_ad_1/">🧙 Differentiation with Rust 01: Numerical Differentiation</a>
+            </h1>
+                <hr />
+                <aside id="toc">
+                <div class="toc-title">Table of Contents</div>
+                    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-수치적-미분-numerical-differentiation">💻 수치적 미분 (Numerical Differentiation)</a>
+      <ul>
+        <li><a href="#수치적-미분의-장단점">수치적 미분의 장단점</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                </aside>
+                <hr />
+
+            
+
+            <div class="post-content">
+                <p>미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다.
 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.</p>
 <p>당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다. 일단 미적분학에서 간단하게 배우는 도함수의 정의는 다음과 같습니다.</p>
 <p>$$
@@ -152,159 +324,76 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
 </ul>
 <p>계산 속도와 편의 상의 큰 장점을 가지고 있지만 오차가 계속 쌓일 수 있으므로 Step size는 작지만 구간은 긴 수치미분방정식 등은 수치적 미분을 적용하기에 한계가 있습니다.
 다행히 이를 해결하기 위한 방법들은 존재합니다. 이에 대해서는 다음에 다뤄보도록 하겠습니다.</p>
-]]></content>
-        </item>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>985 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-24 02:44 &#43;0900</p>
+        </div>
+
         
-        <item>
-            <title>🐪 Gaussian Conquest 01: Single variable</title>
-            <link>https://axect.github.io/posts/01_gaussian/</link>
-            <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Read other posts</span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://axect.github.io/posts/01_gaussian/">
+                                <span class="button__text">🐪 Gaussian Conquest 01: Single variable</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+    </main>
+
+            </div>
+
             
-            <guid>https://axect.github.io/posts/01_gaussian/</guid>
-            <description>물리학이나 통계학 등을 하다보면 항상 마주치는 원수 같은 존재가 있습니다. 별로 어렵지는 않은데 마주칠 때마다 헷갈리는 그 존재는 바로 가우스 적분(Gaussian Integral)입니다.
-$$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
-이공계 대학생이라면 1학년 미적분학 시간에 극좌표계(Polar coordinate)를 이용한 이중적분을 다룰 때 나오는 가장 기본문제로 가우스 적분을 기억할겁니다. 그러나 항상 거의 모두가 그렇듯이 시간이 지나면 지날 수록 기억은 풍화되고 거의 망각의 단계에 이르렀을 때에 갑자기 튀어나오는 낯선 형태의 가우스 적분들은 대처하기가 난감합니다.
-따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다.</description>
-            <content type="html"><![CDATA[<p>물리학이나 통계학 등을 하다보면 항상 마주치는 원수 같은 존재가 있습니다. 별로 어렵지는 않은데 마주칠 때마다 헷갈리는 그 존재는 바로 <strong>가우스 적분</strong>(Gaussian Integral)입니다.</p>
-<p>$$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$</p>
-<p>이공계 대학생이라면 1학년 미적분학 시간에 극좌표계(Polar coordinate)를 이용한 이중적분을 다룰 때 나오는 가장 기본문제로 가우스 적분을 기억할겁니다. 그러나 항상 거의 모두가 그렇듯이 시간이 지나면 지날 수록 기억은 풍화되고 거의 망각의 단계에 이르렀을 때에 갑자기 튀어나오는 낯선 형태의 가우스 적분들은 대처하기가 난감합니다.</p>
-<p>따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다.</p>
-<hr>
-<h2 id="-기본적인-가우스-적분">🔢 기본적인 가우스 적분</h2>
-<blockquote>
-<p><strong>이해하기 위해 필요한 개념</strong></p>
-<ul>
-<li>고교 수준의 적분 (치환 적분, 지수함수의 적분)</li>
-<li>극좌표계</li>
-<li>이중적분</li>
-</ul>
-</blockquote>
-<p>가우스 적분은 전형적인 <em>처음 하기는 힘들지만 한 번 보면 누구나 할 수 있는</em> 형태의 스킬입니다. 이것을 보고 극좌표계에서의 이중적분을 떠올리기는 힘들지만 그것을 사용한다는 것을 깨닫는 순간 문제는 아주 기초적인 미적분 문제로 격하됩니다. 그럼 먼저 가장 기본적인 가우스 적분을 봅시다.</p>
-<p> </p>
-<h3 id="일차원-가우스-적분">일차원 가우스 적분</h3>
-<p>$$
-\int_{-\infty}^\infty e^{-\alpha x^2} dx = \sqrt{\frac{\pi}{\alpha}}
-$$</p>
-<blockquote>
-<p>이것을 바로 증명하기에는 어려움이 있으므로 제곱 꼴을 고려해야 합니다.
-$$\left(\int_{-\infty}^\infty e^{-\alpha x^2}\right)^2 = \int_{-\infty}^\infty \int_{-\infty}^\infty e^{-\alpha(x^2 + y^2)} dx dy$$
-이것을 $x^2 + y^2 = r^2,~dxdy = rdrd\theta$임을 이용하여 극좌표계 적분으로 변환합니다. 그렇다면 아주 간단한 치환 적분으로 적분을 계산할 수 있습니다.
-$$\int_{0}^\infty \int_{0}^{2\pi} re^{-\alpha r^2} dr d\theta = \frac{\pi}{\alpha}$$
-가우스 적분의 제곱이 위와 같은 결과가 되었고, 가우시안 함수($e^{-\alpha x^2}$)는 항상 양수이므로 위 식이 성립함을 알 수 있습니다.</p>
-</blockquote>
-<p>보통 물리학이나 통계학에서 자주 사용되는 가우스 적분은 다음과 같은 형태입니다.</p>
-<p>$$
-\int_{-\infty}^\infty e^{-\frac{a}{2}y^2} dy = (2\pi)^{\frac{1}{2}} a^{-\frac{1}{2}}
-$$</p>
-<p> </p>
-<h3 id="일차원-가우스-적분-일반화">일차원 가우스 적분 일반화</h3>
-<p>$$
-(2\pi)^{-\frac{1}{2}}\int_{-\infty}^\infty e^{-\frac{1}{2}a x^2 + Jx} = a^{-\frac{1}{2}} e^{\frac{J^2}{2a}}
-$$</p>
-<blockquote>
-<p>단순히 완전제곱식을 이용하여 정리하면 해결되는 적분입니다.
-$$\int_{-\infty}^\infty e^{-\frac{a}{2}(y - \frac{J}{a})^2 + \frac{J^2}{2a}} = \int_{-\infty}^\infty e^{-\frac{a}{2}t^2} dt \cdot e^{\frac{J^2}{2a}}$$</p>
-</blockquote>
-<p>이런 형식의 적분은 평균이 0이 아닌 가우시안 분포나 양자 물리학의 경로 적분(Path Integral)에서 외부 힘(External force)이 작용할 때의 계산에서 많이 사용됩니다.</p>
-<p> </p>
-<h3 id="파인만-트릭을-이용한-가우스-적분">파인만 트릭을 이용한 가우스 적분</h3>
-<p>$$
-\int_{-\infty}^\infty x^2 e^{-a x^2}dx = \frac{1}{2}\pi^{\frac{1}{2}} a^{-\frac{3}{2}}
-$$</p>
-<blockquote>
-<p>먼저 다음과 같이 가우스 적분을 $a$에 대한 함수로 정의합니다.
-$$I(a) \equiv \int_{-\infty}^\infty e^{-ax^2} dx$$
-이를 $a$에 대해 편미분 합니다.
-$$\frac{\partial I(a)}{\partial a} = \int_{-\infty}^\infty -x^2 e^{-ax^2}dx$$
-우리는 이미 $I(a)$의 값이 $\sqrt{\pi}{a}$임을 알고 있습니다. 따라서 위 식에서 좌변의 값은 다음과 같습니다.
-$$\frac{\partial I(a)}{\partial a} = -\frac{1}{2}\pi^{\frac{1}{2}} a^{-\frac{3}{2}}$$
-이제 위 식 2개가 같음을 이용하면 증명은 끝납니다.</p>
-</blockquote>
-<p>통상적으로 이런 적분은 부분적분(Partial integration)을 이용하는 것이 일반적이지만 파인만의 방법을 이용하면 이렇게 굉장히 쉽게 계산할 수 있습니다. 이런 트릭은 물리학에서는 일반적으로 사용되며 통계학에서도 아주 유용하게 사용할 수 있으므로 알아두면 큰 도움이 될 것입니다.</p>
-<hr>
-<h2 id="-단변수-가우시안-single-variate-gaussian">🐪 단변수 가우시안 (Single variate Gaussian)</h2>
-<p><img src="/posts/images/single.png" alt="Single variate Gaussian"></p>
-<h3 id="확률밀도함수-probability-density-function">확률밀도함수 (Probability Density Function)</h3>
-<blockquote>
-<p><strong>이해하기 위해 필요한 개념</strong></p>
-<ul>
-<li>고교 수준의 통계학</li>
-</ul>
-</blockquote>
-<p>가우스 적분의 꽃은 역시 가우시안 분포라고 할 수 있습니다. 통계학에서 정규분포라고도 일컫는 이 확률 분포는 확률을 구하기 위해서 반드시 가우스 적분을 필요로 합니다. 단변수 가우시안 혹은 1차원 가우시안 분포의 확률밀도함수(Probability density function)은 다음과 같습니다.</p>
-<p>$$
-p(x) = \mathcal{N}(x | \mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp{\left(-\frac{1}{2\sigma^2}(x-\mu)^2 \right)}
-$$</p>
-<p>위 식에서 보다시피 단변수 가우시안 분포를 정의하기 위해서는 두 매개변수(Parameter) $\mu$와 $\sigma$가 필요합니다. 이미 이 매개변수들의 의미를 알고 있는 사람들이 많을 것 같지만 일단은 매개변수 이상의 의미를 두지 않고 성질을 살펴보도록 하겠습니다.</p>
-<p>위에서 확률밀도함수라고 미리 언급했지만, 징검다리도 두드려보고 건너 듯이 저 이상한 함수가 진짜 확률밀도함수인지 확인을 해봅시다. 확률밀도함수를 위시한 확률분포함수는 반드시 2가지의 조건을 충족해야 합니다.</p>
-<ol>
-<li>
-<p>정규화(Normalization)
-$$\int_{-\infty}^{\infty} p(x) dx = 1$$</p>
-</li>
-<li>
-<p>음이 아닌 정부호(Nonnegative definite)
-$$p(x) \geq 0$$</p>
-</li>
-</ol>
-<p>위에서 정의한 가우시안 분포의 확률밀도함수는 지수함수 형태이므로 항상 0보다 큰 것은 자명합니다. 따라서 정규화 조건만 확인하면 징검다리가 안전함을 확인할 수 있습니다. 이미 눈치채셨을 수도 있겠지만 이 확률분포함수의 정규화 조건을 확인하는 것은 가우스 적분으로 해결할 수 있습니다.</p>
-<p>$$
-\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x - \mu)^2\right) dx = \frac{1}{\sqrt{2\pi\sigma^2}} \sqrt{2\pi \sigma^2} = 1
-$$</p>
-<p>모든 조건을 확인했으니 우리가 정의한 가우시안 분포의 확률밀도함수가 진짜라는 것을 납득할 수 있습니다. 이제 이 분포의 성질을 보기 위해 기댓값(평균)과 표준편차를 구해보도록 하겠습니다.</p>
-<p> </p>
-<h3 id="기댓값-expectation-value">기댓값 (Expectation value)</h3>
-<p>확률밀도함수가 주어졌을 때, 기댓값의 정의는 다음과 같습니다.</p>
-<p>$$
-\mathbb{E}[X] = \int_{-\infty}^\infty x p(x) dx
-$$</p>
-<p>이를 이용하여 단변수 가우시안 분포의 기댓값을 구해봅시다. 식이 조금 복잡할 수 있으니 상수는 제외하고 적분을 먼저 계산하겠습니다.</p>
-<p>$$
-\begin{align*}
-\int_{-\infty}^\infty xe^{-\frac{(x - \mu)^2}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty (t + \mu) e^{-\frac{t^2}{2\sigma^2}} dt \\<br>
-&amp;= \mu \sqrt{2\pi \sigma^2}
-\end{align*}
-$$</p>
-<p>계산을 조금 설명하면, 첫 번째 줄에서는 단순히 $t=(x-\mu)$로 치환하여 전개하였고 이후, $t e^{-\frac{t^2}{2\sigma^2}}$이 기함수(Odd function)임을 이용, 적분 값이 0이 되므로 두번째 항만 가우스 적분을 이용하여 계산하였습니다.
-이제 여기에 아까 잠깐 미뤄놓았던 상수를 곱해주면 다음과 같은 결과를 얻게 됩니다.</p>
-<p>$$
-\mathbb{E}[X] = \mu
-$$</p>
-<p>놀랍게도 그저 매개변수 중 하나인 줄 알았던 $\mu$가 사실은 분포의 평균을 담당하는 중요한 변수였습니다!
-이제 여세를 몰아 표준편차도 구해봅시다.</p>
-<p> </p>
-<h3 id="표준편차-standard-deviation">표준편차 (Standard deviation)</h3>
-<p>표준편차는 <em>분산 (Variance)</em> 을 구하면 자동으로 도출되는 값입니다. 분산의 정의는 다음과 같습니다.</p>
-<p>$$
-Var[X] = \mathbb{E}\left[(X - \mu)^2 \right]
-$$</p>
-<p>그럼 바로 계산을 시작해봅시다.</p>
-<p>$$
-\begin{align*}
-\int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x- \mu^2)}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2\sigma^2}} dt \\<br>
-&amp;= \frac{1}{2} \pi^{\frac{1}{2}} \left(\frac{1}{2\sigma^2}\right)^{-\frac{3}{2}} \\<br>
-&amp;= \sigma^2 \sqrt{2\pi\sigma^2}
-\end{align*}
-$$</p>
-<p>이번에는 앞서 다뤘던 파인만 트릭을 이용하여 계산했습니다. 기댓값을 구할 때와 마찬가지로 상수만 다시 붙여주면 다음과 같은 결과가 나옵니다.</p>
-<p>$$
-Var[X] = \sigma^2
-$$</p>
-<p>여기에 더 나아가, 표준편차는 분산의 양의 제곱근으로 정의되므로 $\sigma$가 바로 표준편차라는 것을 알 수 있습니다.</p>
-<p> </p>
-<hr>
-<h2 id="마치며">마치며</h2>
-<p>이번 글에서는 1차원 단일 변수에 대한 간단한 가우스 적분을 알아보고 이에 대한 활용으로 단변수 가우시안 분포의 기본적인 성질을 알아보았습니다.
-다음에는 이를 다차원으로 확장하여 행렬 꼴로 표현되는 가우스 적분과 다변수 가우시안 분포에 대해 알아보겠습니다.</p>
-<p> </p>
-<hr>
-<h2 id="참고문헌">참고문헌</h2>
-<ul>
-<li>Russell L. Herman, <em>An introduction to Mathematical physics via oscillations</em>, 2012</li>
-<li>Massimiliano Bonamente, <em>Statistics and Analysis of Scientific Data</em>, Springer, 2017</li>
-</ul>
-]]></content>
-        </item>
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://axect.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">Djordje Atlialp</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
         
-    </channel>
-</rss>
+
+
+
+
+<script type="text/javascript" src="/bundle.min.dc716e9092c9820b77f96da294d0120aeeb189b5bcea9752309ebea27fd53bbe6b13cffb2aca8ecf32525647ceb7001f76091de4199ac5a3caa432c070247f5b.js" integrity="sha512-3HFukJLJggt3&#43;W2ilNASCu6xibW86pdSMJ6&#43;on/VO75rE8/7KsqOzzJSVkfOtwAfdgkd5BmaxaPKpDLAcCR/Ww=="></script>
+
+
+
+    </body>
+</html>
