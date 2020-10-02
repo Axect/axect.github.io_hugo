@@ -36,14 +36,15 @@
 <meta itemprop="name" content="🧙 Differentiation with Rust 01: Numerical Differentiation">
 <meta itemprop="description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다.">
-<meta itemprop="datePublished" content="2020-05-24T02:44:11&#43;09:00" />
-<meta itemprop="dateModified" content="2020-05-24T02:44:11&#43;09:00" />
+<meta itemprop="datePublished" content="2020-05-24T02:44:11+09:00" />
+<meta itemprop="dateModified" content="2020-05-24T02:44:11+09:00" />
 <meta itemprop="wordCount" content="985">
 <meta itemprop="image" content="https://axect.github.io"/>
 
 
 
 <meta itemprop="keywords" content="numerical,automatic differentiation,rust," />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://axect.github.io"/>
 
@@ -208,7 +209,7 @@ if (!doNotTrack) {
 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.</p>
 <p>당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다. 일단 미적분학에서 간단하게 배우는 도함수의 정의는 다음과 같습니다.</p>
 <p>$$
-f&rsquo;(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
+f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
 $$</p>
 <p>예를 들어 $f(x) = x^2$을 미분한다면 다음과 같이 간단하게 계산할 수 있습니다.</p>
 <p>$$
@@ -363,6 +364,13 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
                 </div>
 
                 <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://axect.github.io/posts/02_ad_2/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">🖊️ Differentiation with Rust 02: Symbolic Differentiation</span>
+                            </a>
+                        </span>
                     
 
                     

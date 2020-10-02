@@ -6,8 +6,239 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 24 May 2020 02:44:11 +0900</lastBuildDate>
+        <lastBuildDate>Sat, 03 Oct 2020 03:36:49 +0900</lastBuildDate>
         <atom:link href="https://axect.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>🖊️ Differentiation with Rust 02: Symbolic Differentiation</title>
+            <link>https://axect.github.io/posts/02_ad_2/</link>
+            <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
+            
+            <guid>https://axect.github.io/posts/02_ad_2/</guid>
+            <description>🔖 Automatic Differentiation Series
+ 💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
+# Python def differentiation(f, x, h=1e-06): return (f(x + h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다.</description>
+            <content type="html"><![CDATA[<blockquote>
+<p><strong>🔖 Automatic Differentiation Series</strong></p>
+<ol>
+<li><a href="../02_ad_1">💻 Numerical Differentiation</a></li>
+<li><a href="../02_ad_2">🖊️ Symbolic Differentiation</a></li>
+</ol>
+</blockquote>
+<h2 id="-수치적-미분의-한계">📉 수치적 미분의 한계</h2>
+<p>저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요?
+아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다.
+저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Python</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">differentiation</span>(f, x, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>):
+  <span style="color:#66d9ef">return</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</code></pre></div><p>나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다. 이렇게 수치적 미분 방법은 굉장히 간단한 구현과 엄청 빠른 계산속도를 가져서 누구나 쉽게 미분을 할 수 있게 해주었습니다만, 오차가 필연적으로 발생하게 되는 단점이 있었습니다. 따라서 오차에 크게 민감하지 않은 문제나, Step 수가 적어서 오차가 크게 쌓이지 않는 미분방정식을 푸는 경우엔 충분하지만, 오차에 민감하거나 Step 수가 많아서 오차가 쌓여 유의미한 차이를 보여주는 미분방정식의 경우엔 큰 문제를 야기할 수 있습니다. 대표적인 예시로 &ldquo;로렌즈의 나비&quot;가 있습니다.</p>
+<h3 id="-로렌즈의-나비">🦋 로렌즈의 나비</h3>
+<p><img src="/posts/images/euler.png" alt="Lorenz Butterfly"></p>
+<p>에드워드 로렌즈는 걸출한 수학자로, 특히 카오스 이론의 선구자로 유명하신 분입니다. 그는 1963년에 대기 대류의 간단한 수학적 모형을 만들었는데, 이 모델은 다음의 3개의 상미분방정식으로 이루어져 있습니다.</p>
+<p>$$
+\begin{align}
+\frac{dx}{dt} &amp;= \sigma(y-x) \\<br>
+\frac{dy}{dt} &amp;= x (\rho - z) - y \\<br>
+\frac{dz}{dt} &amp;= xy - \beta z
+\end{align}
+$$</p>
+<p>분명 아주 간단한 미분방정식인데, 놀랍게도 아주 복잡한 형태의 해가 도출됩니다. 이때의 대표적인 해의 형태가 위에서 첨부한 그림입니다. 이 시스템은 굉장히 예민한데, 매개변수의 값을 조금 바꾸거나 혹은 Step size를 조금만 바꿔도 해의 형태는 예측할 수 없는 형태로, 그것도 굉장히 파격적으로 변형됩니다. 예를 들어 위의 그림은 <strong>오일러</strong>(Euler) 방법이라는 수치적 미분방정식 해법 중 하나로 풀었는데, 위와 모든 조건을 동일하게 놓고 방법만 <strong>룽게-쿠타</strong>(Runge-Kutta 4th order) 방법으로 바꾸면 다음의 그림이 나옵니다.</p>
+<p><img src="/posts/images/rk4.png" alt="Lorenz Butterfly (RK4)"></p>
+<p>오로지 방법만 바꾸었을 뿐인데 결과가 상당히 많이 다른 것을 볼 수 있습니다. 물론 이 경우에는 전체적인 형태는 바뀌지 않지만, 특정 매개변수 주변에서는 아예 형태 전체가 급격하게 변형되는 경우도 발생합니다. 이러한 경우에는 오차가 필연적으로 발생하는 수치적 미분 방법이 적합하지 않습니다. 그렇다면 이런 경우에는 어떻게 풀어야 할까요?</p>
+<hr>
+<h2 id="-기호적-미분-symbolic-differentiation">🇬🇷 기호적 미분 (Symbolic Differentiation)</h2>
+<p>인간은 적절한 교육만 받는다면 미분을 아무런 오차없이 계산해낼 수 있습니다. (물론, 계산실수로 인한 오차는 종종 발생합니다.)
+예를 들어 다음 함수의 도함수를 생각해봅시다.</p>
+<p>$$
+y = x^2
+$$</p>
+<p>이전 글에서 다루었다시피 수치적 미분 구현은 다음과 같습니다. 너무 똑같으면 심심하니 요즘 각광받는 수치 프로그래밍 언어인 Julia로 표현해보겠습니다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># Julia</span>
+<span style="color:#66d9ef">function</span> df(x, f, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>)
+  <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#75715e"># Derivative</span>
+dx2(x) <span style="color:#f92672">=</span> df(x, x <span style="color:#f92672">-&gt;</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
+
+<span style="color:#75715e"># Print</span>
+println(dx2(<span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># 2.0000009999243673</span>
+</code></pre></div><p>이번엔 고등학생이 푸는 방법을 살펴봅시다. (대한민국 고등학교 2학년 수학2 과정을 이수한 학생이라고 가정합니다.)</p>
+<p>$$
+\begin{align}
+\frac{d}{dx}(x^2) &amp;= \lim_{h \rightarrow 0} \frac{(x+h)^2 - x^2}{h} \\<br>
+&amp;= \lim_{h\rightarrow 0} \frac{2hx + h^2}{h} \\<br>
+&amp;= 2x
+\end{align}
+$$</p>
+<p>여기에 1을 대입하면 정확히 2가 나옵니다. 위에서 수치적 미분의 결과와 달리 오차는 포함되지 않았습니다.
+미분을 배운 사람일 경우, 위 풀이는 전혀 어려운 풀이가 아닙니다. 규칙만 잘 지킨다면 다른 함수들을 미분할 때에도 큰 어려움은 없을 겁니다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/diff_table.gif"
+         alt="물론 규칙이 조금 많긴 합니다 ㅎㅎ.."/> <figcaption style="text-align:center">
+            <p>물론 규칙이 조금 많긴 합니다 ㅎㅎ..</p>
+        </figcaption>
+</figure>
+</center>
+<p>그렇다면 컴퓨터에게 규칙을 가르치면 어떨까요? 어떻게 가르치냐가 관건이겠지만 일단 가르칠 수 있다면 오차없는 완벽한 미분을 컴퓨터로 구현할 수 있을 것입니다.
+다행히도 사람들은 이미 그것을 구현하였고 이를 <strong>CAS</strong>(Computer Algebra System)라 부릅니다.</p>
+<p>대표적인 CAS로는 Mathematica, Matlab, Maple 등의 상업용 프로그램들과 Python으로 구현된 Sympy, Sagemath 등의 무료 프로그램 혹은 라이브러리가 있습니다.
+CAS는 실제로 인간이 하는 것처럼 미분, 적분, 대수 뿐 아니라 심지어 미분기하 등의 고급 수학 문제까지도 풀어낼 수 있습니다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/sage_manifolds.png"
+         alt="무려 이름도 SageManifolds 입니다."/> <figcaption style="text-align:center">
+            <p>무려 이름도 SageManifolds 입니다.</p>
+        </figcaption>
+</figure>
+</center>
+<p>아래는 sagemath를 이용한 간단한 도함수 구현입니다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">var(<span style="color:#e6db74">&#39;x&#39;</span>)        <span style="color:#75715e"># 변수를 선언합니다.</span>
+f(x) <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>      <span style="color:#75715e"># 함수를 선언합니다.</span>
+df <span style="color:#f92672">=</span> diff(f, x) <span style="color:#75715e"># 도함수를 계산합니다.</span>
+<span style="color:#66d9ef">print</span>(df(<span style="color:#ae81ff">1</span>))    <span style="color:#75715e"># 2</span>
+</code></pre></div><p>정확할 뿐만 아니라 간단하기까지 하니 더 이상 수치적 미분을 고집할 이유는 없어보입니다. 하지만 이렇게 엄청난 CAS에도 치명적인 단점이 존재합니다. 바로 속도입니다.
+기호적 미분 자체는 계산 속도가 빠를 수 있지만 그것에 수치 값들을 대입할 때 현저하게 속도 저하가 일어납니다. 아래는 간단한 미분 계산에 크기가 큰 배열 값을 대입하여 성능을 측정한 결과입니다. Peroxide는 Rust의 수치계산 라이브러리 이름이며 후에 다룰 자동미분 알고리즘을 적용하여 계산을 수행하였고, numpy는 Python의 유명한 수치계산 라이브러리로 수치적 미분으로 계산하였습니다. 마지막으로 Sagemath는 기호적 미분으로 계산 후 수치 값을 대입하여 결과를 구했습니다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/plot.png"
+         alt="Linear scale 그래프입니다."/> <figcaption style="text-align:center">
+            <p>Linear scale 그래프입니다.</p>
+        </figcaption>
+</figure>
+</center>
+<center id="img">
+<figure>
+    <img src="/posts/images/logplot.png"
+         alt="Log scale 그래프입니다."/> <figcaption style="text-align:center">
+            <p>Log scale 그래프입니다.</p>
+        </figcaption>
+</figure>
+</center>
+<p>이 계산에 대한 정보를 더 알고 싶다면 다음 링크를 참고하시면 됩니다. <a href="https://github.com/Axect/Test/tree/master/diff_bench">Axect&rsquo;s Github link</a></p>
+<p>물론 어떤 알고리즘을 사용했는지에 따라 실제 수치 계산에서의 결과는 조금 다를 수 있습니다. 다음은 Julia 언어 팀에서 실시한 Benchmark 결과입니다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/benchmarks.svg"
+         alt="Log scale임을 참고하여 보시기 바랍니다. (출처: https://julialang.org/benchmarks/)"/> <figcaption style="text-align:center">
+            <p>Log scale임을 참고하여 보시기 바랍니다. (출처: <a href="https://julialang.org/benchmarks/">https://julialang.org/benchmarks/</a>)</p>
+        </figcaption>
+</figure>
+</center>
+<p>그림을 보면 Matlab의 오픈소스 격인 Octave는 예외로 치더라도 Mathematica가 생각보단 느리지 않음을 알 수 있습니다. (그래도 C보다 거의 10~100배 느리긴 하지만요.)
+Mathematica도 행렬 계산은 BLAS를 이용하고 갖가지 탁월한 수치 계산 알고리즘을 사용하기에 특정 계산들은 심지어 numpy를 이용한 Python보다 빠르기까지 합니다. 다만, Mathematica에서도 기호적 미분과 수치적인 연산을 서로 오갈때에는 역시나 큰 속도저하가 필연적으로 발생합니다.</p>
+<p>그렇다면 규모가 큰 미분 계산에 대해서는 어떻게 접근해야할까요? 속도 저하를 고려하여 수치적 미분으로 구현하자니 규모가 커서 오차도 그만큼 많이 쌓일테고, 정확도를 고려하여 기호적 미분을 고려하자니 굉장히 오랜 시일이 걸릴 것은 뻔합니다. 심지어 메모리 문제로 게산 도중에 다운될 수도 있습니다. 다행히도 미분에 한해서는 거의 완벽한 해답이 존재합니다. 이에 대해서는 다음 포스트에서 다루도록 하겠습니다.</p>
+<hr>
+<h2 id="-부록">🔖 부록</h2>
+<h3 id="a-로렌즈-나비-코드">A. 로렌즈 나비 코드</h3>
+<p>위에서 첨부한 로렌즈 나비 그림들은 Rust의 수치 라이브러리인 <a href="https://github.com/Axect/Peroxide">Peroxide</a>를 이용하여 계산하였습니다. 소스코드는 다음과 같습니다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
+<span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; Result<span style="color:#f92672">&lt;</span>(), Box<span style="color:#f92672">&lt;</span>dyn Error<span style="color:#f92672">&gt;&gt;</span> {
+    <span style="color:#75715e">// =========================================
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Declare ODE
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test <span style="color:#f92672">=</span> ExplicitODE::new(butterfly);
+
+    <span style="color:#66d9ef">let</span> init_state: <span style="color:#a6e22e">State</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> State::new(
+        <span style="color:#ae81ff">0.0</span>,
+        vec<span style="color:#f92672">!</span>[<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>],
+        vec<span style="color:#f92672">!</span>[<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>],
+    );
+
+    ex_test
+        .set_initial_condition(init_state)
+        .set_method(ExMethod::Euler)
+        .set_step_size(<span style="color:#ae81ff">0.01</span><span style="color:#66d9ef">f64</span>)
+        .set_times(<span style="color:#ae81ff">10000</span>);
+
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test2 <span style="color:#f92672">=</span> ex_test.clone();
+    ex_test2.set_method(ExMethod::RK4);
+
+    <span style="color:#75715e">// =========================================
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Save results
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> results <span style="color:#f92672">=</span> ex_test.integrate();
+    <span style="color:#66d9ef">let</span> results2 <span style="color:#f92672">=</span> ex_test2.integrate();
+
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_euler <span style="color:#f92672">=</span> DataFrame::from_matrix(results);
+    df_euler.set_header(vec<span style="color:#f92672">!</span>[<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
+    df_euler.print();
+
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_rk4 <span style="color:#f92672">=</span> DataFrame::from_matrix(results2);
+    df_rk4.set_header(vec<span style="color:#f92672">!</span>[<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
+    df_rk4.print();
+
+    df_euler.write_nc(<span style="color:#e6db74">&#34;data/euler.nc&#34;</span>)<span style="color:#f92672">?</span>;
+    df_rk4.write_nc(<span style="color:#e6db74">&#34;data/rk4.nc&#34;</span>)<span style="color:#f92672">?</span>;
+
+    Ok(())
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">butterfly</span>(st: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> State<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>, _: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">NoEnv</span>) {
+    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>st.value;
+    <span style="color:#66d9ef">let</span> dx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> st.deriv;
+    dx[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> (x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>]);
+    dx[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>];
+    dx[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">1</span>];
+}
+</code></pre></div><p>이후에 저장된 데이터를 불러와서 그림을 그리는 것은 Python으로 작성하였습니다. 코드는 다음과 같습니다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+
+<span style="color:#75715e"># Import netCDF file</span>
+ncfile1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/euler.nc&#39;</span>
+data1 <span style="color:#f92672">=</span> Dataset(ncfile1)
+var1 <span style="color:#f92672">=</span> data1<span style="color:#f92672">.</span>variables
+ncfile2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/rk4.nc&#39;</span>
+data2 <span style="color:#f92672">=</span> Dataset(ncfile2)
+var2 <span style="color:#f92672">=</span> data2<span style="color:#f92672">.</span>variables
+
+<span style="color:#75715e"># Use latex</span>
+plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span>True)
+plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
+
+<span style="color:#75715e"># Prepare Plot</span>
+plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (Euler)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+
+<span style="color:#75715e"># Prepare Data to Plot</span>
+x1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+z1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
+
+<span style="color:#75715e"># Plot with Legends</span>
+plt<span style="color:#f92672">.</span>plot(x1, z1, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (Euler)&#39;</span>)
+
+<span style="color:#75715e"># Other options</span>
+plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+plt<span style="color:#f92672">.</span>grid()
+plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;euler.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+
+<span style="color:#75715e"># Prepare Plot</span>
+plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (RK4)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+
+<span style="color:#75715e"># Prepare Data to Plot</span>
+x2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+z2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
+
+<span style="color:#75715e"># Plot with Legends</span>
+plt<span style="color:#f92672">.</span>plot(x2, z2, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (RK4)&#39;</span>)
+
+<span style="color:#75715e"># Other options</span>
+plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+plt<span style="color:#f92672">.</span>grid()
+plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;rk4.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</code></pre></div><p>이외에 자세한 사항은 <a href="https://github.com/Axect/Peroxide_Gallery">Peroxide Gallery</a>에 나와있으니 참고하시면 됩니다.</p>
+]]></content>
+        </item>
         
         <item>
             <title>🧙 Differentiation with Rust 01: Numerical Differentiation</title>
@@ -21,7 +252,7 @@
 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.</p>
 <p>당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다. 일단 미적분학에서 간단하게 배우는 도함수의 정의는 다음과 같습니다.</p>
 <p>$$
-f&rsquo;(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
+f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
 $$</p>
 <p>예를 들어 $f(x) = x^2$을 미분한다면 다음과 같이 간단하게 계산할 수 있습니다.</p>
 <p>$$
