@@ -11,10 +11,10 @@
         
         <item>
             <title>🖊️ Differentiation with Rust 02: Symbolic Differentiation</title>
-            <link>https://axect.github.io/posts/02_ad_2/</link>
+            <link>https://axect.github.io/posts/002_ad_2/</link>
             <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
             
-            <guid>https://axect.github.io/posts/02_ad_2/</guid>
+            <guid>https://axect.github.io/posts/002_ad_2/</guid>
             <description>🔖 Automatic Differentiation Series
  💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
 # Python def differentiation(f, x, h=1e-06): return (f(x + h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다.</description>
@@ -242,10 +242,10 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
         
         <item>
             <title>🧙 Differentiation with Rust 01: Numerical Differentiation</title>
-            <link>https://axect.github.io/posts/02_ad_1/</link>
+            <link>https://axect.github.io/posts/002_ad_1/</link>
             <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
             
-            <guid>https://axect.github.io/posts/02_ad_1/</guid>
+            <guid>https://axect.github.io/posts/002_ad_1/</guid>
             <description>미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다.</description>
             <content type="html"><![CDATA[<p>미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다.
@@ -388,10 +388,10 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
         
         <item>
             <title>🐪 Gaussian Conquest 01: Single variable</title>
-            <link>https://axect.github.io/posts/01_gaussian/</link>
+            <link>https://axect.github.io/posts/001_gaussian/</link>
             <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>
             
-            <guid>https://axect.github.io/posts/01_gaussian/</guid>
+            <guid>https://axect.github.io/posts/001_gaussian/</guid>
             <description>물리학이나 통계학 등을 하다보면 항상 마주치는 원수 같은 존재가 있습니다. 별로 어렵지는 않은데 마주칠 때마다 헷갈리는 그 존재는 바로 가우스 적분(Gaussian Integral)입니다.
 $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
 이공계 대학생이라면 1학년 미적분학 시간에 극좌표계(Polar coordinate)를 이용한 이중적분을 다룰 때 나오는 가장 기본문제로 가우스 적분을 기억할겁니다. 그러나 항상 거의 모두가 그렇듯이 시간이 지나면 지날 수록 기억은 풍화되고 거의 망각의 단계에 이르렀을 때에 갑자기 튀어나오는 낯선 형태의 가우스 적분들은 대처하기가 난감합니다.
