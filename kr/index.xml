@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Axect&#39;s Blog</title>
+    <link>https://axect.github.io/kr/</link>
+    <description>Recent content on Axect&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>kr</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright><atom:link href="https://axect.github.io/kr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://axect.github.io/kr/about/</link>
+      <pubDate>Thu, 21 May 2020 15:15:36 +0900</pubDate>
+      
+      <guid>https://axect.github.io/kr/about/</guid>
+      <description>김태근 (Axect)을 소개합니다.
+ 저는 수학, 물리학 그리고 프로그래밍을 좋아하는 대학원생입니다.
+ 학력  Ph.D: 연세대학교 대학원 물리학과 (2020 ~ ) M.S.: 연세대학교 대학원 물리학과 (2017 ~ 2019) B.S.: 연세대학교 천문우주학과 (2012 ~ 2017)   연구분야  입자물리학 현상론 과학계산 우주론 및 수치 상대론   학문 및 기술 수학  함수해석학 수치해석학  유한차분법 유한요소법   미분기하학 위상수학  물리학  일반상대성이론 양자장이론 수리물리학  프로그래밍  주 언어  Rust, Julia, Python   보조 언어  C++, Fortran, Haskell   프레임워크 및 라이브러리  수치 계산  peroxide, BLAS, LAPACK, numpy, scipy   시각화  matplotlib, vegas, ggplot2, plotly   웹  Django, Vue, Firebase, Surge, Hugo, Zola   머신러닝  Flux, Tensorflow, Torch       프로젝트   Peroxide: Rust 수치 계산 라이브러리 (Maintainer)</description>
+    </item>
+    
+  </channel>
+</rss>
