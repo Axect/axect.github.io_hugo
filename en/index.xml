@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Axect&#39;s Blog</title>
+    <link>https://axect.github.io/en/</link>
+    <description>Recent content on Axect&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright><atom:link href="https://axect.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://axect.github.io/en/about/</link>
+      <pubDate>Thu, 21 May 2020 15:15:36 +0900</pubDate>
+      
+      <guid>https://axect.github.io/en/about/</guid>
+      <description>About Tae Geun Kim (Axect)
+ I am Graduate student &amp;amp; Rustacean
+ Education  Ph.D: Department of Physics, Yonsei University (2020 ~ ) M.S.: Department of Physics, Yonsei University (2017 ~ 2019) B.S.: Department of Astronomy, Yonsei University (2012 ~ 2017)   Research Area  Numerical Relativity Scientific Computation Particle Physics (Phenomenology)   Skills Mathematics  Functional Analysis Numerical Analysis  Finite Difference Method Finite Element Method   Differential Geometry Topology  Physics  General Relativity Quantum Field Theory Mathematical Physics  Programming  Main language: Rust Sub languages: Python, C++, Julia, R Frameworks or Libraries  Numerical: peroxide, BLAS, LAPACK, numpy, scipy Visualization: matplotlib, vegas, ggplot2, plotly Web: Django, Vue, Firebase, Surge, Hugo Machine Learning: Tensorflow, Torch     Project   Peroxide: Numerical library for Rust (Maintainer)</description>
+    </item>
+    
+  </channel>
+</rss>
