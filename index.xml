@@ -23,7 +23,7 @@
     </item>
     
     <item>
-      <title>🖊️ Differentiation with Rust 02: Symbolic Differentiation</title>
+      <title>🖊️ Rust와 미분하기 02: 기호 미분</title>
       <link>https://axect.github.io/posts/002_ad_2/</link>
       <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
       
@@ -34,7 +34,7 @@
     </item>
     
     <item>
-      <title>🧙 Differentiation with Rust 01: Numerical Differentiation</title>
+      <title>🧙 Rust와 미분하기 01: 수치적 미분</title>
       <link>https://axect.github.io/posts/002_ad_1/</link>
       <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
       
@@ -44,7 +44,7 @@
     </item>
     
     <item>
-      <title>🐪 Gaussian Conquest 01: Single variable</title>
+      <title>🐪 가우시안 정복하기 01: 단일변수</title>
       <link>https://axect.github.io/posts/001_gaussian/</link>
       <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>
       

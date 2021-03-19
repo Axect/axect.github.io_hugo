@@ -7,7 +7,7 @@
 <meta name="author" content="Axect ">
 <meta name="description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다." />
-<meta name="keywords" content=", numerical, automatic differentiation, rust" />
+<meta name="keywords" content=", numerical differentiation, automatic differentiation, rust, numerical" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://axect.github.io/posts/002_ad_1/" />
@@ -15,7 +15,7 @@
 
     <title>
         
-            🧙 Differentiation with Rust 01: Numerical Differentiation :: Axect&#39;s Blog  — 수학, 물리 그리고 계산
+            🧙 Rust와 미분하기 01: 수치적 미분 :: Axect&#39;s Blog  — 수학, 물리 그리고 계산
         
     </title>
 
@@ -33,22 +33,22 @@
 
 
 
-<meta itemprop="name" content="🧙 Differentiation with Rust 01: Numerical Differentiation">
+<meta itemprop="name" content="🧙 Rust와 미분하기 01: 수치적 미분">
 <meta itemprop="description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다."><meta itemprop="datePublished" content="2020-05-24T02:44:11&#43;09:00" />
 <meta itemprop="dateModified" content="2020-05-24T02:44:11&#43;09:00" />
 <meta itemprop="wordCount" content="985"><meta itemprop="image" content="https://axect.github.io"/>
-<meta itemprop="keywords" content="numerical,automatic differentiation,rust," />
+<meta itemprop="keywords" content="numerical differentiation,automatic differentiation,rust,numerical," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://axect.github.io"/>
 
-<meta name="twitter:title" content="🧙 Differentiation with Rust 01: Numerical Differentiation"/>
+<meta name="twitter:title" content="🧙 Rust와 미분하기 01: 수치적 미분"/>
 <meta name="twitter:description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다."/>
 
 
 
-    <meta property="og:title" content="🧙 Differentiation with Rust 01: Numerical Differentiation" />
+    <meta property="og:title" content="🧙 Rust와 미분하기 01: 수치적 미분" />
 <meta property="og:description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다." />
 <meta property="og:type" content="article" />
@@ -179,7 +179,7 @@ if (!doNotTrack) {
 
         <article>
             <h1 class="post-title">
-                <a href="https://axect.github.io/posts/002_ad_1/">🧙 Differentiation with Rust 01: Numerical Differentiation</a>
+                <a href="https://axect.github.io/posts/002_ad_1/">🧙 Rust와 미분하기 01: 수치적 미분</a>
             </h1>
                 <hr />
                 <aside id="toc">
@@ -342,7 +342,7 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical-differentiation">numerical differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>985 단어</p>
@@ -362,7 +362,7 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
                         <span class="button previous">
                             <a href="https://axect.github.io/posts/002_ad_2/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">🖊️ Differentiation with Rust 02: Symbolic Differentiation</span>
+                                <span class="button__text">🖊️ Rust와 미분하기 02: 기호 미분</span>
                             </a>
                         </span>
                     
@@ -370,7 +370,7 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
                     
                         <span class="button next">
                             <a href="https://axect.github.io/posts/001_gaussian/">
-                                <span class="button__text">🐪 Gaussian Conquest 01: Single variable</span>
+                                <span class="button__text">🐪 가우시안 정복하기 01: 단일변수</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

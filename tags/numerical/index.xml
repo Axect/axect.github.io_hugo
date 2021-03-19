@@ -9,7 +9,7 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 03 Oct 2020 03:36:49 +0900</lastBuildDate><atom:link href="https://axect.github.io/tags/numerical/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>🖊️ Differentiation with Rust 02: Symbolic Differentiation</title>
+      <title>🖊️ Rust와 미분하기 02: 기호 미분</title>
       <link>https://axect.github.io/posts/002_ad_2/</link>
       <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
       
@@ -20,7 +20,7 @@
     </item>
     
     <item>
-      <title>🧙 Differentiation with Rust 01: Numerical Differentiation</title>
+      <title>🧙 Rust와 미분하기 01: 수치적 미분</title>
       <link>https://axect.github.io/posts/002_ad_1/</link>
       <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
       

@@ -722,7 +722,7 @@ writenc(df, <span style="color:#e6db74">&#34;linear.nc&#34;</span>)
         </item>
         
         <item>
-            <title>🖊️ Differentiation with Rust 02: Symbolic Differentiation</title>
+            <title>🖊️ Rust와 미분하기 02: 기호 미분</title>
             <link>https://axect.github.io/posts/002_ad_2/</link>
             <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
             
@@ -953,7 +953,7 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
         </item>
         
         <item>
-            <title>🧙 Differentiation with Rust 01: Numerical Differentiation</title>
+            <title>🧙 Rust와 미분하기 01: 수치적 미분</title>
             <link>https://axect.github.io/posts/002_ad_1/</link>
             <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
             
@@ -1099,7 +1099,7 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
         </item>
         
         <item>
-            <title>🐪 Gaussian Conquest 01: Single variable</title>
+            <title>🐪 가우시안 정복하기 01: 단일변수</title>
             <link>https://axect.github.io/posts/001_gaussian/</link>
             <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>
             
