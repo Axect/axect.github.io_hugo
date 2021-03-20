@@ -39,7 +39,7 @@
  💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
 # Python def differentiation(f, x, h=1e-06): return (f(x &#43; h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다."><meta itemprop="datePublished" content="2020-10-03T03:36:49&#43;09:00" />
 <meta itemprop="dateModified" content="2020-10-03T03:36:49&#43;09:00" />
-<meta itemprop="wordCount" content="1080"><meta itemprop="image" content="https://axect.github.io"/>
+<meta itemprop="wordCount" content="1066"><meta itemprop="image" content="https://axect.github.io"/>
 <meta itemprop="keywords" content="numerical,automatic differentiation,symbolic differentiation,rust,sage," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://axect.github.io"/>
@@ -308,7 +308,6 @@ df <span style="color:#f92672">=</span> diff(f, x) <span style="color:#75715e">#
         </figcaption>
 </figure>
 </center>
-<p>이 계산에 대한 정보를 더 알고 싶다면 다음 링크를 참고하시면 됩니다. <a href="https://github.com/Axect/Test/tree/master/diff_bench">Axect&rsquo;s Github link</a></p>
 <p>물론 어떤 알고리즘을 사용했는지에 따라 실제 수치 계산에서의 결과는 조금 다를 수 있습니다. 다음은 Julia 언어 팀에서 실시한 Benchmark 결과입니다.</p>
 <center id="img">
 <figure>
@@ -439,7 +438,7 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/symbolic-differentiation">symbolic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span><span class="tag"><a href="https://axect.github.io/tags/sage">sage</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1080 단어</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1066 단어</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-10-03 03:36 &#43;0900</p>
         </div>
