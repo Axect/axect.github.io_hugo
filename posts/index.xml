@@ -6,8 +6,171 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>kr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 09 Mar 2021 22:01:39 +0900</lastBuildDate>
+        <lastBuildDate>Fri, 01 Jul 2022 11:56:41 +0900</lastBuildDate>
         <atom:link href="https://axect.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>🦀 Rust 1.62.0 업데이트의 신기능 3가지</title>
+            <link>https://axect.github.io/posts/004_rust_1.62.0/</link>
+            <pubDate>Fri, 01 Jul 2022 11:56:41 +0900</pubDate>
+            
+            <guid>https://axect.github.io/posts/004_rust_1.62.0/</guid>
+            <description>Ferris the crab
+Rust 언어는 2015년 1.0 버전이 출시된 이래로 Stable, Beta, Nightly 세가지 채널로 나누어 꾸준히 업데이트 중입니다. 미리 새로운 기능을 써보고 싶은 개발자들은 Beta와 Nightly를 써볼 수 있지만, 라이브러리를 개발하여 배포하거나, 실제 제품을 만들어야 할 때에는 Stable을 선택할 수 밖에 없습니다. 따라서 Stable 채널의 업데이트는 Rust 환경 전반의 업데이트와 같다고 할 수 있고, 새로운 버전이 출시될때마다 Rust 개발자들의 이목이 집중됩니다.
+업데이트에는 사소한 버그 수정도 있고, Beta와 Nightly에서 사용되었던 기능들의 안정화도 포함될 수 있으며 꼭 언어와 직접적으로 관련이 없더라도 빌드에 사용되는 도구들의 업데이트도 포함될 수 있습니다.</description>
+            <content type="html"><![CDATA[<center id="img">
+<figure>
+    <img src="/posts/images/rustacean.svg"
+         alt="Ferris the crab" width="2000"/> <figcaption style="text-align:center">
+            <p><a href="https://rustacean.net/">Ferris the crab</a></p>
+        </figcaption>
+</figure>
+</center>
+<p>  Rust 언어는 2015년 1.0 버전이 출시된 이래로 <span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>Stable, Beta, Nightly</b>
+</span> 세가지 채널로 나누어 꾸준히 업데이트 중입니다. 미리 새로운 기능을 써보고 싶은 개발자들은 Beta와 Nightly를 써볼 수 있지만, 라이브러리를 개발하여 배포하거나, 실제 제품을 만들어야 할 때에는 Stable을 선택할 수 밖에 없습니다. 따라서 Stable 채널의 업데이트는 Rust 환경 전반의 업데이트와 같다고 할 수 있고, 새로운 버전이 출시될때마다 Rust 개발자들의 이목이 집중됩니다.</p>
+<p>업데이트에는 사소한 버그 수정도 있고, Beta와 Nightly에서 사용되었던 기능들의 안정화도 포함될 수 있으며 꼭 언어와 직접적으로 관련이 없더라도 빌드에 사용되는 도구들의 업데이트도 포함될 수 있습니다. 어떤 업데이트는 넓고 잔잔한 호수에 작은 돌멩이 하나를 던진 것과 같은 작은 파문과 같다면, 어떤 업데이트는 사람들이 오랫동안 기다리던 커다란 댐의 수문 개방과 같은 시원함을 주기도 합니다. 그리고 이번 2022년 6월 30일에 발표된 <span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>1.62.0</b>
+</span> 업데이트는 명백히 후자였습니다.</p>
+<hr>
+<h2 id="1-cargo-add">1. <strong><code>cargo add</code></strong></h2>
+<p>  Rust 1.62.0 업데이트에서 가장 주목받은 기능은 단연코 <code><span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>cargo add</b>
+</span></code> 였습니다. 원래는 <code>Cargo.toml</code>에서 항상 직접 crate들을 손으로 추가해줬어야 하지만, 이제 Terminal에서 <code>cargo add CRATE_NAME</code>을 입력하면 crate들이 자동으로 추가가 됩니다. 이를 직접 해보기 위하여 다음과 같이 프로젝트를 하나 만들어봅시다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/004_01_terminal.png"
+         alt="crate 만들기"/> <figcaption style="text-align:center">
+            <p>crate 만들기</p>
+        </figcaption>
+</figure>
+</center>
+<p>이렇게 하면 <code>rust_1_62_0</code>이라는 폴더가 생성되고 그 안에 <code>src/main.rs</code> 파일과 <code>Cargo.toml</code>이 생성됩니다. 이제 폴더에 들어가서 <code>Cargo.toml</code> 파일을 열어봅시다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/004_02_cargo.png"
+         alt="Cargo.toml"/> <figcaption style="text-align:center">
+            <p>Cargo.toml</p>
+        </figcaption>
+</figure>
+</center>
+<p>아직 <code>[dependencies]</code>에 아무것도 추가가 되지 않은 상태인 것을 볼 수 있습니다. 원래는 다른 crate를 쓰기 위하여 여기에 직접 추가해줘야 했지만, 이제 <code>cargo add</code> 명령어로 간단히 추가할 수 있습니다. 여기서는 Rust 수치계산 라이브러리인 <a href="https://github.com/Axect/Peroxide">Peroxide</a>를 추가해보겠습니다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/004_03_cargo_add.png"
+         alt="cargo add peroxide"/> <figcaption style="text-align:center">
+            <p>cargo add peroxide</p>
+        </figcaption>
+</figure>
+</center>
+<p>이제 <code>Cargo.toml</code>을 다시 살펴보면 다음과 같이 추가되어 있는 것을 볼 수 있습니다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/004_04_cargo_after_add.png"
+         alt="Revisit Cargo.toml"/> <figcaption style="text-align:center">
+            <p>Revisit Cargo.toml</p>
+        </figcaption>
+</figure>
+</center>
+<p>이 뿐만 아니라 <code>cargo add</code>는 crate를 불러올 때, 특정 <code>features</code>를 선택하여 불러올 수 있습니다. Peroxide를 추가하되, netcdf 형식 파일들의 I/O를 사용하게 해주는 <code>nc</code> feature를 선택하여 추가해봅시다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/004_05_cargo_add_features.png"
+         alt="cargo add peroxide &amp;ndash;features nc"/> <figcaption style="text-align:center">
+            <p>cargo add peroxide &ndash;features nc</p>
+        </figcaption>
+</figure>
+</center>
+<p>이제 다시 <code>Cargo.toml</code>를 보면 다음과 같이 바뀐 것을 볼 수 있습니다.</p>
+<center id="img">
+<figure>
+    <img src="/posts/images/004_06_cargo_after_add_features.png"
+         alt="Revisit Cargo.toml again"/> <figcaption style="text-align:center">
+            <p>Revisit Cargo.toml again</p>
+        </figcaption>
+</figure>
+</center>
+<hr>
+<h2 id="2-default-enum">2. <strong><code>[default]</code> enum</strong></h2>
+<p>  Rust에서 <code>#[derive(...)]</code> 구문은 <code>struct</code>에 <code>trait</code>을 코드없이 구현하게 해주는 아주 편리한 구문입니다. 예를 들어 이차원 벡터 구조체를 만든다면 다음과 같이 구현할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Debug, Clone, Copy, Default)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Vec2D</span> {
+</span></span><span style="display:flex;"><span>    x: <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>    y: <span style="color:#66d9ef">f64</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>이렇게 구현하면 <code>Vec2D</code> 구조체는 <code>.clone()</code>과 <code>::default()</code> method를 갖게 되고, 소유권 전달 없이 복사가 가능해집니다. 이것이 가능한 이유는 <code>x</code>와 <code>y</code> 둘 모두 이미 <code>Clone, Copy, Default</code>가 구현되어 있는 <code>f64</code>타입이기 때문입니다. 이제 다음 코드를 실행해보면 실제로 <code>default</code> method의 결과를 확인해볼 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> p <span style="color:#f92672">=</span> Vec2D::default();
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{:?}&#34;</span>, p);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output: Vec2D { x: 0.0, y: 0.0 }
+</span></span></span></code></pre></div><p>그런데 그동안 Rust에서는 <code>Enum</code> 만큼은 <code>#[derive(Default)]</code>를 사용할 수 없었습니다. 따라서 <code>Enum</code>에서 <code>Default</code>를 구현할때에는 항상 다음과 같이 명시적으로 구현해주어야 했습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Debug)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Physicist</span> {
+</span></span><span style="display:flex;"><span>    Newton,
+</span></span><span style="display:flex;"><span>    Einstein,
+</span></span><span style="display:flex;"><span>    Heisenberg,
+</span></span><span style="display:flex;"><span>    Feynman,
+</span></span><span style="display:flex;"><span>    Weinberg
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Default <span style="color:#66d9ef">for</span> Physicist {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">default</span>() -&gt; <span style="color:#a6e22e">Self</span> {
+</span></span><span style="display:flex;"><span>        Physicist::Newton
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>고작 5줄 정도 추가에 지나지않지만 매번 이를 손으로 해주는 것이 귀찮은 일임은 분명했습니다. 사람들은 2020년부터 꾸준히 이 기능의 추가를 염원했고, 결국 1.62.0에 와서야 구현이 되었습니다. 이제 1.62.0 버전부터는 아까의 코드를 다음과 같이 줄일 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Debug, Default)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Physicist</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[default]</span>
+</span></span><span style="display:flex;"><span>    Newton,
+</span></span><span style="display:flex;"><span>    Einstein,
+</span></span><span style="display:flex;"><span>    Heisenberg,
+</span></span><span style="display:flex;"><span>    Feynman,
+</span></span><span style="display:flex;"><span>    Weinberg
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="3-total-order-for-floating-point-numbers">3. Total Order for Floating point numbers</h2>
+<p>  수학에서 Order 개념은 크게 <span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>Partial order</b>
+</span> 와 <span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>Total order</b>
+</span> (Linear order) 두 가지로 나누어집니다. 후자를 따르는 집합은 모든 원소들에 순서가 존재해야 하지만, 전자를 따르는 집합은 어떤 원소들은 순서를 매기지 못하더라도 괜찮습니다. Rust에서 Order 개념은 <code>PartialOrd</code> trait과 <code>Ord</code> trait으로 구현되어 있습니다. <code>Ord</code> trait이 구현되어 있는 타입들은 <code>cmp</code> method를 사용하여 비교할 수 있지만, <code>PartialOrd</code> trait이 구현되어 있는 타입들은 <code>partial_cmp</code>로 비교해야 합니다. 여기까지는 수학적 개념과 Rust에서의 구현이 동등한 것 같지만, 가장 큰 차이가 하나 있습니다. 수학에서는 실수집합이 Total ordered 집합이지만, Rust에서는 부동소수점으로 대표되는 실수들은 Partial ordered 집합이라는 것입니다.</p>
+<p>이는 비단 Rust만의 문제는 아닙니다. 부동소수점을 표현하는 기준인 IEEE 754에서 정의한 문제이기 때문입니다. 수학에서 실수는 아무 숫자 2개를 잡으면 무조건 비교가능하지만, 컴퓨터에서 부동소수점 타입에는 단순 비교 불가능한 숫자가 존재합니다. 바로 <code>NaN</code> 입니다. 이러한 점 덕분에 정수에서는 작동하는 코드가 부동소수점에서는 컴파일 에러가 발생하는 상황이 많이 발생하였습니다. 다행히 IEEE 754는 2008년 Revision을 통해 <code>NaN</code>을 포함하여 순서를 매기는 Total order 방법을 제시하였고 그것이 Rust 1.62.0에 포함되게 되었습니다. 이제 Floating point를 비교할 때, <code>total_cmp</code>를 사용하면 <code>NaN</code>까지 포함하여 전부 순서를 매길 수 있습니다. 순서는 다음과 같습니다.</p>
+<ul>
+<li>negative quiet NaN</li>
+<li>negative signaling NaN</li>
+<li>negative infinity</li>
+<li>negative numbers</li>
+<li>negative subnormal numbers</li>
+<li>negative zero</li>
+<li>positive zero</li>
+<li>positive subnormal numbers</li>
+<li>positive numbers</li>
+<li>positive infinity</li>
+<li>positive signaling NaN</li>
+<li>positive quiet NaN.</li>
+</ul>
+<p>이를 확인하기 위하여 다음과 같은 코드를 실행해봅시다. (peroxide는 print를 위하여 사용하였습니다.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>, <span style="color:#ae81ff">0</span><span style="color:#66d9ef">f64</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0</span><span style="color:#66d9ef">f64</span>, <span style="color:#66d9ef">f64</span>::NAN, <span style="color:#f92672">-</span><span style="color:#66d9ef">f64</span>::NAN, <span style="color:#66d9ef">f64</span>::INFINITY, <span style="color:#66d9ef">f64</span>::NEG_INFINITY];
+</span></span><span style="display:flex;"><span>    x.sort_by(<span style="color:#f92672">|</span>a, b<span style="color:#f92672">|</span> a.total_cmp(b));
+</span></span><span style="display:flex;"><span>    x.print();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Output: [NaN, -inf, -0, 0, 1, inf, NaN]
+</span></span></span></code></pre></div><hr>
+<p>이외에도 여러 업데이트들이 있었지만 위 3가지가 가장 인상깊어서 정리해보았습니다. 다른 업데이트들도 궁금하시다면 다음 링크를 참고하세요.</p>
+<center>
+<div class="animated-border-quote">
+    <blockquote>
+        <p style="text-align:left"><a href="https://blog.rust-lang.org/2022/06/30/Rust-1.62.0.html">Announcing Rust 1.62.0</a></p>
+    </blockquote>
+</div>
+</center>
+]]></content>
+        </item>
         
         <item>
             <title>🏫 고등학교 수학으로 이해하는 선형회귀</title>

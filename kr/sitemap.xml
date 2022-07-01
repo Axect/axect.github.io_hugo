@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://axect.github.io/posts/003_highschool_linreg/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
-  </url><url>
     <loc>https://axect.github.io/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -18,23 +15,23 @@
                 href="https://axect.github.io/"
                 />
   </url><url>
-    <loc>https://axect.github.io/tags/highschool/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+    <loc>https://axect.github.io/tags/cargo/</loc>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
   </url><url>
-    <loc>https://axect.github.io/tags/julia/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
-  </url><url>
-    <loc>https://axect.github.io/tags/linear-regression/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+    <loc>https://axect.github.io/tags/enum/</loc>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/posts/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
   </url><url>
-    <loc>https://axect.github.io/tags/statistics/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+    <loc>https://axect.github.io/tags/programming/</loc>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/rust/</loc>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/tags/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -45,6 +42,30 @@
                 hreflang="kr"
                 href="https://axect.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://axect.github.io/tags/total-order/</loc>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</loc>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/posts/004_rust_1.62.0/</loc>
+    <lastmod>2022-07-01T11:56:41+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/posts/003_highschool_linreg/</loc>
+    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/highschool/</loc>
+    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/julia/</loc>
+    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/linear-regression/</loc>
+    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/statistics/</loc>
+    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/tags/%EA%B3%A0%EB%93%B1%EC%88%98%ED%95%99/</loc>
     <lastmod>2021-03-09T22:01:39+09:00</lastmod>
@@ -59,9 +80,6 @@
     <lastmod>2020-10-03T03:36:49+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/tags/numerical/</loc>
-    <lastmod>2020-10-03T03:36:49+09:00</lastmod>
-  </url><url>
-    <loc>https://axect.github.io/tags/rust/</loc>
     <lastmod>2020-10-03T03:36:49+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/tags/sage/</loc>
