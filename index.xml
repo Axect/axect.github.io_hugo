@@ -15,11 +15,13 @@
       
       <guid>https://axect.github.io/posts/003_highschool_linreg/</guid>
       <description>2016 Breakthrough of the year
-    세계에서 가장 유명하고 권위있는 과학저널인 사이언스(Science)에서는 매년 그 해의 가장 성공적이었다고 여겨지는 과학성과를 발표합니다. 2016년 12월 22일에도 2016 Breakthrough of the year  를 발표하면서 2016년에 있었던 과학 성과 중 가장 눈여겨봐야 할 10개의 과학성과를 발표했습니다. 순위는 다음과 같습니다.${}^{[1]}$
-  1. 중력파 발견
+세계에서 가장 유명하고 권위있는 과학저널인 사이언스(Science)에서는 매년 그 해의 가장 성공적이었다고 여겨지는 과학성과를 발표합니다. 2016년 12월 22일에도 2016 Breakthrough of the year 를 발표하면서 2016년에 있었던 과학 성과 중 가장 눈여겨봐야 할 10개의 과학성과를 발표했습니다. 순위는 다음과 같습니다.${}^{[1]}$
+1. 중력파 발견
 2. 외계행성 &amp;lsquo;프록시마b&amp;rsquo; 발견
 3. 인공지능 &amp;lsquo;알파고&amp;rsquo;와 이세돌 9단의 대결
-4. 세포 노화 및 회춘 연구</description>
+4. 세포 노화 및 회춘 연구
+5. 유인원의 마음 읽기 능력 연구
+6. 단백질 구조설계 기술</description>
     </item>
     
     <item>
@@ -29,7 +31,7 @@
       
       <guid>https://axect.github.io/posts/002_ad_2/</guid>
       <description>🔖 Automatic Differentiation Series
- 💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
+💻 Numerical Differentiation 🖊️ Symbolic Differentiation 📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
 # Python def differentiation(f, x, h=1e-06): return (f(x + h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다.</description>
     </item>
     
@@ -62,8 +64,8 @@ $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
       
       <guid>https://axect.github.io/about/</guid>
       <description>김태근 (Axect)을 소개합니다.
- 저는 수학, 물리학 그리고 프로그래밍을 좋아하는 대학원생입니다.
- 학력  Ph.D: 연세대학교 대학원 물리학과 (2020 ~ ) M.S.: 연세대학교 대학원 물리학과 (2017 ~ 2019) B.S.: 연세대학교 천문우주학과 (2012 ~ 2017)   연구분야  입자물리학 현상론 과학계산 우주론 및 수치 상대론   학문 및 기술 수학  함수해석학 수치해석학  유한차분법 유한요소법   미분기하학 위상수학  물리학  일반상대성이론 양자장이론 수리물리학  프로그래밍  주 언어  Rust, Julia, Python   보조 언어  C++, Fortran, Haskell   프레임워크 및 라이브러리  수치 계산  peroxide, BLAS, LAPACK, numpy, scipy   시각화  matplotlib, vegas, ggplot2, plotly   웹  Django, Vue, Firebase, Surge, Hugo, Zola   머신러닝  Flux, Tensorflow, Torch       프로젝트   Peroxide: Rust 수치 계산 라이브러리 (Maintainer)</description>
+저는 수학, 물리학 그리고 프로그래밍을 좋아하는 대학원생입니다.
+학력 Ph.D: 연세대학교 대학원 물리학과 (2020 ~ ) M.S.: 연세대학교 대학원 물리학과 (2017 ~ 2019) B.S.: 연세대학교 천문우주학과 (2012 ~ 2017) 연구분야 입자물리학 현상론 과학계산 우주론 및 수치 상대론 학문 및 기술 수학 함수해석학 수치해석학 유한차분법 유한요소법 미분기하학 위상수학 물리학 일반상대성이론 양자장이론 수리물리학 프로그래밍 주 언어 Rust, Julia, Python 보조 언어 C++, Fortran, Haskell 프레임워크 및 라이브러리 수치 계산 peroxide, BLAS, LAPACK, numpy, scipy 시각화 matplotlib, vegas, ggplot2, plotly 웹 Django, Vue, Firebase, Surge, Hugo, Zola 머신러닝 Flux, Tensorflow, Torch 프로젝트 Peroxide: Rust 수치 계산 라이브러리 (Maintainer)</description>
     </item>
     
   </channel>

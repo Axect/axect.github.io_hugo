@@ -16,11 +16,13 @@
             
             <guid>https://axect.github.io/posts/003_highschool_linreg/</guid>
             <description>2016 Breakthrough of the year
-    세계에서 가장 유명하고 권위있는 과학저널인 사이언스(Science)에서는 매년 그 해의 가장 성공적이었다고 여겨지는 과학성과를 발표합니다. 2016년 12월 22일에도 2016 Breakthrough of the year  를 발표하면서 2016년에 있었던 과학 성과 중 가장 눈여겨봐야 할 10개의 과학성과를 발표했습니다. 순위는 다음과 같습니다.${}^{[1]}$
-  1. 중력파 발견
+세계에서 가장 유명하고 권위있는 과학저널인 사이언스(Science)에서는 매년 그 해의 가장 성공적이었다고 여겨지는 과학성과를 발표합니다. 2016년 12월 22일에도 2016 Breakthrough of the year 를 발표하면서 2016년에 있었던 과학 성과 중 가장 눈여겨봐야 할 10개의 과학성과를 발표했습니다. 순위는 다음과 같습니다.${}^{[1]}$
+1. 중력파 발견
 2. 외계행성 &amp;lsquo;프록시마b&amp;rsquo; 발견
 3. 인공지능 &amp;lsquo;알파고&amp;rsquo;와 이세돌 9단의 대결
-4. 세포 노화 및 회춘 연구</description>
+4. 세포 노화 및 회춘 연구
+5. 유인원의 마음 읽기 능력 연구
+6. 단백질 구조설계 기술</description>
             <content type="html"><![CDATA[<center id="img">
 <figure>
     <img src="/posts/images/breakthrough2016.gif"
@@ -187,24 +189,24 @@ $$p(x \geq 300) = p(z \geq \frac{140 - 120}{10}) = p(z \geq 2)$$
 p(x \geq 140) = p(z \geq \frac{140 - 113}{9.76}) \simeq p(z \geq 2.77) \simeq 0.0028
 $$</p>
 <p>앞선 결과와 거의 10배에 해당하는 차이를 보입니다. 데이터가 6개 밖에 되지 않아 충분하지 않았기 때문입니다. 실제로 데이터를 10000개 정도로 늘린 후에 계산한 확률은 $0.0220$정도로 수학적 확률과 좀 더 비슷한 결과를 보입니다. 이 과정을 Julia 코드로 나타내면 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># https://github.com/Axect/Blog_Code</span>
-<span style="color:#66d9ef">using</span> Distributions
-
-b <span style="color:#f92672">=</span> Binomial(<span style="color:#ae81ff">120</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">6</span>);     <span style="color:#75715e"># 이항분포 선언</span>
-x <span style="color:#f92672">=</span> rand(b, <span style="color:#ae81ff">10000</span>);         <span style="color:#75715e"># 데이터 추출</span>
-y <span style="color:#f92672">=</span> x <span style="color:#f92672">./</span> <span style="color:#ae81ff">120</span>;               <span style="color:#75715e"># 확률로 변환</span>
-
-p <span style="color:#f92672">=</span> mean(y);                <span style="color:#75715e"># 최대가능도추정으로 구한 p</span>
-
-b2 <span style="color:#f92672">=</span> Binomial(<span style="color:#ae81ff">720</span>, p);      <span style="color:#75715e"># 구한 이항분포</span>
-m <span style="color:#f92672">=</span> mean(b2);               <span style="color:#75715e"># 평균</span>
-σ <span style="color:#f92672">=</span> std(b2);                <span style="color:#75715e"># 표준편차</span>
-t <span style="color:#f92672">=</span> (<span style="color:#ae81ff">140</span> <span style="color:#f92672">-</span> m) <span style="color:#f92672">/</span> σ           <span style="color:#75715e"># 140의 표준화</span>
-
-n <span style="color:#f92672">=</span> Normal(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)             <span style="color:#75715e"># 표준정규분포</span>
-result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> cdf(n, t)      <span style="color:#75715e"># 결과</span>
-<span style="color:#a6e22e">@show</span> result                <span style="color:#75715e"># 결과 출력</span>
-</code></pre></div><p>그럼 이제 본격적으로 데이터의 확률분포에 대해서 다뤄봅시다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/Axect/Blog_Code</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Distributions
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> Binomial(<span style="color:#ae81ff">120</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">6</span>);     <span style="color:#75715e"># 이항분포 선언</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> rand(b, <span style="color:#ae81ff">10000</span>);         <span style="color:#75715e"># 데이터 추출</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> x <span style="color:#f92672">./</span> <span style="color:#ae81ff">120</span>;               <span style="color:#75715e"># 확률로 변환</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> mean(y);                <span style="color:#75715e"># 최대가능도추정으로 구한 p</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>b2 <span style="color:#f92672">=</span> Binomial(<span style="color:#ae81ff">720</span>, p);      <span style="color:#75715e"># 구한 이항분포</span>
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> mean(b2);               <span style="color:#75715e"># 평균</span>
+</span></span><span style="display:flex;"><span>σ <span style="color:#f92672">=</span> std(b2);                <span style="color:#75715e"># 표준편차</span>
+</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> (<span style="color:#ae81ff">140</span> <span style="color:#f92672">-</span> m) <span style="color:#f92672">/</span> σ           <span style="color:#75715e"># 140의 표준화</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> Normal(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)             <span style="color:#75715e"># 표준정규분포</span>
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> cdf(n, t)      <span style="color:#75715e"># 결과</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@show</span> result                <span style="color:#75715e"># 결과 출력</span>
+</span></span></code></pre></div><p>그럼 이제 본격적으로 데이터의 확률분포에 대해서 다뤄봅시다.</p>
 <p> </p>
 <h3 id="13-데이터의-확률분포">1.3. 데이터의 확률분포</h3>
 <p>앞서 봤다시피, 데이터는 여러 개의 확률변수들의 집합으로 나타낼 수 있습니다.</p>
@@ -214,9 +216,9 @@ $$</p>
 <p>실제로 다룰때에는 집합보다는 벡터로 다루는 것이 더 효율적이므로 다음과 같이 벡터로 표기할 수 있습니다. (세로로 표기한 이유는 많은 수치 프로그램에서 열벡터 형식을 사용하기 때문인데, 그냥 벡터를 세로로 표기했다고 생각하면 됩니다.)</p>
 <p>$$
 \mathbf{x} = \begin{pmatrix}
-x_1 \\<br>
-x_2 \\<br>
-\vdots \\<br>
+x_1 \\
+x_2 \\
+\vdots \\
 x_n
 \end{pmatrix}
 $$</p>
@@ -321,8 +323,8 @@ $$</p>
 <p>고1, 고2, 고3은 상호 배타적이고 모두 합치면 전체가 되므로 파티션의 성질을 만족한다. 이를 $A_1,\,A_2,\,A_3$라 하고, 남학생일 사건을 $B$라고 하자. 그렇다면 전체 확률의 법칙에 의해 남학생의 비율은 다음과 같다.
 $$
 \begin{aligned}
-p(B) &amp;= p(A_1 \cap B) + p(A_2\cap B) + p(A_3 \cap B) \\<br>
-&amp;= p(B|A_1)p(A_1) + p(B|A_2)p(A_2) + p(B|A_3)p(A_3) \\<br>
+p(B) &amp;= p(A_1 \cap B) + p(A_2\cap B) + p(A_3 \cap B) \\
+&amp;= p(B|A_1)p(A_1) + p(B|A_2)p(A_2) + p(B|A_3)p(A_3) \\
 &amp;= 0.4 \times 0.2 + 0.5 \times 0.4 + 0.6 \times 0.4  = 0.52
 \end{aligned}
 $$</p>
@@ -481,7 +483,7 @@ $$</p>
 <p>위 식에서 $\mathbf{x},~ \mathbf{y}$는 각각 $(x_1,\cdots,x_n),~(y_1,\cdots,y_n)$을 나타냅니다. 이제 이것을 최대로 만드는 $a,~b$를 찾기만 하면 되는데, 이는 고등학교 미적분 문제처럼 접근하면 됩니다. 극대, 극소를 먼저 찾고, 그것이 최대인지 최소인지 구분하면 되는 것이죠. 다만, 위 식처럼 $n$개의 곱으로 되어있는 경우에는 미분하기가 힘드므로 먼저 로그를 취한 후 미분하도록 하겠습니다.</p>
 <p>$$
 \begin{aligned}
-\ln p(\mathcal{D}|a,b) &amp;= \sum_{i=1}^n \ln \left\{\mathcal{N}(y_i|ax_i + b, \sigma^2)\right\} + \ln p(\mathbf{x}) \\<br>
+\ln p(\mathcal{D}|a,b) &amp;= \sum_{i=1}^n \ln \left\{\mathcal{N}(y_i|ax_i + b, \sigma^2)\right\} + \ln p(\mathbf{x}) \\
 &amp;= \sum_{i=1}^n \left\{- \ln(\sqrt{2\pi\sigma^2}) - \frac{(y_i - (ax_i+b))^2}{2\sigma^2} \right\} + \ln p(\mathbf{x})
 \end{aligned}
 $$</p>
@@ -490,17 +492,17 @@ $$</p>
 <p><strong>1) $b$로 미분</strong></p>
 <p>$$
 \begin{aligned}
-&amp;\frac{\partial}{\partial b} \ln p(\mathcal{D}|a,b) = -\frac{1}{\sigma^2}\sum_{i=1}^n (y_i - ax_i - b) = 0 \\<br>
+&amp;\frac{\partial}{\partial b} \ln p(\mathcal{D}|a,b) = -\frac{1}{\sigma^2}\sum_{i=1}^n (y_i - ax_i - b) = 0 \\
 \Rightarrow~&amp;\therefore b = \overline{y} - a\overline{x} \qquad (\overline{x} \equiv \frac{1}{n}\sum_{i=1}^n x_i,~\overline{y} = \frac{1}{n}\sum_{i=1}^n y_i)
 \end{aligned}
 $$</p>
 <p><strong>2) $a$로 미분</strong></p>
 <p>$$
 \begin{aligned}
-&amp;\frac{\partial}{\partial a} \ln p(\mathcal{D}|a,b) = -\frac{1}{\sigma^2}\sum_{i=1}^n (ax_i + b - y_i) x_i = 0 \\<br>
-\Rightarrow~&amp; a \sum_{i=1}^n x_i^2 + b \sum_{i=1}^n x_i - \sum_{i=1}^n x_iy_i = 0 \\<br>
-\Rightarrow~&amp; a\overline{x^2} - (a\overline{x} - \overline{y}) \overline{x} - \overline{xy} = 0 \\<br>
-\\<br>
+&amp;\frac{\partial}{\partial a} \ln p(\mathcal{D}|a,b) = -\frac{1}{\sigma^2}\sum_{i=1}^n (ax_i + b - y_i) x_i = 0 \\
+\Rightarrow~&amp; a \sum_{i=1}^n x_i^2 + b \sum_{i=1}^n x_i - \sum_{i=1}^n x_iy_i = 0 \\
+\Rightarrow~&amp; a\overline{x^2} - (a\overline{x} - \overline{y}) \overline{x} - \overline{xy} = 0 \\
+\\
 \Rightarrow~&amp;\therefore a = \frac{\overline{xy} - \overline{x}\overline{y}}{\overline{x^2} - \overline{x}^2}
 \end{aligned}
 $$</p>
@@ -543,80 +545,80 @@ $$</p>
 </ul>
 </blockquote>
 <p>필요한 데이터는 위에서 선형 모델을 설명하기 위해 추출하였던 데이터를 사용하겠습니다. 데이터 추출 코드는 부록에 수록해놓았습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># Julia</span>
-<span style="color:#75715e"># https://git.io/Jm2gf</span>
-<span style="color:#66d9ef">using</span> NCDataFrame, Statistics, DataFrames
-
-<span style="color:#75715e"># 데이터 불러오기</span>
-df <span style="color:#f92672">=</span> readnc(<span style="color:#e6db74">&#34;linear.nc&#34;</span>)
-
-<span style="color:#75715e"># 표본평균 구하기</span>
-x_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#f92672">:</span>x])
-y_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#f92672">:</span>y])
-x²_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#f92672">:</span>x] <span style="color:#f92672">.^</span> <span style="color:#ae81ff">2</span>)
-xy_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#f92672">:</span>x] <span style="color:#f92672">.*</span> df[<span style="color:#f92672">!</span>,<span style="color:#f92672">:</span>y])
-
-<span style="color:#75715e"># 최대가능도추정</span>
-a <span style="color:#f92672">=</span> (xy_bar <span style="color:#f92672">-</span> x_bar <span style="color:#f92672">*</span> y_bar) <span style="color:#f92672">/</span> (x²_bar <span style="color:#f92672">-</span> x_bar<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
-b <span style="color:#f92672">=</span> y_bar <span style="color:#f92672">-</span> a <span style="color:#f92672">*</span> x_bar
-
-<span style="color:#75715e"># a,b 출력</span>
-<span style="color:#a6e22e">@show</span> a
-<span style="color:#a6e22e">@show</span> b
-
-<span style="color:#75715e"># 그림 그릴 준비</span>
-x_plot <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1.0</span>
-y_plot <span style="color:#f92672">=</span> a <span style="color:#f92672">.*</span> x_plot <span style="color:#f92672">.+</span> b
-
-<span style="color:#75715e"># 데이터 쓰기</span>
-dg <span style="color:#f92672">=</span> DataFrame(x<span style="color:#f92672">=</span>x_plot, y<span style="color:#f92672">=</span>y_plot)
-writenc(dg, <span style="color:#e6db74">&#34;linear_plot.nc&#34;</span>)
-</code></pre></div><p>이렇게 나온 데이터를 갖고 그림을 그리는 코드는 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Python</span>
-<span style="color:#75715e"># https://git.io/Jm2gs</span>
-<span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
-<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
-
-<span style="color:#75715e"># Import netCDF file</span>
-ncfile <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./linear.nc&#39;</span>
-data <span style="color:#f92672">=</span> Dataset(ncfile)
-var <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>variables
-
-<span style="color:#75715e"># Prepare Data to Plot</span>
-x <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;x&#39;</span>][:]
-y <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;y&#39;</span>][:]
-
-<span style="color:#75715e"># Import netCDF file</span>
-ncfile <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./linear_plot.nc&#39;</span>
-data <span style="color:#f92672">=</span> Dataset(ncfile)
-var <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>variables
-
-<span style="color:#75715e"># Prepare Data to Plot</span>
-x_reg <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;x&#39;</span>][:]
-y_reg <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;y&#39;</span>][:]
-a <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;a&#39;</span>][:][<span style="color:#ae81ff">0</span>]
-b <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;b&#39;</span>][:][<span style="color:#ae81ff">0</span>]
-
-<span style="color:#75715e"># Use latex</span>
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span>True)
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
-
-<span style="color:#75715e"># Prepare Plot</span>
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Linear Regression&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$y$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-
-
-<span style="color:#75715e"># Plot with Legends</span>
-plt<span style="color:#f92672">.</span>scatter(x, y, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$y=2x+1+\epsilon$&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.7</span>)
-plt<span style="color:#f92672">.</span>plot(x_reg, y_reg, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$y={:.2f}x+{:.2f}$&#39;</span><span style="color:#f92672">.</span>format(a, b))
-
-<span style="color:#75715e"># Other options</span>
-plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
-plt<span style="color:#f92672">.</span>grid()
-plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;linear_reg.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-</code></pre></div><p>이렇게 나온 그림은 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#75715e"># Julia</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://git.io/Jm2gf</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> NCDataFrame, Statistics, DataFrames
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 데이터 불러오기</span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> readnc(<span style="color:#e6db74">&#34;linear.nc&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 표본평균 구하기</span>
+</span></span><span style="display:flex;"><span>x_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#e6db74">:x</span>])
+</span></span><span style="display:flex;"><span>y_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#e6db74">:y</span>])
+</span></span><span style="display:flex;"><span>x²_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#e6db74">:x</span>] <span style="color:#f92672">.^</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>xy_bar <span style="color:#f92672">=</span> mean(df[<span style="color:#f92672">!</span>,<span style="color:#e6db74">:x</span>] <span style="color:#f92672">.*</span> df[<span style="color:#f92672">!</span>,<span style="color:#e6db74">:y</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 최대가능도추정</span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> (xy_bar <span style="color:#f92672">-</span> x_bar <span style="color:#f92672">*</span> y_bar) <span style="color:#f92672">/</span> (x²_bar <span style="color:#f92672">-</span> x_bar<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> y_bar <span style="color:#f92672">-</span> a <span style="color:#f92672">*</span> x_bar
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># a,b 출력</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@show</span> a
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@show</span> b
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 그림 그릴 준비</span>
+</span></span><span style="display:flex;"><span>x_plot <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1.0</span>
+</span></span><span style="display:flex;"><span>y_plot <span style="color:#f92672">=</span> a <span style="color:#f92672">.*</span> x_plot <span style="color:#f92672">.+</span> b
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 데이터 쓰기</span>
+</span></span><span style="display:flex;"><span>dg <span style="color:#f92672">=</span> DataFrame(x<span style="color:#f92672">=</span>x_plot, y<span style="color:#f92672">=</span>y_plot)
+</span></span><span style="display:flex;"><span>writenc(dg, <span style="color:#e6db74">&#34;linear_plot.nc&#34;</span>)
+</span></span></code></pre></div><p>이렇게 나온 데이터를 갖고 그림을 그리는 코드는 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://git.io/Jm2gs</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Import netCDF file</span>
+</span></span><span style="display:flex;"><span>ncfile <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./linear.nc&#39;</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> Dataset(ncfile)
+</span></span><span style="display:flex;"><span>var <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>variables
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Data to Plot</span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;y&#39;</span>][:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Import netCDF file</span>
+</span></span><span style="display:flex;"><span>ncfile <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./linear_plot.nc&#39;</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> Dataset(ncfile)
+</span></span><span style="display:flex;"><span>var <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>variables
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Data to Plot</span>
+</span></span><span style="display:flex;"><span>x_reg <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+</span></span><span style="display:flex;"><span>y_reg <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;y&#39;</span>][:]
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;a&#39;</span>][:][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;b&#39;</span>][:][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use latex</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Plot</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Linear Regression&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$y$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot with Legends</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>scatter(x, y, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$y=2x+1+\epsilon$&#39;</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">0.7</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x_reg, y_reg, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$y=</span><span style="color:#e6db74">{:.2f}</span><span style="color:#e6db74">x+</span><span style="color:#e6db74">{:.2f}</span><span style="color:#e6db74">$&#39;</span><span style="color:#f92672">.</span>format(a, b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Other options</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;linear_reg.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span></code></pre></div><p>이렇게 나온 그림은 다음과 같습니다.</p>
 <center id="img">
 <figure>
     <img src="/posts/images/linear_reg.png"
@@ -630,88 +632,88 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
 <hr>
 <h2 id="부록">부록</h2>
 <h3 id="1-수학-성적-히스토그램-코드">1. 수학 성적 히스토그램 코드</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// 1. Rust로 Data 생성하기
-</span><span style="color:#75715e">// https://git.io/JqXQb
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
-<span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> Normal(<span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">20</span>);     <span style="color:#75715e">// 정규분포 생성
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> n.sample(<span style="color:#ae81ff">40</span>)        <span style="color:#75715e">// 40개의 샘플 생성
-</span><span style="color:#75715e"></span>      .iter()
-      .map(<span style="color:#f92672">|</span>t<span style="color:#f92672">|</span> t.round())       <span style="color:#75715e">// 반올림 (점수는 정수)
-</span><span style="color:#75715e"></span>      .filter(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> <span style="color:#f92672">*</span>x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">100</span><span style="color:#66d9ef">f64</span>) <span style="color:#75715e">// 100점 이하만 채택
-</span><span style="color:#75715e"></span>      .collect();
-    
-    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df <span style="color:#f92672">=</span> DataFrame::new(vec<span style="color:#f92672">!</span>[]);  <span style="color:#75715e">// 데이터프레임 생성
-</span><span style="color:#75715e"></span>    df.push(<span style="color:#e6db74">&#34;y&#34;</span>, Series::new(y));         <span style="color:#75715e">// y 입력
-</span><span style="color:#75715e"></span>
-    df.print();
-
-    df.write_nc(<span style="color:#e6db74">&#34;data.nc&#34;</span>)      <span style="color:#75715e">// netcdf 파일포맷으로 저장
-</span><span style="color:#75715e"></span>      .expect(<span style="color:#e6db74">&#34;Can&#39;t write nc&#34;</span>);
-}
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 2. Python으로 히스토그램 그리기</span>
-<span style="color:#75715e"># https://git.io/JqX7Z</span>
-<span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
-<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
-<span style="color:#f92672">import</span> seaborn <span style="color:#f92672">as</span> sns
-
-<span style="color:#75715e"># Import netCDF file</span>
-ncfile <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data.nc&#39;</span>
-data <span style="color:#f92672">=</span> Dataset(ncfile)
-var <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>variables
-
-<span style="color:#75715e"># Use latex</span>
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span>True)
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
-
-<span style="color:#75715e"># Prepare Histogram</span>
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Math Score&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Score&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Density&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-
-<span style="color:#75715e"># Prepare Data to Plot</span>
-y <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;y&#39;</span>][:]  
-
-<span style="color:#75715e"># Draw Histogram</span>
-sns<span style="color:#f92672">.</span>distplot(y, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Score&#34;</span>, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-
-<span style="color:#75715e"># Other options</span>
-plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
-plt<span style="color:#f92672">.</span>grid()
-
-<span style="color:#75715e"># Save</span>
-plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;hist.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-</code></pre></div><p> </p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// 1. Rust로 Data 생성하기
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// https://git.io/JqXQb
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> Normal(<span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">20</span>);     <span style="color:#75715e">// 정규분포 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> n.sample(<span style="color:#ae81ff">40</span>)        <span style="color:#75715e">// 40개의 샘플 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      .iter()
+</span></span><span style="display:flex;"><span>      .map(<span style="color:#f92672">|</span>t<span style="color:#f92672">|</span> t.round())       <span style="color:#75715e">// 반올림 (점수는 정수)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      .filter(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> <span style="color:#f92672">*</span>x <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">100</span><span style="color:#66d9ef">f64</span>) <span style="color:#75715e">// 100점 이하만 채택
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      .collect();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df <span style="color:#f92672">=</span> DataFrame::new(vec![]);  <span style="color:#75715e">// 데이터프레임 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    df.push(<span style="color:#e6db74">&#34;y&#34;</span>, Series::new(y));         <span style="color:#75715e">// y 입력
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    df.print();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    df.write_nc(<span style="color:#e6db74">&#34;data.nc&#34;</span>)      <span style="color:#75715e">// netcdf 파일포맷으로 저장
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      .expect(<span style="color:#e6db74">&#34;Can&#39;t write nc&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 2. Python으로 히스토그램 그리기</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://git.io/JqX7Z</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> seaborn <span style="color:#66d9ef">as</span> sns
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Import netCDF file</span>
+</span></span><span style="display:flex;"><span>ncfile <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data.nc&#39;</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> Dataset(ncfile)
+</span></span><span style="display:flex;"><span>var <span style="color:#f92672">=</span> data<span style="color:#f92672">.</span>variables
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use latex</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Histogram</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Math Score&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Score&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Density&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Data to Plot</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> var[<span style="color:#e6db74">&#39;y&#39;</span>][:]  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Draw Histogram</span>
+</span></span><span style="display:flex;"><span>sns<span style="color:#f92672">.</span>distplot(y, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Score&#34;</span>, bins<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Other options</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;hist.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span></code></pre></div><p> </p>
 <h3 id="2-2020-수능-국어-등급컷-계산-코드">2. 2020 수능 국어 등급컷 계산 코드</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e">// https://git.io/JqXHi
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
-<span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> Normal(<span style="color:#ae81ff">59.87</span>, <span style="color:#ae81ff">20.22</span>); <span style="color:#75715e">// 정규분포 생성
-</span><span style="color:#75715e"></span>    (<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">-</span> n.cdf(<span style="color:#ae81ff">91</span>)).print();   <span style="color:#75715e">// p(X &gt;= 91) 계산
-</span><span style="color:#75715e"></span>    (<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">-</span> n.cdf(<span style="color:#ae81ff">95</span>)).print();   <span style="color:#75715e">// p(X &gt;= 95) 계산
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p> </p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// https://git.io/JqXHi
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> Normal(<span style="color:#ae81ff">59.87</span>, <span style="color:#ae81ff">20.22</span>); <span style="color:#75715e">// 정규분포 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    (<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">-</span> n.cdf(<span style="color:#ae81ff">91</span>)).print();   <span style="color:#75715e">// p(X &gt;= 91) 계산
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    (<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">-</span> n.cdf(<span style="color:#ae81ff">95</span>)).print();   <span style="color:#75715e">// p(X &gt;= 95) 계산
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p> </p>
 <h3 id="3-선형-모델-데이터-코드">3. 선형 모델 데이터 코드</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># Julia</span>
-<span style="color:#66d9ef">using</span> NCDataFrame, DataFrames;
-
-<span style="color:#66d9ef">function</span> f(x<span style="color:#f92672">::</span>S) where {T <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Number</span>, S <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">AbstractVector</span>{T}}
-	<span style="color:#ae81ff">2</span>x <span style="color:#f92672">.+</span> <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">end</span>
-
-x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1.0</span>;
-ϵ <span style="color:#f92672">=</span> randn(length(x));
-y <span style="color:#f92672">=</span> f(x) <span style="color:#f92672">+</span> ϵ;
-
-df <span style="color:#f92672">=</span> DataFrame(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y);
-writenc(df, <span style="color:#e6db74">&#34;linear.nc&#34;</span>)
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#75715e"># Julia</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> NCDataFrame, DataFrames;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> f(x<span style="color:#f92672">::</span><span style="color:#66d9ef">S</span>) <span style="color:#66d9ef">where</span> {<span style="color:#66d9ef">T</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">Number</span>, <span style="color:#66d9ef">S</span> <span style="color:#f92672">&lt;:</span> <span style="color:#66d9ef">AbstractVector</span>{<span style="color:#66d9ef">T</span>}}
+</span></span><span style="display:flex;"><span>	<span style="color:#ae81ff">2</span>x <span style="color:#f92672">.+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0.01</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1.0</span>;
+</span></span><span style="display:flex;"><span>ϵ <span style="color:#f92672">=</span> randn(length(x));
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> f(x) <span style="color:#f92672">+</span> ϵ;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> DataFrame(x<span style="color:#f92672">=</span>x, y<span style="color:#f92672">=</span>y);
+</span></span><span style="display:flex;"><span>writenc(df, <span style="color:#e6db74">&#34;linear.nc&#34;</span>)
+</span></span></code></pre></div><hr>
 <h2 id="출처">출처</h2>
 <p>[1] : <a href="http://m.seoul.co.kr/news/newsView.php?cp=seoul&amp;id=20161223011007">서울신문 - 올해의 과학 성과 1위는 &lsquo;중력파&rsquo; 탐지</a></p>
 <p>[2] : <a href="https://www.megastudy.net/Entinfo/service_p/rank_cut/jungsi_real.asp">메가스터디 - 역대 등급컷 공개</a></p>
@@ -728,7 +730,7 @@ writenc(df, <span style="color:#e6db74">&#34;linear.nc&#34;</span>)
             
             <guid>https://axect.github.io/posts/002_ad_2/</guid>
             <description>🔖 Automatic Differentiation Series
- 💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
+💻 Numerical Differentiation 🖊️ Symbolic Differentiation 📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
 # Python def differentiation(f, x, h=1e-06): return (f(x + h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다.</description>
             <content type="html"><![CDATA[<blockquote>
 <p><strong>🔖 Automatic Differentiation Series</strong></p>
@@ -741,17 +743,17 @@ writenc(df, <span style="color:#e6db74">&#34;linear.nc&#34;</span>)
 <p>저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요?
 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다.
 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Python</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">differentiation</span>(f, x, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>):
-  <span style="color:#66d9ef">return</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-</code></pre></div><p>나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다. 이렇게 수치적 미분 방법은 굉장히 간단한 구현과 엄청 빠른 계산속도를 가져서 누구나 쉽게 미분을 할 수 있게 해주었습니다만, 오차가 필연적으로 발생하게 되는 단점이 있었습니다. 따라서 오차에 크게 민감하지 않은 문제나, Step 수가 적어서 오차가 크게 쌓이지 않는 미분방정식을 푸는 경우엔 충분하지만, 오차에 민감하거나 Step 수가 많아서 오차가 쌓여 유의미한 차이를 보여주는 미분방정식의 경우엔 큰 문제를 야기할 수 있습니다. 대표적인 예시로 &ldquo;로렌즈의 나비&quot;가 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">differentiation</span>(f, x, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>):
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span></code></pre></div><p>나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다. 이렇게 수치적 미분 방법은 굉장히 간단한 구현과 엄청 빠른 계산속도를 가져서 누구나 쉽게 미분을 할 수 있게 해주었습니다만, 오차가 필연적으로 발생하게 되는 단점이 있었습니다. 따라서 오차에 크게 민감하지 않은 문제나, Step 수가 적어서 오차가 크게 쌓이지 않는 미분방정식을 푸는 경우엔 충분하지만, 오차에 민감하거나 Step 수가 많아서 오차가 쌓여 유의미한 차이를 보여주는 미분방정식의 경우엔 큰 문제를 야기할 수 있습니다. 대표적인 예시로 &ldquo;로렌즈의 나비&quot;가 있습니다.</p>
 <h3 id="-로렌즈의-나비">🦋 로렌즈의 나비</h3>
 <p><img src="/posts/images/euler.png" alt="Lorenz Butterfly"></p>
 <p>에드워드 로렌즈는 걸출한 수학자로, 특히 카오스 이론의 선구자로 유명하신 분입니다. 그는 1963년에 대기 대류의 간단한 수학적 모형을 만들었는데, 이 모델은 다음의 3개의 상미분방정식으로 이루어져 있습니다.</p>
 <p>$$
 \begin{align}
-\frac{dx}{dt} &amp;= \sigma(y-x) \\<br>
-\frac{dy}{dt} &amp;= x (\rho - z) - y \\<br>
+\frac{dx}{dt} &amp;= \sigma(y-x) \\
+\frac{dy}{dt} &amp;= x (\rho - z) - y \\
 \frac{dz}{dt} &amp;= xy - \beta z
 \end{align}
 $$</p>
@@ -766,21 +768,21 @@ $$</p>
 y = x^2
 $$</p>
 <p>이전 글에서 다루었다시피 수치적 미분 구현은 다음과 같습니다. 너무 똑같으면 심심하니 요즘 각광받는 수치 프로그래밍 언어인 Julia로 표현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># Julia</span>
-<span style="color:#66d9ef">function</span> df(x, f, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>)
-  <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e"># Derivative</span>
-dx2(x) <span style="color:#f92672">=</span> df(x, x <span style="color:#f92672">-&gt;</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
-
-<span style="color:#75715e"># Print</span>
-println(dx2(<span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># 2.0000009999243673</span>
-</code></pre></div><p>이번엔 고등학생이 푸는 방법을 살펴봅시다. (대한민국 고등학교 2학년 수학2 과정을 이수한 학생이라고 가정합니다.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#75715e"># Julia</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> df(x, f, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Derivative</span>
+</span></span><span style="display:flex;"><span>dx2(x) <span style="color:#f92672">=</span> df(x, x <span style="color:#f92672">-&gt;</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Print</span>
+</span></span><span style="display:flex;"><span>println(dx2(<span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># 2.0000009999243673</span>
+</span></span></code></pre></div><p>이번엔 고등학생이 푸는 방법을 살펴봅시다. (대한민국 고등학교 2학년 수학2 과정을 이수한 학생이라고 가정합니다.)</p>
 <p>$$
 \begin{align}
-\frac{d}{dx}(x^2) &amp;= \lim_{h \rightarrow 0} \frac{(x+h)^2 - x^2}{h} \\<br>
-&amp;= \lim_{h\rightarrow 0} \frac{2hx + h^2}{h} \\<br>
+\frac{d}{dx}(x^2) &amp;= \lim_{h \rightarrow 0} \frac{(x+h)^2 - x^2}{h} \\
+&amp;= \lim_{h\rightarrow 0} \frac{2hx + h^2}{h} \\
 &amp;= 2x
 \end{align}
 $$</p>
@@ -807,11 +809,11 @@ CAS는 실제로 인간이 하는 것처럼 미분, 적분, 대수 뿐 아니라
 </figure>
 </center>
 <p>아래는 sagemath를 이용한 간단한 도함수 구현입니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">var(<span style="color:#e6db74">&#39;x&#39;</span>)        <span style="color:#75715e"># 변수를 선언합니다.</span>
-f(x) <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>      <span style="color:#75715e"># 함수를 선언합니다.</span>
-df <span style="color:#f92672">=</span> diff(f, x) <span style="color:#75715e"># 도함수를 계산합니다.</span>
-<span style="color:#66d9ef">print</span>(df(<span style="color:#ae81ff">1</span>))    <span style="color:#75715e"># 2</span>
-</code></pre></div><p>정확할 뿐만 아니라 간단하기까지 하니 더 이상 수치적 미분을 고집할 이유는 없어보입니다. 하지만 이렇게 엄청난 CAS에도 치명적인 단점이 존재합니다. 바로 속도입니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>var(<span style="color:#e6db74">&#39;x&#39;</span>)        <span style="color:#75715e"># 변수를 선언합니다.</span>
+</span></span><span style="display:flex;"><span>f(x) <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>      <span style="color:#75715e"># 함수를 선언합니다.</span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> diff(f, x) <span style="color:#75715e"># 도함수를 계산합니다.</span>
+</span></span><span style="display:flex;"><span>print(df(<span style="color:#ae81ff">1</span>))    <span style="color:#75715e"># 2</span>
+</span></span></code></pre></div><p>정확할 뿐만 아니라 간단하기까지 하니 더 이상 수치적 미분을 고집할 이유는 없어보입니다. 하지만 이렇게 엄청난 CAS에도 치명적인 단점이 존재합니다. 바로 속도입니다.
 기호적 미분 자체는 계산 속도가 빠를 수 있지만 그것에 수치 값들을 대입할 때 현저하게 속도 저하가 일어납니다. 아래는 간단한 미분 계산에 크기가 큰 배열 값을 대입하여 성능을 측정한 결과입니다. Peroxide는 Rust의 수치계산 라이브러리 이름이며 후에 다룰 자동미분 알고리즘을 적용하여 계산을 수행하였고, numpy는 Python의 유명한 수치계산 라이브러리로 수치적 미분으로 계산하였습니다. 마지막으로 Sagemath는 기호적 미분으로 계산 후 수치 값을 대입하여 결과를 구했습니다.</p>
 <center id="img">
 <figure>
@@ -845,109 +847,109 @@ Mathematica도 행렬 계산은 BLAS를 이용하고 갖가지 탁월한 수치 
 <h2 id="-부록">🔖 부록</h2>
 <h3 id="a-로렌즈-나비-코드">A. 로렌즈 나비 코드</h3>
 <p>위에서 첨부한 로렌즈 나비 그림들은 Rust의 수치 라이브러리인 <a href="https://github.com/Axect/Peroxide">Peroxide</a>를 이용하여 계산하였습니다. 소스코드는 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
-<span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; Result<span style="color:#f92672">&lt;</span>(), Box<span style="color:#f92672">&lt;</span>dyn Error<span style="color:#f92672">&gt;&gt;</span> {
-    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Declare ODE
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test <span style="color:#f92672">=</span> ExplicitODE::new(butterfly);
-
-    <span style="color:#66d9ef">let</span> init_state: <span style="color:#a6e22e">State</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> State::new(
-        <span style="color:#ae81ff">0.0</span>,
-        vec<span style="color:#f92672">!</span>[<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>],
-        vec<span style="color:#f92672">!</span>[<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>],
-    );
-
-    ex_test
-        .set_initial_condition(init_state)
-        .set_method(ExMethod::Euler)
-        .set_step_size(<span style="color:#ae81ff">0.01</span><span style="color:#66d9ef">f64</span>)
-        .set_times(<span style="color:#ae81ff">10000</span>);
-
-    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test2 <span style="color:#f92672">=</span> ex_test.clone();
-    ex_test2.set_method(ExMethod::RK4);
-
-    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Save results
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> results <span style="color:#f92672">=</span> ex_test.integrate();
-    <span style="color:#66d9ef">let</span> results2 <span style="color:#f92672">=</span> ex_test2.integrate();
-
-    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_euler <span style="color:#f92672">=</span> DataFrame::from_matrix(results);
-    df_euler.set_header(vec<span style="color:#f92672">!</span>[<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
-    df_euler.print();
-
-    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_rk4 <span style="color:#f92672">=</span> DataFrame::from_matrix(results2);
-    df_rk4.set_header(vec<span style="color:#f92672">!</span>[<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
-    df_rk4.print();
-
-    df_euler.write_nc(<span style="color:#e6db74">&#34;data/euler.nc&#34;</span>)<span style="color:#f92672">?</span>;
-    df_rk4.write_nc(<span style="color:#e6db74">&#34;data/rk4.nc&#34;</span>)<span style="color:#f92672">?</span>;
-
-    Ok(())
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">butterfly</span>(st: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> State<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>, _: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">NoEnv</span>) {
-    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>st.value;
-    <span style="color:#66d9ef">let</span> dx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> st.deriv;
-    dx[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> (x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>]);
-    dx[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>];
-    dx[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">1</span>];
-}
-</code></pre></div><p>이후에 저장된 데이터를 불러와서 그림을 그리는 것은 Python으로 작성하였습니다. 코드는 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
-<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
-
-<span style="color:#75715e"># Import netCDF file</span>
-ncfile1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/euler.nc&#39;</span>
-data1 <span style="color:#f92672">=</span> Dataset(ncfile1)
-var1 <span style="color:#f92672">=</span> data1<span style="color:#f92672">.</span>variables
-ncfile2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/rk4.nc&#39;</span>
-data2 <span style="color:#f92672">=</span> Dataset(ncfile2)
-var2 <span style="color:#f92672">=</span> data2<span style="color:#f92672">.</span>variables
-
-<span style="color:#75715e"># Use latex</span>
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span>True)
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
-
-<span style="color:#75715e"># Prepare Plot</span>
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (Euler)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-
-<span style="color:#75715e"># Prepare Data to Plot</span>
-x1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;x&#39;</span>][:]
-z1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
-
-<span style="color:#75715e"># Plot with Legends</span>
-plt<span style="color:#f92672">.</span>plot(x1, z1, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (Euler)&#39;</span>)
-
-<span style="color:#75715e"># Other options</span>
-plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
-plt<span style="color:#f92672">.</span>grid()
-plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;euler.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-
-<span style="color:#75715e"># Prepare Plot</span>
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (RK4)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-
-<span style="color:#75715e"># Prepare Data to Plot</span>
-x2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;x&#39;</span>][:]
-z2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
-
-<span style="color:#75715e"># Plot with Legends</span>
-plt<span style="color:#f92672">.</span>plot(x2, z2, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (RK4)&#39;</span>)
-
-<span style="color:#75715e"># Other options</span>
-plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
-plt<span style="color:#f92672">.</span>grid()
-plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;rk4.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-</code></pre></div><p>이외에 자세한 사항은 <a href="https://github.com/Axect/Peroxide_Gallery">Peroxide Gallery</a>에 나와있으니 참고하시면 됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; Result<span style="color:#f92672">&lt;</span>(), Box<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">dyn</span> Error<span style="color:#f92672">&gt;&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Declare ODE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test <span style="color:#f92672">=</span> ExplicitODE::new(butterfly);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> init_state: <span style="color:#a6e22e">State</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> State::new(
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span>        vec![<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>],
+</span></span><span style="display:flex;"><span>        vec![<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>],
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ex_test
+</span></span><span style="display:flex;"><span>        .set_initial_condition(init_state)
+</span></span><span style="display:flex;"><span>        .set_method(ExMethod::Euler)
+</span></span><span style="display:flex;"><span>        .set_step_size(<span style="color:#ae81ff">0.01</span><span style="color:#66d9ef">f64</span>)
+</span></span><span style="display:flex;"><span>        .set_times(<span style="color:#ae81ff">10000</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test2 <span style="color:#f92672">=</span> ex_test.clone();
+</span></span><span style="display:flex;"><span>    ex_test2.set_method(ExMethod::RK4);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Save results
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> results <span style="color:#f92672">=</span> ex_test.integrate();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> results2 <span style="color:#f92672">=</span> ex_test2.integrate();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_euler <span style="color:#f92672">=</span> DataFrame::from_matrix(results);
+</span></span><span style="display:flex;"><span>    df_euler.set_header(vec![<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
+</span></span><span style="display:flex;"><span>    df_euler.print();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_rk4 <span style="color:#f92672">=</span> DataFrame::from_matrix(results2);
+</span></span><span style="display:flex;"><span>    df_rk4.set_header(vec![<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
+</span></span><span style="display:flex;"><span>    df_rk4.print();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    df_euler.write_nc(<span style="color:#e6db74">&#34;data/euler.nc&#34;</span>)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    df_rk4.write_nc(<span style="color:#e6db74">&#34;data/rk4.nc&#34;</span>)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Ok(())
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">butterfly</span>(st: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> State<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>, _: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">NoEnv</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>st.value;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> dx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> st.deriv;
+</span></span><span style="display:flex;"><span>    dx[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> (x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    dx[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>    dx[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>이후에 저장된 데이터를 불러와서 그림을 그리는 것은 Python으로 작성하였습니다. 코드는 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Import netCDF file</span>
+</span></span><span style="display:flex;"><span>ncfile1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/euler.nc&#39;</span>
+</span></span><span style="display:flex;"><span>data1 <span style="color:#f92672">=</span> Dataset(ncfile1)
+</span></span><span style="display:flex;"><span>var1 <span style="color:#f92672">=</span> data1<span style="color:#f92672">.</span>variables
+</span></span><span style="display:flex;"><span>ncfile2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/rk4.nc&#39;</span>
+</span></span><span style="display:flex;"><span>data2 <span style="color:#f92672">=</span> Dataset(ncfile2)
+</span></span><span style="display:flex;"><span>var2 <span style="color:#f92672">=</span> data2<span style="color:#f92672">.</span>variables
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use latex</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Plot</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (Euler)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Data to Plot</span>
+</span></span><span style="display:flex;"><span>x1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+</span></span><span style="display:flex;"><span>z1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot with Legends</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x1, z1, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (Euler)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Other options</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;euler.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Plot</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (RK4)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Data to Plot</span>
+</span></span><span style="display:flex;"><span>x2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+</span></span><span style="display:flex;"><span>z2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot with Legends</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x2, z2, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (RK4)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Other options</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;rk4.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span></code></pre></div><p>이외에 자세한 사항은 <a href="https://github.com/Axect/Peroxide_Gallery">Peroxide Gallery</a>에 나와있으니 참고하시면 됩니다.</p>
 ]]></content>
         </item>
         
@@ -963,7 +965,7 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.</p>
 <p>당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다. 일단 미적분학에서 간단하게 배우는 도함수의 정의는 다음과 같습니다.</p>
 <p>$$
-f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
+f&rsquo;(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
 $$</p>
 <p>예를 들어 $f(x) = x^2$을 미분한다면 다음과 같이 간단하게 계산할 수 있습니다.</p>
 <p>$$
@@ -978,105 +980,105 @@ $h$가 $0$으로 가는 극한이라는 것은 0에 한없이 가까이 접근�
 <h2 id="-수치적-미분-numerical-differentiation">💻 수치적 미분 (Numerical Differentiation)</h2>
 <p>컴퓨터는 극한을 본질적으로 다룰 수 없지만, 대부분의 계산에서는 $10^{-16}$ 정도면 아주 충분한 정밀도일 수 있습니다. 혹은 단위를 조정하면서 충분한 정밀도가 되도록 만드는 방법도 존재합니다.
 따라서 극한을 다루는 대신 아주 작은 $h$를 이용하여 극한의 근삿값을 구하여 계산에 이용할 수 있는데, 이러한 방법을 <strong>수치적 미분</strong>이라 합니다. 일단 아주 간단하게 수치적 미분을 구현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Python</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">diff</span>(f, x, h):
-    <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-</code></pre></div><p>수치적 미분의 Python 구현은 놀라울 정도로 아주 간단합니다. 함수와 변수 그리고 정밀도를 넣어주면 바로 미분값이 나옵니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>Rust 구현도 비교적 간단한 편이지만, 타입을 명시해야 되는 점이 Python과의 차이를 만듭니다. Rust에서 함수를 인수로 받을 때는 위와 같이 제너릭 타입(Generic Type)으로 받는 것이 좋습니다. 그래야 명시적 함수나 클로저(Closure) 구분 없이 사용할 수 있습니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">diff</span>(f, x, h):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span></code></pre></div><p>수치적 미분의 Python 구현은 놀라울 정도로 아주 간단합니다. 함수와 변수 그리고 정밀도를 넣어주면 바로 미분값이 나옵니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Rust 구현도 비교적 간단한 편이지만, 타입을 명시해야 되는 점이 Python과의 차이를 만듭니다. Rust에서 함수를 인수로 받을 때는 위와 같이 제너릭 타입(Generic Type)으로 받는 것이 좋습니다. 그래야 명시적 함수나 클로저(Closure) 구분 없이 사용할 수 있습니다.
 이 코드들을 이용하여 $f(x) = x^2$의 $x=1$에서의 미분 계수를 구해봅시다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, diff(f, <span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>, <span style="color:#ae81ff">1e-6</span>));
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    (f(x<span style="color:#f92672">+</span>h)<span style="color:#f92672">-</span>f(x)) <span style="color:#f92672">/</span> h
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    x.powi(<span style="color:#ae81ff">2</span>)
-}
-</code></pre></div><p>코드에서 알 수 있듯이 정밀도는 $h=10^{-6}$을 대입하여 계산하였습니다. 결과는 $2.0000009999243673$으로 소숫점 6번째 자리까지는 이론 값인 $2$와 일치함을 보여줍니다. 이 수치적 미분코드는 간단하고 빠르게 미분 값을 구할 수 있다는 장점이 있지만, 도함수를 구하기 위해서는 반복적으로 함수를 대입해야 된다는 점에서 불편함을 야기합니다. 따라서 도함수를 구하기 위해서는 조금 더 코드를 늘려야 합니다. 먼저 구조체를 이용하는 객체지향적 방법을 사용하여 구현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
-    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
-}
-
-<span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f)(x)
-    }
-
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
-    }
-}
-</code></pre></div><p>이렇게 하면 함수와 정밀도는 초기 선언시에만 입력하면 되고, <code>calc</code> 메소드를 이용하여 여러 $x$ 값에서 계산이 가능해집니다. <code>f</code> 메소드는 보다 편하게 <code>self.f(x)</code>를 이용하기 위해 선언하였습니다. 만일 이러한 메소드가 없다면 <code>(self.f)(x)</code> 꼴로 입력해야만 합니다. 그럼 이제 이 코드를 이용하여 앞에서의 예시를 구현해봅시다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> Derivative {
-        f,
-        h: <span style="color:#ae81ff">1e-6</span>,
-    };
-    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, df.calc(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    x.powi(<span style="color:#ae81ff">2</span>)
-}
-
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
-    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
-}
-
-<span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f)(x)
-    }
-
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
-    }
-}
-</code></pre></div><p>당연하게도 답은 아까의 경우와 같게 나옵니다. 이번에는 진짜 &ldquo;도함수&quot;를 만드는 함수형 프로그래밍의 <em>고계 함수(Higher order function)</em> 개념을 이용하여 구현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>일단 <code>F</code>로 <code>f64 -&gt; f64</code> 함수 역할을 하는 모든 타입을 받을 수 있다는 것은 앞에서와 같습니다. 다만 반환 타입 부분에 낯선 키워드들이 있습니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>, diff(f, <span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>, <span style="color:#ae81ff">1e-6</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    (f(x<span style="color:#f92672">+</span>h)<span style="color:#f92672">-</span>f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    x.powi(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>코드에서 알 수 있듯이 정밀도는 $h=10^{-6}$을 대입하여 계산하였습니다. 결과는 $2.0000009999243673$으로 소숫점 6번째 자리까지는 이론 값인 $2$와 일치함을 보여줍니다. 이 수치적 미분코드는 간단하고 빠르게 미분 값을 구할 수 있다는 장점이 있지만, 도함수를 구하기 위해서는 반복적으로 함수를 대입해야 된다는 점에서 불편함을 야기합니다. 따라서 도함수를 구하기 위해서는 조금 더 코드를 늘려야 합니다. 먼저 구조체를 이용하는 객체지향적 방법을 사용하여 구현해보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f)(x)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>이렇게 하면 함수와 정밀도는 초기 선언시에만 입력하면 되고, <code>calc</code> 메소드를 이용하여 여러 $x$ 값에서 계산이 가능해집니다. <code>f</code> 메소드는 보다 편하게 <code>self.f(x)</code>를 이용하기 위해 선언하였습니다. 만일 이러한 메소드가 없다면 <code>(self.f)(x)</code> 꼴로 입력해야만 합니다. 그럼 이제 이 코드를 이용하여 앞에서의 예시를 구현해봅시다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> Derivative {
+</span></span><span style="display:flex;"><span>        f,
+</span></span><span style="display:flex;"><span>        h: <span style="color:#ae81ff">1e-6</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>, df.calc(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    x.powi(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f)(x)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>당연하게도 답은 아까의 경우와 같게 나옵니다. 이번에는 진짜 &ldquo;도함수&quot;를 만드는 함수형 프로그래밍의 <em>고계 함수(Higher order function)</em> 개념을 이용하여 구현해보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>일단 <code>F</code>로 <code>f64 -&gt; f64</code> 함수 역할을 하는 모든 타입을 받을 수 있다는 것은 앞에서와 같습니다. 다만 반환 타입 부분에 낯선 키워드들이 있습니다.
 Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는 앞서 봤던 <code>F</code>와 같이 Type placeholder를 사용하는 방식이고, 두 번째는 <code>impl Trait</code>처럼 <code>impl</code>키워드를 이용하는 방식이 있습니다. 두 방식 모두 큰 차이는 없지만, 여러 개의 타입이 같이 쓰일 때에 각 타입들이 같은 타입인지, 다른 타입인지 명확히 할 때에는 전자의 방식을 쓰고, 한 가지 타입만 사용하거나 타입 종류보다는 역할이 중요할 때에는 후자의 방식을 사용합니다. 예를 들어 위 코드를 Type placeholder를 이용하여 구현하면 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F, G<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">G</span> 
-<span style="color:#66d9ef">where</span>
-    F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
-    G: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
-{
-    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>아래의 구현이 가독성 면에서나 의미 면에서 좀 더 좋은 구현이지만, 이 함수를 사용할 때 제약이 심한 편입니다. <code>impl Trait</code> 꼴로 반환하면 Rust는 그 타입을 함수 본문에서 반환하는 값으로 자동 추론하여 사용하지만, Type placeholder로 반환하면 그 타입을 명확히 하기 전에는 컴파일 되지 않습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F, G<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">G</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>    G: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>아래의 구현이 가독성 면에서나 의미 면에서 좀 더 좋은 구현이지만, 이 함수를 사용할 때 제약이 심한 편입니다. <code>impl Trait</code> 꼴로 반환하면 Rust는 그 타입을 함수 본문에서 반환하는 값으로 자동 추론하여 사용하지만, Type placeholder로 반환하면 그 타입을 명확히 하기 전에는 컴파일 되지 않습니다.</p>
 <p>또한 위와 같은 코드를 작성할 때, 클로저의 성질에 유의해야합니다. 클로저는 인수로 들어온 값이 아닌 주변 환경도 같이 캡쳐를 하는 성질이 있는데, 이때, 주변 변수들이 클로저 밖에서도 생존할 수 있다면 컴파일 오류가 발생합니다.
 위 코드에서도 <code>f</code>와 <code>h</code>는 함수의 인수로 받았기에 함수의 선언이 끝나는 시점에 메모리가 해제됩니다. 하지만 반환되는 클로저는 <code>f</code>와 <code>h</code>의 값을 사용해야 합니다. 따라서 <code>move</code> 키워드를 이용하여 <code>f</code>와 <code>h</code>의 소유권을 클로저에 넘겨주어야 합니다.</p>
 <p>이제 설명이 끝났으니 이 고계함수를 이용하여 도함수를 만들어 보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> derivative(f, <span style="color:#ae81ff">1e-6</span>);
-    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, df(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    x.powi(<span style="color:#ae81ff">2</span>)
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>답은 위의 두 경우와 정확히 일치합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> derivative(f, <span style="color:#ae81ff">1e-6</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>, df(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    x.powi(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>답은 위의 두 경우와 정확히 일치합니다.</p>
 <p>그럼 이제 수치적 미분 방식의 장점과 단점을 요약해보겠습니다.</p>
 <h3 id="수치적-미분의-장단점">수치적 미분의 장단점</h3>
 <ul>
@@ -1233,7 +1235,7 @@ $$</p>
 <p>이를 이용하여 단변수 가우시안 분포의 기댓값을 구해봅시다. 식이 조금 복잡할 수 있으니 상수는 제외하고 적분을 먼저 계산하겠습니다.</p>
 <p>$$
 \begin{align*}
-\int_{-\infty}^\infty xe^{-\frac{(x - \mu)^2}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty (t + \mu) e^{-\frac{t^2}{2\sigma^2}} dt \\<br>
+\int_{-\infty}^\infty xe^{-\frac{(x - \mu)^2}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty (t + \mu) e^{-\frac{t^2}{2\sigma^2}} dt \\
 &amp;= \mu \sqrt{2\pi \sigma^2}
 \end{align*}
 $$</p>
@@ -1259,8 +1261,8 @@ $$</p>
 <p>그럼 바로 계산을 시작해봅시다.</p>
 <p>$$
 \begin{align*}
-\int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x- \mu^2)}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2\sigma^2}} dt \\<br>
-&amp;= \frac{1}{2} \pi^{\frac{1}{2}} \left(\frac{1}{2\sigma^2}\right)^{-\frac{3}{2}} \\<br>
+\int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x- \mu^2)}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2\sigma^2}} dt \\
+&amp;= \frac{1}{2} \pi^{\frac{1}{2}} \left(\frac{1}{2\sigma^2}\right)^{-\frac{3}{2}} \\
 &amp;= \sigma^2 \sqrt{2\pi\sigma^2}
 \end{align*}
 $$</p>

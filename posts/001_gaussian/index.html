@@ -9,7 +9,7 @@
 $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
 이공계 대학생이라면 1학년 미적분학 시간에 극좌표계(Polar coordinate)를 이용한 이중적분을 다룰 때 나오는 가장 기본문제로 가우스 적분을 기억할겁니다. 그러나 항상 거의 모두가 그렇듯이 시간이 지나면 지날 수록 기억은 풍화되고 거의 망각의 단계에 이르렀을 때에 갑자기 튀어나오는 낯선 형태의 가우스 적분들은 대처하기가 난감합니다.
 따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다." />
-<meta name="keywords" content=", statistics, gaussian" />
+<meta name="keywords" content=", statistics, gaussian, 통계, 가우시안" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://axect.github.io/posts/001_gaussian/" />
@@ -39,10 +39,10 @@ $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
 <meta itemprop="description" content="물리학이나 통계학 등을 하다보면 항상 마주치는 원수 같은 존재가 있습니다. 별로 어렵지는 않은데 마주칠 때마다 헷갈리는 그 존재는 바로 가우스 적분(Gaussian Integral)입니다.
 $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
 이공계 대학생이라면 1학년 미적분학 시간에 극좌표계(Polar coordinate)를 이용한 이중적분을 다룰 때 나오는 가장 기본문제로 가우스 적분을 기억할겁니다. 그러나 항상 거의 모두가 그렇듯이 시간이 지나면 지날 수록 기억은 풍화되고 거의 망각의 단계에 이르렀을 때에 갑자기 튀어나오는 낯선 형태의 가우스 적분들은 대처하기가 난감합니다.
-따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다."><meta itemprop="datePublished" content="2020-05-22T17:00:31&#43;09:00" />
-<meta itemprop="dateModified" content="2020-05-22T17:00:31&#43;09:00" />
+따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다."><meta itemprop="datePublished" content="2020-05-22T17:00:31+09:00" />
+<meta itemprop="dateModified" content="2020-05-22T17:00:31+09:00" />
 <meta itemprop="wordCount" content="862"><meta itemprop="image" content="https://axect.github.io"/>
-<meta itemprop="keywords" content="statistics,gaussian," />
+<meta itemprop="keywords" content="statistics,gaussian,통계,가우시안," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://axect.github.io"/>
 
@@ -61,8 +61,8 @@ $$\int_{-\infty}^\infty e^{-\alpha x^2} dx$$
 따라서 여기서는 가우스 적분과 가우시안 분포에 대한 아주 기본적인 성질들을 다시 상기시키고 이를 발판삼아 다변수 가우시안(Multivariate Gaussian)과 여러 활용들을 살펴보도록 하겠습니다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://axect.github.io/posts/001_gaussian/" /><meta property="og:image" content="https://axect.github.io"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-05-22T17:00:31&#43;09:00" />
-<meta property="article:modified_time" content="2020-05-22T17:00:31&#43;09:00" /><meta property="og:site_name" content="Axect&#39;s Blog" />
+<meta property="article:published_time" content="2020-05-22T17:00:31+09:00" />
+<meta property="article:modified_time" content="2020-05-22T17:00:31+09:00" /><meta property="og:site_name" content="Axect&#39;s Blog" />
 
 
 
@@ -169,7 +169,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </header>
 
 
@@ -344,7 +343,7 @@ $$</p>
 <p>이를 이용하여 단변수 가우시안 분포의 기댓값을 구해봅시다. 식이 조금 복잡할 수 있으니 상수는 제외하고 적분을 먼저 계산하겠습니다.</p>
 <p>$$
 \begin{align*}
-\int_{-\infty}^\infty xe^{-\frac{(x - \mu)^2}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty (t + \mu) e^{-\frac{t^2}{2\sigma^2}} dt \\<br>
+\int_{-\infty}^\infty xe^{-\frac{(x - \mu)^2}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty (t + \mu) e^{-\frac{t^2}{2\sigma^2}} dt \\
 &amp;= \mu \sqrt{2\pi \sigma^2}
 \end{align*}
 $$</p>
@@ -370,8 +369,8 @@ $$</p>
 <p>그럼 바로 계산을 시작해봅시다.</p>
 <p>$$
 \begin{align*}
-\int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x- \mu^2)}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2\sigma^2}} dt \\<br>
-&amp;= \frac{1}{2} \pi^{\frac{1}{2}} \left(\frac{1}{2\sigma^2}\right)^{-\frac{3}{2}} \\<br>
+\int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x- \mu^2)}{2\sigma^2}} dx &amp;= \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2\sigma^2}} dt \\
+&amp;= \frac{1}{2} \pi^{\frac{1}{2}} \left(\frac{1}{2\sigma^2}\right)^{-\frac{3}{2}} \\
 &amp;= \sigma^2 \sqrt{2\pi\sigma^2}
 \end{align*}
 $$</p>
@@ -400,7 +399,7 @@ $$</p>
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/statistics">statistics</a></span><span class="tag"><a href="https://axect.github.io/tags/gaussian">gaussian</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/statistics">statistics</a></span><span class="tag"><a href="https://axect.github.io/tags/gaussian">gaussian</a></span><span class="tag"><a href="https://axect.github.io/tags/%ED%86%B5%EA%B3%84">통계</a></span><span class="tag"><a href="https://axect.github.io/tags/%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88">가우시안</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>862 단어</p>
@@ -437,7 +436,7 @@ $$</p>
                 <footer class="footer">
     <div class="footer__inner">
         <div class="footer__content">
-            <span>&copy; 2021</span>
+            <span>&copy; 2022</span>
             
                 <span><a href="https://axect.github.io">Axect</a></span>
             
@@ -461,7 +460,7 @@ $$</p>
 
 
 
-<script type="text/javascript" src="/bundle.min.a0f363fdf81cdc5cfacc447a79c33189eb000d090336cd04aac8ee256f423b3133b836c281944c19c75e38d0b0b449f01ce5807e37798b7ac94ac1db51983fc4.js" integrity="sha512-oPNj/fgc3Fz6zER6ecMxiesADQkDNs0EqsjuJW9COzEzuDbCgZRMGcdeONCwtEnwHOWAfjd5i3rJSsHbUZg/xA=="></script>
+<script type="text/javascript" src="/bundle.min.af5a3e743efae0c74305dc03080fb4bd5ae8f1a60160b3599ab59639ad6c182d763fb4238e72a726f48319ad132a4cdc9cd51fac5462e8a25dc0ba096f547038.js" integrity="sha512-r1o&#43;dD764MdDBdwDCA&#43;0vVro8aYBYLNZmrWWOa1sGC12P7QjjnKnJvSDGa0TKkzcnNUfrFRi6KJdwLoJb1RwOA=="></script>
     
 <script type="application/javascript">
 var doNotTrack = false;
@@ -475,7 +474,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
 

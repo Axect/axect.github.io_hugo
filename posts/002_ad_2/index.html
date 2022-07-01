@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Axect ">
 <meta name="description" content="🔖 Automatic Differentiation Series
- 💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
+💻 Numerical Differentiation 🖊️ Symbolic Differentiation 📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
 # Python def differentiation(f, x, h=1e-06): return (f(x &#43; h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다." />
-<meta name="keywords" content=", numerical, automatic differentiation, symbolic differentiation, rust, sage" />
+<meta name="keywords" content=", numerical, automatic differentiation, symbolic differentiation, rust, sage, 자동미분, 기호미분" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://axect.github.io/posts/002_ad_2/" />
@@ -36,29 +36,29 @@
 
 <meta itemprop="name" content="🖊️ Rust와 미분하기 02: 기호 미분">
 <meta itemprop="description" content="🔖 Automatic Differentiation Series
- 💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
-# Python def differentiation(f, x, h=1e-06): return (f(x &#43; h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다."><meta itemprop="datePublished" content="2020-10-03T03:36:49&#43;09:00" />
-<meta itemprop="dateModified" content="2020-10-03T03:36:49&#43;09:00" />
+💻 Numerical Differentiation 🖊️ Symbolic Differentiation 📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
+# Python def differentiation(f, x, h=1e-06): return (f(x &#43; h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다."><meta itemprop="datePublished" content="2020-10-03T03:36:49+09:00" />
+<meta itemprop="dateModified" content="2020-10-03T03:36:49+09:00" />
 <meta itemprop="wordCount" content="1066"><meta itemprop="image" content="https://axect.github.io"/>
-<meta itemprop="keywords" content="numerical,automatic differentiation,symbolic differentiation,rust,sage," />
+<meta itemprop="keywords" content="numerical,automatic differentiation,symbolic differentiation,rust,sage,자동미분,기호미분," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://axect.github.io"/>
 
 <meta name="twitter:title" content="🖊️ Rust와 미분하기 02: 기호 미분"/>
 <meta name="twitter:description" content="🔖 Automatic Differentiation Series
- 💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
+💻 Numerical Differentiation 🖊️ Symbolic Differentiation 📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
 # Python def differentiation(f, x, h=1e-06): return (f(x &#43; h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다."/>
 
 
 
     <meta property="og:title" content="🖊️ Rust와 미분하기 02: 기호 미분" />
 <meta property="og:description" content="🔖 Automatic Differentiation Series
- 💻 Numerical Differentiation 🖊️ Symbolic Differentiation   📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
+💻 Numerical Differentiation 🖊️ Symbolic Differentiation 📉 수치적 미분의 한계 저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요? 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다. 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.
 # Python def differentiation(f, x, h=1e-06): return (f(x &#43; h) - f(x)) / h 나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://axect.github.io/posts/002_ad_2/" /><meta property="og:image" content="https://axect.github.io"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-10-03T03:36:49&#43;09:00" />
-<meta property="article:modified_time" content="2020-10-03T03:36:49&#43;09:00" /><meta property="og:site_name" content="Axect&#39;s Blog" />
+<meta property="article:published_time" content="2020-10-03T03:36:49+09:00" />
+<meta property="article:modified_time" content="2020-10-03T03:36:49+09:00" /><meta property="og:site_name" content="Axect&#39;s Blog" />
 
 
 
@@ -165,7 +165,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </header>
 
 
@@ -220,17 +219,17 @@ if (!doNotTrack) {
 <p>저번 포스트에서 수치적 미분을 여러가지 방법으로 구현하는 것을 다뤄보았는데, 어떠셨나요?
 아마, 코딩에 대한 조금의 지식만 있으면 오히려 고등학교때의 미분보다 훨씬 쉽게 느껴지셨을 겁니다.
 저희가 사용한 것이라고는 그저 도함수의 정의에 따라 함수에 각 구간 값을 대입한 것이 전부였는데, 이를 코드로 나타내면 결국 다음의 코드에 지나지 않습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Python</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">differentiation</span>(f, x, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>):
-  <span style="color:#66d9ef">return</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-</code></pre></div><p>나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다. 이렇게 수치적 미분 방법은 굉장히 간단한 구현과 엄청 빠른 계산속도를 가져서 누구나 쉽게 미분을 할 수 있게 해주었습니다만, 오차가 필연적으로 발생하게 되는 단점이 있었습니다. 따라서 오차에 크게 민감하지 않은 문제나, Step 수가 적어서 오차가 크게 쌓이지 않는 미분방정식을 푸는 경우엔 충분하지만, 오차에 민감하거나 Step 수가 많아서 오차가 쌓여 유의미한 차이를 보여주는 미분방정식의 경우엔 큰 문제를 야기할 수 있습니다. 대표적인 예시로 &ldquo;로렌즈의 나비&quot;가 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">differentiation</span>(f, x, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>):
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (f(x <span style="color:#f92672">+</span> h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span></code></pre></div><p>나머지는 이를 객체지향적으로 구현하거나, 함수형 프로그래밍으로 구현하거나 제너릭 프로그래밍을 도입하는 등의 구현방법의 차이일 뿐이었습니다. 이렇게 수치적 미분 방법은 굉장히 간단한 구현과 엄청 빠른 계산속도를 가져서 누구나 쉽게 미분을 할 수 있게 해주었습니다만, 오차가 필연적으로 발생하게 되는 단점이 있었습니다. 따라서 오차에 크게 민감하지 않은 문제나, Step 수가 적어서 오차가 크게 쌓이지 않는 미분방정식을 푸는 경우엔 충분하지만, 오차에 민감하거나 Step 수가 많아서 오차가 쌓여 유의미한 차이를 보여주는 미분방정식의 경우엔 큰 문제를 야기할 수 있습니다. 대표적인 예시로 &ldquo;로렌즈의 나비&quot;가 있습니다.</p>
 <h3 id="-로렌즈의-나비">🦋 로렌즈의 나비</h3>
 <p><img src="/posts/images/euler.png" alt="Lorenz Butterfly"></p>
 <p>에드워드 로렌즈는 걸출한 수학자로, 특히 카오스 이론의 선구자로 유명하신 분입니다. 그는 1963년에 대기 대류의 간단한 수학적 모형을 만들었는데, 이 모델은 다음의 3개의 상미분방정식으로 이루어져 있습니다.</p>
 <p>$$
 \begin{align}
-\frac{dx}{dt} &amp;= \sigma(y-x) \\<br>
-\frac{dy}{dt} &amp;= x (\rho - z) - y \\<br>
+\frac{dx}{dt} &amp;= \sigma(y-x) \\
+\frac{dy}{dt} &amp;= x (\rho - z) - y \\
 \frac{dz}{dt} &amp;= xy - \beta z
 \end{align}
 $$</p>
@@ -245,21 +244,21 @@ $$</p>
 y = x^2
 $$</p>
 <p>이전 글에서 다루었다시피 수치적 미분 구현은 다음과 같습니다. 너무 똑같으면 심심하니 요즘 각광받는 수치 프로그래밍 언어인 Julia로 표현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-julia" data-lang="julia"><span style="color:#75715e"># Julia</span>
-<span style="color:#66d9ef">function</span> df(x, f, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>)
-  <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e"># Derivative</span>
-dx2(x) <span style="color:#f92672">=</span> df(x, x <span style="color:#f92672">-&gt;</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
-
-<span style="color:#75715e"># Print</span>
-println(dx2(<span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># 2.0000009999243673</span>
-</code></pre></div><p>이번엔 고등학생이 푸는 방법을 살펴봅시다. (대한민국 고등학교 2학년 수학2 과정을 이수한 학생이라고 가정합니다.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#75715e"># Julia</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> df(x, f, h<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Derivative</span>
+</span></span><span style="display:flex;"><span>dx2(x) <span style="color:#f92672">=</span> df(x, x <span style="color:#f92672">-&gt;</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Print</span>
+</span></span><span style="display:flex;"><span>println(dx2(<span style="color:#ae81ff">1</span>)) <span style="color:#75715e"># 2.0000009999243673</span>
+</span></span></code></pre></div><p>이번엔 고등학생이 푸는 방법을 살펴봅시다. (대한민국 고등학교 2학년 수학2 과정을 이수한 학생이라고 가정합니다.)</p>
 <p>$$
 \begin{align}
-\frac{d}{dx}(x^2) &amp;= \lim_{h \rightarrow 0} \frac{(x+h)^2 - x^2}{h} \\<br>
-&amp;= \lim_{h\rightarrow 0} \frac{2hx + h^2}{h} \\<br>
+\frac{d}{dx}(x^2) &amp;= \lim_{h \rightarrow 0} \frac{(x+h)^2 - x^2}{h} \\
+&amp;= \lim_{h\rightarrow 0} \frac{2hx + h^2}{h} \\
 &amp;= 2x
 \end{align}
 $$</p>
@@ -286,11 +285,11 @@ CAS는 실제로 인간이 하는 것처럼 미분, 적분, 대수 뿐 아니라
 </figure>
 </center>
 <p>아래는 sagemath를 이용한 간단한 도함수 구현입니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">var(<span style="color:#e6db74">&#39;x&#39;</span>)        <span style="color:#75715e"># 변수를 선언합니다.</span>
-f(x) <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>      <span style="color:#75715e"># 함수를 선언합니다.</span>
-df <span style="color:#f92672">=</span> diff(f, x) <span style="color:#75715e"># 도함수를 계산합니다.</span>
-<span style="color:#66d9ef">print</span>(df(<span style="color:#ae81ff">1</span>))    <span style="color:#75715e"># 2</span>
-</code></pre></div><p>정확할 뿐만 아니라 간단하기까지 하니 더 이상 수치적 미분을 고집할 이유는 없어보입니다. 하지만 이렇게 엄청난 CAS에도 치명적인 단점이 존재합니다. 바로 속도입니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>var(<span style="color:#e6db74">&#39;x&#39;</span>)        <span style="color:#75715e"># 변수를 선언합니다.</span>
+</span></span><span style="display:flex;"><span>f(x) <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>      <span style="color:#75715e"># 함수를 선언합니다.</span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> diff(f, x) <span style="color:#75715e"># 도함수를 계산합니다.</span>
+</span></span><span style="display:flex;"><span>print(df(<span style="color:#ae81ff">1</span>))    <span style="color:#75715e"># 2</span>
+</span></span></code></pre></div><p>정확할 뿐만 아니라 간단하기까지 하니 더 이상 수치적 미분을 고집할 이유는 없어보입니다. 하지만 이렇게 엄청난 CAS에도 치명적인 단점이 존재합니다. 바로 속도입니다.
 기호적 미분 자체는 계산 속도가 빠를 수 있지만 그것에 수치 값들을 대입할 때 현저하게 속도 저하가 일어납니다. 아래는 간단한 미분 계산에 크기가 큰 배열 값을 대입하여 성능을 측정한 결과입니다. Peroxide는 Rust의 수치계산 라이브러리 이름이며 후에 다룰 자동미분 알고리즘을 적용하여 계산을 수행하였고, numpy는 Python의 유명한 수치계산 라이브러리로 수치적 미분으로 계산하였습니다. 마지막으로 Sagemath는 기호적 미분으로 계산 후 수치 값을 대입하여 결과를 구했습니다.</p>
 <center id="img">
 <figure>
@@ -324,109 +323,109 @@ Mathematica도 행렬 계산은 BLAS를 이용하고 갖가지 탁월한 수치 
 <h2 id="-부록">🔖 부록</h2>
 <h3 id="a-로렌즈-나비-코드">A. 로렌즈 나비 코드</h3>
 <p>위에서 첨부한 로렌즈 나비 그림들은 Rust의 수치 라이브러리인 <a href="https://github.com/Axect/Peroxide">Peroxide</a>를 이용하여 계산하였습니다. 소스코드는 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
-<span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; Result<span style="color:#f92672">&lt;</span>(), Box<span style="color:#f92672">&lt;</span>dyn Error<span style="color:#f92672">&gt;&gt;</span> {
-    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Declare ODE
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test <span style="color:#f92672">=</span> ExplicitODE::new(butterfly);
-
-    <span style="color:#66d9ef">let</span> init_state: <span style="color:#a6e22e">State</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> State::new(
-        <span style="color:#ae81ff">0.0</span>,
-        vec<span style="color:#f92672">!</span>[<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>],
-        vec<span style="color:#f92672">!</span>[<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>],
-    );
-
-    ex_test
-        .set_initial_condition(init_state)
-        .set_method(ExMethod::Euler)
-        .set_step_size(<span style="color:#ae81ff">0.01</span><span style="color:#66d9ef">f64</span>)
-        .set_times(<span style="color:#ae81ff">10000</span>);
-
-    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test2 <span style="color:#f92672">=</span> ex_test.clone();
-    ex_test2.set_method(ExMethod::RK4);
-
-    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Save results
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> results <span style="color:#f92672">=</span> ex_test.integrate();
-    <span style="color:#66d9ef">let</span> results2 <span style="color:#f92672">=</span> ex_test2.integrate();
-
-    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_euler <span style="color:#f92672">=</span> DataFrame::from_matrix(results);
-    df_euler.set_header(vec<span style="color:#f92672">!</span>[<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
-    df_euler.print();
-
-    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_rk4 <span style="color:#f92672">=</span> DataFrame::from_matrix(results2);
-    df_rk4.set_header(vec<span style="color:#f92672">!</span>[<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
-    df_rk4.print();
-
-    df_euler.write_nc(<span style="color:#e6db74">&#34;data/euler.nc&#34;</span>)<span style="color:#f92672">?</span>;
-    df_rk4.write_nc(<span style="color:#e6db74">&#34;data/rk4.nc&#34;</span>)<span style="color:#f92672">?</span>;
-
-    Ok(())
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">butterfly</span>(st: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> State<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>, _: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">NoEnv</span>) {
-    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>st.value;
-    <span style="color:#66d9ef">let</span> dx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> st.deriv;
-    dx[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> (x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>]);
-    dx[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>];
-    dx[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">1</span>];
-}
-</code></pre></div><p>이후에 저장된 데이터를 불러와서 그림을 그리는 것은 Python으로 작성하였습니다. 코드는 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
-<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
-
-<span style="color:#75715e"># Import netCDF file</span>
-ncfile1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/euler.nc&#39;</span>
-data1 <span style="color:#f92672">=</span> Dataset(ncfile1)
-var1 <span style="color:#f92672">=</span> data1<span style="color:#f92672">.</span>variables
-ncfile2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/rk4.nc&#39;</span>
-data2 <span style="color:#f92672">=</span> Dataset(ncfile2)
-var2 <span style="color:#f92672">=</span> data2<span style="color:#f92672">.</span>variables
-
-<span style="color:#75715e"># Use latex</span>
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span>True)
-plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
-
-<span style="color:#75715e"># Prepare Plot</span>
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (Euler)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-
-<span style="color:#75715e"># Prepare Data to Plot</span>
-x1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;x&#39;</span>][:]
-z1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
-
-<span style="color:#75715e"># Plot with Legends</span>
-plt<span style="color:#f92672">.</span>plot(x1, z1, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (Euler)&#39;</span>)
-
-<span style="color:#75715e"># Other options</span>
-plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
-plt<span style="color:#f92672">.</span>grid()
-plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;euler.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-
-<span style="color:#75715e"># Prepare Plot</span>
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (RK4)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
-
-<span style="color:#75715e"># Prepare Data to Plot</span>
-x2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;x&#39;</span>][:]
-z2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
-
-<span style="color:#75715e"># Plot with Legends</span>
-plt<span style="color:#f92672">.</span>plot(x2, z2, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (RK4)&#39;</span>)
-
-<span style="color:#75715e"># Other options</span>
-plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
-plt<span style="color:#f92672">.</span>grid()
-plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;rk4.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
-</code></pre></div><p>이외에 자세한 사항은 <a href="https://github.com/Axect/Peroxide_Gallery">Peroxide Gallery</a>에 나와있으니 참고하시면 됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">crate</span> peroxide;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; Result<span style="color:#f92672">&lt;</span>(), Box<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">dyn</span> Error<span style="color:#f92672">&gt;&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Declare ODE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test <span style="color:#f92672">=</span> ExplicitODE::new(butterfly);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> init_state: <span style="color:#a6e22e">State</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> State::new(
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span>        vec![<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>],
+</span></span><span style="display:flex;"><span>        vec![<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>],
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ex_test
+</span></span><span style="display:flex;"><span>        .set_initial_condition(init_state)
+</span></span><span style="display:flex;"><span>        .set_method(ExMethod::Euler)
+</span></span><span style="display:flex;"><span>        .set_step_size(<span style="color:#ae81ff">0.01</span><span style="color:#66d9ef">f64</span>)
+</span></span><span style="display:flex;"><span>        .set_times(<span style="color:#ae81ff">10000</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> ex_test2 <span style="color:#f92672">=</span> ex_test.clone();
+</span></span><span style="display:flex;"><span>    ex_test2.set_method(ExMethod::RK4);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//  Save results
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// =========================================
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> results <span style="color:#f92672">=</span> ex_test.integrate();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> results2 <span style="color:#f92672">=</span> ex_test2.integrate();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_euler <span style="color:#f92672">=</span> DataFrame::from_matrix(results);
+</span></span><span style="display:flex;"><span>    df_euler.set_header(vec![<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
+</span></span><span style="display:flex;"><span>    df_euler.print();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> df_rk4 <span style="color:#f92672">=</span> DataFrame::from_matrix(results2);
+</span></span><span style="display:flex;"><span>    df_rk4.set_header(vec![<span style="color:#e6db74">&#34;t&#34;</span>, <span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>]);
+</span></span><span style="display:flex;"><span>    df_rk4.print();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    df_euler.write_nc(<span style="color:#e6db74">&#34;data/euler.nc&#34;</span>)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    df_rk4.write_nc(<span style="color:#e6db74">&#34;data/rk4.nc&#34;</span>)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Ok(())
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">butterfly</span>(st: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> State<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>, _: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">NoEnv</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>st.value;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> dx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> st.deriv;
+</span></span><span style="display:flex;"><span>    dx[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> (x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    dx[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">28</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>    dx[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">8</span><span style="color:#66d9ef">f64</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">f64</span> <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">+</span> x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> x[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>이후에 저장된 데이터를 불러와서 그림을 그리는 것은 Python으로 작성하였습니다. 코드는 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> netCDF4 <span style="color:#f92672">import</span> Dataset
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Import netCDF file</span>
+</span></span><span style="display:flex;"><span>ncfile1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/euler.nc&#39;</span>
+</span></span><span style="display:flex;"><span>data1 <span style="color:#f92672">=</span> Dataset(ncfile1)
+</span></span><span style="display:flex;"><span>var1 <span style="color:#f92672">=</span> data1<span style="color:#f92672">.</span>variables
+</span></span><span style="display:flex;"><span>ncfile2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./data/rk4.nc&#39;</span>
+</span></span><span style="display:flex;"><span>data2 <span style="color:#f92672">=</span> Dataset(ncfile2)
+</span></span><span style="display:flex;"><span>var2 <span style="color:#f92672">=</span> data2<span style="color:#f92672">.</span>variables
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use latex</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;text&#39;</span>, usetex<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rc(<span style="color:#e6db74">&#39;font&#39;</span>, family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;serif&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Plot</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (Euler)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Data to Plot</span>
+</span></span><span style="display:flex;"><span>x1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+</span></span><span style="display:flex;"><span>z1 <span style="color:#f92672">=</span> var1[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot with Legends</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x1, z1, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (Euler)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Other options</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;euler.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Plot</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">6</span>), dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;Lorenz Butterfly (RK4)&#34;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$x$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;$z$&#39;</span>, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Prepare Data to Plot</span>
+</span></span><span style="display:flex;"><span>x2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;x&#39;</span>][:]
+</span></span><span style="display:flex;"><span>z2 <span style="color:#f92672">=</span> var2[<span style="color:#e6db74">&#39;z&#39;</span>][:]  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot with Legends</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x2, z2, label<span style="color:#f92672">=</span><span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;Lorenz (RK4)&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Other options</span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend(fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>grid()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;rk4.png&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</span></span></code></pre></div><p>이외에 자세한 사항은 <a href="https://github.com/Axect/Peroxide_Gallery">Peroxide Gallery</a>에 나와있으니 참고하시면 됩니다.</p>
 
             </div>
         </article>
@@ -435,7 +434,7 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/symbolic-differentiation">symbolic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span><span class="tag"><a href="https://axect.github.io/tags/sage">sage</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/symbolic-differentiation">symbolic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span><span class="tag"><a href="https://axect.github.io/tags/sage">sage</a></span><span class="tag"><a href="https://axect.github.io/tags/%EC%9E%90%EB%8F%99%EB%AF%B8%EB%B6%84">자동미분</a></span><span class="tag"><a href="https://axect.github.io/tags/%EA%B8%B0%ED%98%B8%EB%AF%B8%EB%B6%84">기호미분</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1066 단어</p>
@@ -479,7 +478,7 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
                 <footer class="footer">
     <div class="footer__inner">
         <div class="footer__content">
-            <span>&copy; 2021</span>
+            <span>&copy; 2022</span>
             
                 <span><a href="https://axect.github.io">Axect</a></span>
             
@@ -503,7 +502,7 @@ plt<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#34;
 
 
 
-<script type="text/javascript" src="/bundle.min.a0f363fdf81cdc5cfacc447a79c33189eb000d090336cd04aac8ee256f423b3133b836c281944c19c75e38d0b0b449f01ce5807e37798b7ac94ac1db51983fc4.js" integrity="sha512-oPNj/fgc3Fz6zER6ecMxiesADQkDNs0EqsjuJW9COzEzuDbCgZRMGcdeONCwtEnwHOWAfjd5i3rJSsHbUZg/xA=="></script>
+<script type="text/javascript" src="/bundle.min.af5a3e743efae0c74305dc03080fb4bd5ae8f1a60160b3599ab59639ad6c182d763fb4238e72a726f48319ad132a4cdc9cd51fac5462e8a25dc0ba096f547038.js" integrity="sha512-r1o&#43;dD764MdDBdwDCA&#43;0vVro8aYBYLNZmrWWOa1sGC12P7QjjnKnJvSDGa0TKkzcnNUfrFRi6KJdwLoJb1RwOA=="></script>
     
 <script type="application/javascript">
 var doNotTrack = false;
@@ -517,7 +516,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
 

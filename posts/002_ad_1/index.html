@@ -7,7 +7,7 @@
 <meta name="author" content="Axect ">
 <meta name="description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다." />
-<meta name="keywords" content=", numerical differentiation, automatic differentiation, rust, numerical" />
+<meta name="keywords" content=", numerical differentiation, automatic differentiation, rust, numerical, 수치미분, 자동미분" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://axect.github.io/posts/002_ad_1/" />
@@ -35,10 +35,10 @@
 
 <meta itemprop="name" content="🧙 Rust와 미분하기 01: 수치적 미분">
 <meta itemprop="description" content="미분은 희대의 천재였던 아이작 뉴턴이래로 없어서는 안 될 중요한 개념이 되었습니다. 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.
-당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다."><meta itemprop="datePublished" content="2020-05-24T02:44:11&#43;09:00" />
-<meta itemprop="dateModified" content="2020-05-24T02:44:11&#43;09:00" />
+당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다."><meta itemprop="datePublished" content="2020-05-24T02:44:11+09:00" />
+<meta itemprop="dateModified" content="2020-05-24T02:44:11+09:00" />
 <meta itemprop="wordCount" content="985"><meta itemprop="image" content="https://axect.github.io"/>
-<meta itemprop="keywords" content="numerical differentiation,automatic differentiation,rust,numerical," />
+<meta itemprop="keywords" content="numerical differentiation,automatic differentiation,rust,numerical,수치미분,자동미분," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://axect.github.io"/>
 
@@ -53,8 +53,8 @@
 당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://axect.github.io/posts/002_ad_1/" /><meta property="og:image" content="https://axect.github.io"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-05-24T02:44:11&#43;09:00" />
-<meta property="article:modified_time" content="2020-05-24T02:44:11&#43;09:00" /><meta property="og:site_name" content="Axect&#39;s Blog" />
+<meta property="article:published_time" content="2020-05-24T02:44:11+09:00" />
+<meta property="article:modified_time" content="2020-05-24T02:44:11+09:00" /><meta property="og:site_name" content="Axect&#39;s Blog" />
 
 
 
@@ -161,7 +161,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </header>
 
 
@@ -203,7 +202,7 @@ if (!doNotTrack) {
 문과나 이과 모두 구분없이 고등학교때 적어도 다항함수의 미분법은 배우며 이공계는 거의 모든 학과에서 미분방정식을 다룹니다. 물리학과의 경우는 좀 더 미분 의존도가 심한데, 당장 물리의 시작이라고 할 수 있는 고전역학부터 오일러-라그랑주 방정식(Euler-Lagrange equation)에 의존하며 물리학과의 핵심이라 할 수 있는 전자기학, 양자역학은 거의 모든 수식에 미분이 빠지지 않습니다.</p>
 <p>당연하게도 수치 계산 분야에서도 미분은 항상 등장합니다. 다만, 인간이 미분을 이해하는 방식과 컴퓨터가 이해하는 방식은 차이가 있기에 미분을 받아들이는 방법 역시 조금 다릅니다. 일단 미적분학에서 간단하게 배우는 도함수의 정의는 다음과 같습니다.</p>
 <p>$$
-f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
+f&rsquo;(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
 $$</p>
 <p>예를 들어 $f(x) = x^2$을 미분한다면 다음과 같이 간단하게 계산할 수 있습니다.</p>
 <p>$$
@@ -218,105 +217,105 @@ $h$가 $0$으로 가는 극한이라는 것은 0에 한없이 가까이 접근�
 <h2 id="-수치적-미분-numerical-differentiation">💻 수치적 미분 (Numerical Differentiation)</h2>
 <p>컴퓨터는 극한을 본질적으로 다룰 수 없지만, 대부분의 계산에서는 $10^{-16}$ 정도면 아주 충분한 정밀도일 수 있습니다. 혹은 단위를 조정하면서 충분한 정밀도가 되도록 만드는 방법도 존재합니다.
 따라서 극한을 다루는 대신 아주 작은 $h$를 이용하여 극한의 근삿값을 구하여 계산에 이용할 수 있는데, 이러한 방법을 <strong>수치적 미분</strong>이라 합니다. 일단 아주 간단하게 수치적 미분을 구현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Python</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">diff</span>(f, x, h):
-    <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-</code></pre></div><p>수치적 미분의 Python 구현은 놀라울 정도로 아주 간단합니다. 함수와 변수 그리고 정밀도를 넣어주면 바로 미분값이 나옵니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>Rust 구현도 비교적 간단한 편이지만, 타입을 명시해야 되는 점이 Python과의 차이를 만듭니다. Rust에서 함수를 인수로 받을 때는 위와 같이 제너릭 타입(Generic Type)으로 받는 것이 좋습니다. 그래야 명시적 함수나 클로저(Closure) 구분 없이 사용할 수 있습니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">diff</span>(f, x, h):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span></code></pre></div><p>수치적 미분의 Python 구현은 놀라울 정도로 아주 간단합니다. 함수와 변수 그리고 정밀도를 넣어주면 바로 미분값이 나옵니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Rust 구현도 비교적 간단한 편이지만, 타입을 명시해야 되는 점이 Python과의 차이를 만듭니다. Rust에서 함수를 인수로 받을 때는 위와 같이 제너릭 타입(Generic Type)으로 받는 것이 좋습니다. 그래야 명시적 함수나 클로저(Closure) 구분 없이 사용할 수 있습니다.
 이 코드들을 이용하여 $f(x) = x^2$의 $x=1$에서의 미분 계수를 구해봅시다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, diff(f, <span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>, <span style="color:#ae81ff">1e-6</span>));
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    (f(x<span style="color:#f92672">+</span>h)<span style="color:#f92672">-</span>f(x)) <span style="color:#f92672">/</span> h
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    x.powi(<span style="color:#ae81ff">2</span>)
-}
-</code></pre></div><p>코드에서 알 수 있듯이 정밀도는 $h=10^{-6}$을 대입하여 계산하였습니다. 결과는 $2.0000009999243673$으로 소숫점 6번째 자리까지는 이론 값인 $2$와 일치함을 보여줍니다. 이 수치적 미분코드는 간단하고 빠르게 미분 값을 구할 수 있다는 장점이 있지만, 도함수를 구하기 위해서는 반복적으로 함수를 대입해야 된다는 점에서 불편함을 야기합니다. 따라서 도함수를 구하기 위해서는 조금 더 코드를 늘려야 합니다. 먼저 구조체를 이용하는 객체지향적 방법을 사용하여 구현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
-    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
-}
-
-<span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f)(x)
-    }
-
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
-    }
-}
-</code></pre></div><p>이렇게 하면 함수와 정밀도는 초기 선언시에만 입력하면 되고, <code>calc</code> 메소드를 이용하여 여러 $x$ 값에서 계산이 가능해집니다. <code>f</code> 메소드는 보다 편하게 <code>self.f(x)</code>를 이용하기 위해 선언하였습니다. 만일 이러한 메소드가 없다면 <code>(self.f)(x)</code> 꼴로 입력해야만 합니다. 그럼 이제 이 코드를 이용하여 앞에서의 예시를 구현해봅시다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> Derivative {
-        f,
-        h: <span style="color:#ae81ff">1e-6</span>,
-    };
-    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, df.calc(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    x.powi(<span style="color:#ae81ff">2</span>)
-}
-
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
-    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
-}
-
-<span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f)(x)
-    }
-
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
-    }
-}
-</code></pre></div><p>당연하게도 답은 아까의 경우와 같게 나옵니다. 이번에는 진짜 &ldquo;도함수&quot;를 만드는 함수형 프로그래밍의 <em>고계 함수(Higher order function)</em> 개념을 이용하여 구현해보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>일단 <code>F</code>로 <code>f64 -&gt; f64</code> 함수 역할을 하는 모든 타입을 받을 수 있다는 것은 앞에서와 같습니다. 다만 반환 타입 부분에 낯선 키워드들이 있습니다.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>, diff(f, <span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>, <span style="color:#ae81ff">1e-6</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">diff</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, x: <span style="color:#66d9ef">f64</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    (f(x<span style="color:#f92672">+</span>h)<span style="color:#f92672">-</span>f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    x.powi(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>코드에서 알 수 있듯이 정밀도는 $h=10^{-6}$을 대입하여 계산하였습니다. 결과는 $2.0000009999243673$으로 소숫점 6번째 자리까지는 이론 값인 $2$와 일치함을 보여줍니다. 이 수치적 미분코드는 간단하고 빠르게 미분 값을 구할 수 있다는 장점이 있지만, 도함수를 구하기 위해서는 반복적으로 함수를 대입해야 된다는 점에서 불편함을 야기합니다. 따라서 도함수를 구하기 위해서는 조금 더 코드를 늘려야 합니다. 먼저 구조체를 이용하는 객체지향적 방법을 사용하여 구현해보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f)(x)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>이렇게 하면 함수와 정밀도는 초기 선언시에만 입력하면 되고, <code>calc</code> 메소드를 이용하여 여러 $x$ 값에서 계산이 가능해집니다. <code>f</code> 메소드는 보다 편하게 <code>self.f(x)</code>를 이용하기 위해 선언하였습니다. 만일 이러한 메소드가 없다면 <code>(self.f)(x)</code> 꼴로 입력해야만 합니다. 그럼 이제 이 코드를 이용하여 앞에서의 예시를 구현해봅시다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> Derivative {
+</span></span><span style="display:flex;"><span>        f,
+</span></span><span style="display:flex;"><span>        h: <span style="color:#ae81ff">1e-6</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>, df.calc(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    x.powi(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> f: <span style="color:#a6e22e">F</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> h: <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span> Derivative<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f)(x)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">calc</span>(<span style="color:#f92672">&amp;</span>self, x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>        (self.f(x<span style="color:#f92672">+</span>self.h) <span style="color:#f92672">-</span> self.f(x)) <span style="color:#f92672">/</span> self.h
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>당연하게도 답은 아까의 경우와 같게 나옵니다. 이번에는 진짜 &ldquo;도함수&quot;를 만드는 함수형 프로그래밍의 <em>고계 함수(Higher order function)</em> 개념을 이용하여 구현해보겠습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>일단 <code>F</code>로 <code>f64 -&gt; f64</code> 함수 역할을 하는 모든 타입을 받을 수 있다는 것은 앞에서와 같습니다. 다만 반환 타입 부분에 낯선 키워드들이 있습니다.
 Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는 앞서 봤던 <code>F</code>와 같이 Type placeholder를 사용하는 방식이고, 두 번째는 <code>impl Trait</code>처럼 <code>impl</code>키워드를 이용하는 방식이 있습니다. 두 방식 모두 큰 차이는 없지만, 여러 개의 타입이 같이 쓰일 때에 각 타입들이 같은 타입인지, 다른 타입인지 명확히 할 때에는 전자의 방식을 쓰고, 한 가지 타입만 사용하거나 타입 종류보다는 역할이 중요할 때에는 후자의 방식을 사용합니다. 예를 들어 위 코드를 Type placeholder를 이용하여 구현하면 다음과 같습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F, G<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">G</span> 
-<span style="color:#66d9ef">where</span>
-    F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
-    G: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
-{
-    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>아래의 구현이 가독성 면에서나 의미 면에서 좀 더 좋은 구현이지만, 이 함수를 사용할 때 제약이 심한 편입니다. <code>impl Trait</code> 꼴로 반환하면 Rust는 그 타입을 함수 본문에서 반환하는 값으로 자동 추론하여 사용하지만, Type placeholder로 반환하면 그 타입을 명확히 하기 전에는 컴파일 되지 않습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F, G<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">G</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>    G: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span>,
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>아래의 구현이 가독성 면에서나 의미 면에서 좀 더 좋은 구현이지만, 이 함수를 사용할 때 제약이 심한 편입니다. <code>impl Trait</code> 꼴로 반환하면 Rust는 그 타입을 함수 본문에서 반환하는 값으로 자동 추론하여 사용하지만, Type placeholder로 반환하면 그 타입을 명확히 하기 전에는 컴파일 되지 않습니다.</p>
 <p>또한 위와 같은 코드를 작성할 때, 클로저의 성질에 유의해야합니다. 클로저는 인수로 들어온 값이 아닌 주변 환경도 같이 캡쳐를 하는 성질이 있는데, 이때, 주변 변수들이 클로저 밖에서도 생존할 수 있다면 컴파일 오류가 발생합니다.
 위 코드에서도 <code>f</code>와 <code>h</code>는 함수의 인수로 받았기에 함수의 선언이 끝나는 시점에 메모리가 해제됩니다. 하지만 반환되는 클로저는 <code>f</code>와 <code>h</code>의 값을 사용해야 합니다. 따라서 <code>move</code> 키워드를 이용하여 <code>f</code>와 <code>h</code>의 소유권을 클로저에 넘겨주어야 합니다.</p>
 <p>이제 설명이 끝났으니 이 고계함수를 이용하여 도함수를 만들어 보겠습니다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Rust
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> derivative(f, <span style="color:#ae81ff">1e-6</span>);
-    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, df(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    x.powi(<span style="color:#ae81ff">2</span>)
-}
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
-    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
-}
-</code></pre></div><p>답은 위의 두 경우와 정확히 일치합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> df <span style="color:#f92672">=</span> derivative(f, <span style="color:#ae81ff">1e-6</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>, df(<span style="color:#ae81ff">1</span><span style="color:#66d9ef">f64</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">f</span>(x: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    x.powi(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">derivative</span><span style="color:#f92672">&lt;</span>F: Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span><span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>, h: <span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#a6e22e">impl</span> Fn(<span style="color:#66d9ef">f64</span>) -&gt; <span style="color:#66d9ef">f64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">move</span> <span style="color:#f92672">|</span>x: <span style="color:#66d9ef">f64</span><span style="color:#f92672">|</span> (f(x<span style="color:#f92672">+</span>h) <span style="color:#f92672">-</span> f(x)) <span style="color:#f92672">/</span> h
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>답은 위의 두 경우와 정확히 일치합니다.</p>
 <p>그럼 이제 수치적 미분 방식의 장점과 단점을 요약해보겠습니다.</p>
 <h3 id="수치적-미분의-장단점">수치적 미분의 장단점</h3>
 <ul>
@@ -342,7 +341,7 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical-differentiation">numerical differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://axect.github.io/tags/numerical-differentiation">numerical differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/automatic-differentiation">automatic differentiation</a></span><span class="tag"><a href="https://axect.github.io/tags/rust">rust</a></span><span class="tag"><a href="https://axect.github.io/tags/numerical">numerical</a></span><span class="tag"><a href="https://axect.github.io/tags/%EC%88%98%EC%B9%98%EB%AF%B8%EB%B6%84">수치미분</a></span><span class="tag"><a href="https://axect.github.io/tags/%EC%9E%90%EB%8F%99%EB%AF%B8%EB%B6%84">자동미분</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>985 단어</p>
@@ -386,7 +385,7 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
                 <footer class="footer">
     <div class="footer__inner">
         <div class="footer__content">
-            <span>&copy; 2021</span>
+            <span>&copy; 2022</span>
             
                 <span><a href="https://axect.github.io">Axect</a></span>
             
@@ -410,7 +409,7 @@ Rust의 Generic에는 크게 두 가지 방식이 존재합니다. 첫 번째는
 
 
 
-<script type="text/javascript" src="/bundle.min.a0f363fdf81cdc5cfacc447a79c33189eb000d090336cd04aac8ee256f423b3133b836c281944c19c75e38d0b0b449f01ce5807e37798b7ac94ac1db51983fc4.js" integrity="sha512-oPNj/fgc3Fz6zER6ecMxiesADQkDNs0EqsjuJW9COzEzuDbCgZRMGcdeONCwtEnwHOWAfjd5i3rJSsHbUZg/xA=="></script>
+<script type="text/javascript" src="/bundle.min.af5a3e743efae0c74305dc03080fb4bd5ae8f1a60160b3599ab59639ad6c182d763fb4238e72a726f48319ad132a4cdc9cd51fac5462e8a25dc0ba096f547038.js" integrity="sha512-r1o&#43;dD764MdDBdwDCA&#43;0vVro8aYBYLNZmrWWOa1sGC12P7QjjnKnJvSDGa0TKkzcnNUfrFRi6KJdwLoJb1RwOA=="></script>
     
 <script type="application/javascript">
 var doNotTrack = false;
@@ -424,7 +423,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
 

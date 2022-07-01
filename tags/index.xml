@@ -45,6 +45,33 @@
     </item>
     
     <item>
+      <title>고등수학</title>
+      <link>https://axect.github.io/tags/%EA%B3%A0%EB%93%B1%EC%88%98%ED%95%99/</link>
+      <pubDate>Tue, 09 Mar 2021 22:01:39 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/%EA%B3%A0%EB%93%B1%EC%88%98%ED%95%99/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>선형회귀</title>
+      <link>https://axect.github.io/tags/%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80/</link>
+      <pubDate>Tue, 09 Mar 2021 22:01:39 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>통계</title>
+      <link>https://axect.github.io/tags/%ED%86%B5%EA%B3%84/</link>
+      <pubDate>Tue, 09 Mar 2021 22:01:39 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/%ED%86%B5%EA%B3%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>automatic differentiation</title>
       <link>https://axect.github.io/tags/automatic-differentiation/</link>
       <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
@@ -90,6 +117,24 @@
     </item>
     
     <item>
+      <title>기호미분</title>
+      <link>https://axect.github.io/tags/%EA%B8%B0%ED%98%B8%EB%AF%B8%EB%B6%84/</link>
+      <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/%EA%B8%B0%ED%98%B8%EB%AF%B8%EB%B6%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>자동미분</title>
+      <link>https://axect.github.io/tags/%EC%9E%90%EB%8F%99%EB%AF%B8%EB%B6%84/</link>
+      <pubDate>Sat, 03 Oct 2020 03:36:49 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/%EC%9E%90%EB%8F%99%EB%AF%B8%EB%B6%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>numerical differentiation</title>
       <link>https://axect.github.io/tags/numerical-differentiation/</link>
       <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
@@ -99,11 +144,29 @@
     </item>
     
     <item>
+      <title>수치미분</title>
+      <link>https://axect.github.io/tags/%EC%88%98%EC%B9%98%EB%AF%B8%EB%B6%84/</link>
+      <pubDate>Sun, 24 May 2020 02:44:11 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/%EC%88%98%EC%B9%98%EB%AF%B8%EB%B6%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>gaussian</title>
       <link>https://axect.github.io/tags/gaussian/</link>
       <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>
       
       <guid>https://axect.github.io/tags/gaussian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>가우시안</title>
+      <link>https://axect.github.io/tags/%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88/</link>
+      <pubDate>Fri, 22 May 2020 17:00:31 +0900</pubDate>
+      
+      <guid>https://axect.github.io/tags/%EA%B0%80%EC%9A%B0%EC%8B%9C%EC%95%88/</guid>
       <description></description>
     </item>
     
