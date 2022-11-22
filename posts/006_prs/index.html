@@ -28,7 +28,7 @@ Inverse Transform Sampling Rejection Sampling Inverse Transform Sampling은 확�
 
 
 
-<link rel="stylesheet" href="/main.53b1d2e9cb77a0c5a69424ba6534c395d4ac9c67bf5fe24390111c6624254c2b.css">
+<link rel="stylesheet" href="/main.edecf8e97ca544bb3e1a8f7eb078b2ae6d25c6ac59a3a7ef26af069fc661ce2a.css">
 
 
 
@@ -252,10 +252,8 @@ if (!doNotTrack) {
 <p>이 sampling 방법이 <span style="background-color: rgba(255, 255, 0, 0.534);">
     <b>Rejection sampling(기각 샘플링)</b>
 </span>입니다. 3번에서 보다시피 $u$가 $f(y)$보다 크다면 기각하기 때문에 붙여진 이름입니다. 이 간단한 알고리즘 만으로 완전히 새로운 확률분포인 $f(x)$를 효과적으로 근사할 수 있습니다. 이를 위해 누적확률분포함수(CDF)를 살펴보겠습니다.</p>
-<center>
-<div class="animated-border-quote">
-    <blockquote>
-        <p style="text-align:left">확률변수 $X$를 Rejection sampling으로 얻어진 확률변수라 하면, 다른 두 확률변수 $Y \sim g(y)$, $U \sim \text{Unif}(u|0, M\cdot g(y))$에 대하여  다음과 같은 관계를 얻을 수 있습니다.
+<blockquote>
+<p>확률변수 $X$를 Rejection sampling으로 얻어진 확률변수라 하면, 다른 두 확률변수 $Y \sim g(y)$, $U \sim \text{Unif}(u|0, M\cdot g(y))$에 대하여  다음과 같은 관계를 얻을 수 있습니다.
 $$
 P(X \leq x) = P\left(Y \leq x \,|\, U &lt; f(Y)\right)
 $$
@@ -267,7 +265,7 @@ $$
 먼저 위 식의 분자를 확률밀도함수를 이용하여 전개해보겠습니다.
 $$
 \begin{aligned}
-P(Y \leq x,~U &lt; f(Y)) &amp;= \int P(Y \leq x,~U &lt; f(Y) | Y = y) \cdot g(y) \,dy \\
+P(Y \leq x,U &lt; f(Y)) &amp;= \int P(Y \leq x,U &lt; f(Y) | Y = y) \cdot g(y) \,dy \\
 &amp;= \int P(y \leq x,~U &lt; f(y)) \cdot g(y) \,dy \\
 &amp;= \int 𝟙_{y \leq x} \cdot P(U &lt; f(y))\cdot  g(y) \, dy \\
 &amp;= \int_{-\infty}^x P(U &lt; f(y)) \cdot g(y) \, dy
@@ -295,9 +293,7 @@ $$
 P(X \leq x) = \int_{-\infty}^x f(y) \, dy
 $$
 이는 $f(x)$의 누적분포함수와 같습니다. 따라서 Rejection sampling으로 얻어진 확률변수 $X$의 확률밀도함수는 $f(x)$라는 것을 얻을 수 있습니다.</p>
-    </blockquote>
-</div>
-</center>
+</blockquote>
 <p>이제 수학적으로 증명을 마쳤으니, 이번에는 이것이 실제로 잘 작동하는지 코드를 작성해봅시다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Rust
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
@@ -422,10 +418,8 @@ $$
 <li>$\displaystyle \text{WUnif}(x|\mathbf{M}, \mathcal{A}) = \frac{1}{\sum_{j}M_j \cdot \Delta x_j}\sum_i M_i 𝟙_{A_i}(x)$</li>
 </ul>
 <p>여기서는 어차피 저희가 사용할 분포가 1차원 분포이므로 앞으로 이 정의를 이용하여 계산을 진행하겠습니다. 일단, 이 함수가 확률밀도함수임은 간단히 증명할 수 있습니다.</p>
-<center>
-<div class="animated-border-quote">
-    <blockquote>
-        <p style="text-align:left">$$
+<blockquote>
+<p>$$
 \begin{aligned}
 \int_a^b \text{WUnif}(x|\mathbf{M}, \mathcal{A}) dx &amp;= \int_a^b \frac{1}{\sum_{j}M_j \cdot \Delta x_j}\sum_i M_i 𝟙_{A_i}(x) dx \\
 &amp;= \frac{1}{\sum_{j}M_j \cdot \Delta x_j}\sum_i M_i \int_{a}^{b} 𝟙_{A_i}(x) dx \\
@@ -433,9 +427,7 @@ $$
 &amp;= 1
 \end{aligned}
 $$</p>
-    </blockquote>
-</div>
-</center>
+</blockquote>
 <p>Weighed uniform distribution은 sampling하기도 쉽습니다. sampling 방법은 다음과 같습니다.</p>
 <ol>
 <li>
@@ -465,10 +457,8 @@ $$</p>
 <p>이러한 sampling 방법은 마치 구간을 나누어 sampling하는 것과 같으므로 <span style="background-color: rgba(255, 255, 0, 0.534);">
     <b>Piecewise Rejection Sampling</b>
 </span>으로 명명하겠습니다. 이 방법에서의 Acceptance rate를 구해보면 단순히 Uniform distribution을 사용하여 Rejection sampling을 할 때에 비해 Acceptance rate가 높아지는 것을 알 수 있습니다.</p>
-<center>
-<div class="animated-border-quote">
-    <blockquote>
-        <p style="text-align:left">$$
+<blockquote>
+<p>$$
 \begin{aligned}
 P(U &lt; f(Y)) &amp;= \int_a^b P(U &lt; f(Y) | Y = y) \cdot g(y) \, dy \\
 &amp;= \int_a^b P(U &lt; f(y)) \cdot \text{WUnif}(y|\mathbf{M}, \mathcal{A}) \, dy \\
@@ -482,9 +472,7 @@ P(U &lt; f(Y)) &amp;= \frac{1}{\sum_{j}M_j \cdot \Delta x_j} \sum_i \int_{A_i} f
 &amp;= \frac{1}{\sum_{j}M_j \cdot \Delta x_j} \geq \frac{1}{M_\max \cdot \sum_{j} \Delta x_j}  = \frac{1}{M}
 \end{aligned}
 $$</p>
-    </blockquote>
-</div>
-</center>
+</blockquote>
 <p>마지막 부등식은 $M_i$ 중에서 가장 큰 값에 전체 구간의 길이를 곱하면 원래 Uniform distribution을 사용할 때의 $M$과 같다는 것을 이용하여 정리한 것입니다. 이를 통해 Piecewise rejection sampling의 Acceptance rate는 Uniform distribution을 사용할 때의 Acceptance rate보다 항상 높다는 것을 알 수 있습니다.</p>
 <p>이제 마지막으로 처음에 제시했던 문제를 Piecewise rejection sampling을 이용하여 풀어보겠습니다. 위 알고리즘은 Rust numeric library인 <a href="https://github.com/Axect/Peroxide">Peroxide</a>에 이미 구현이 되어 있으므로 이를 이용하겠습니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> peroxide::fuga::<span style="color:#f92672">*</span>;
