@@ -27,7 +27,7 @@
 
 
 
-<link rel="stylesheet" href="/main.fa364017eb889472f6bc6903fca25cd2b925ab702627b451ad041e95781a56f6.css">
+<link rel="stylesheet" href="/main.53b1d2e9cb77a0c5a69424ba6534c395d4ac9c67bf5fe24390111c6624254c2b.css">
 
 
 
@@ -264,26 +264,22 @@ $$</p>
 $$</p>
 <p>여기에 1을 대입하면 정확히 2가 나옵니다. 위에서 수치적 미분의 결과와 달리 오차는 포함되지 않았습니다.
 미분을 배운 사람일 경우, 위 풀이는 전혀 어려운 풀이가 아닙니다. 규칙만 잘 지킨다면 다른 함수들을 미분할 때에도 큰 어려움은 없을 겁니다.</p>
-<center id="img">
 <figure>
     <img src="/posts/images/diff_table.gif"
          alt="물론 규칙이 조금 많긴 합니다 ㅎㅎ.."/> <figcaption style="text-align:center">
             <p>물론 규칙이 조금 많긴 합니다 ㅎㅎ..</p>
         </figcaption>
 </figure>
-</center>
 <p>그렇다면 컴퓨터에게 규칙을 가르치면 어떨까요? 어떻게 가르치냐가 관건이겠지만 일단 가르칠 수 있다면 오차없는 완벽한 미분을 컴퓨터로 구현할 수 있을 것입니다.
 다행히도 사람들은 이미 그것을 구현하였고 이를 <strong>CAS</strong>(Computer Algebra System)라 부릅니다.</p>
 <p>대표적인 CAS로는 Mathematica, Matlab, Maple 등의 상업용 프로그램들과 Python으로 구현된 Sympy, Sagemath 등의 무료 프로그램 혹은 라이브러리가 있습니다.
 CAS는 실제로 인간이 하는 것처럼 미분, 적분, 대수 뿐 아니라 심지어 미분기하 등의 고급 수학 문제까지도 풀어낼 수 있습니다.</p>
-<center id="img">
 <figure>
     <img src="/posts/images/sage_manifolds.png"
          alt="무려 이름도 SageManifolds 입니다."/> <figcaption style="text-align:center">
             <p>무려 이름도 SageManifolds 입니다.</p>
         </figcaption>
 </figure>
-</center>
 <p>아래는 sagemath를 이용한 간단한 도함수 구현입니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>var(<span style="color:#e6db74">&#39;x&#39;</span>)        <span style="color:#75715e"># 변수를 선언합니다.</span>
 </span></span><span style="display:flex;"><span>f(x) <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span><span style="color:#ae81ff">2</span>      <span style="color:#75715e"># 함수를 선언합니다.</span>
@@ -291,31 +287,25 @@ CAS는 실제로 인간이 하는 것처럼 미분, 적분, 대수 뿐 아니라
 </span></span><span style="display:flex;"><span>print(df(<span style="color:#ae81ff">1</span>))    <span style="color:#75715e"># 2</span>
 </span></span></code></pre></div><p>정확할 뿐만 아니라 간단하기까지 하니 더 이상 수치적 미분을 고집할 이유는 없어보입니다. 하지만 이렇게 엄청난 CAS에도 치명적인 단점이 존재합니다. 바로 속도입니다.
 기호적 미분 자체는 계산 속도가 빠를 수 있지만 그것에 수치 값들을 대입할 때 현저하게 속도 저하가 일어납니다. 아래는 간단한 미분 계산에 크기가 큰 배열 값을 대입하여 성능을 측정한 결과입니다. Peroxide는 Rust의 수치계산 라이브러리 이름이며 후에 다룰 자동미분 알고리즘을 적용하여 계산을 수행하였고, numpy는 Python의 유명한 수치계산 라이브러리로 수치적 미분으로 계산하였습니다. 마지막으로 Sagemath는 기호적 미분으로 계산 후 수치 값을 대입하여 결과를 구했습니다.</p>
-<center id="img">
 <figure>
     <img src="/posts/images/plot.png"
          alt="Linear scale 그래프입니다."/> <figcaption style="text-align:center">
             <p>Linear scale 그래프입니다.</p>
         </figcaption>
 </figure>
-</center>
-<center id="img">
 <figure>
     <img src="/posts/images/logplot.png"
          alt="Log scale 그래프입니다."/> <figcaption style="text-align:center">
             <p>Log scale 그래프입니다.</p>
         </figcaption>
 </figure>
-</center>
 <p>물론 어떤 알고리즘을 사용했는지에 따라 실제 수치 계산에서의 결과는 조금 다를 수 있습니다. 다음은 Julia 언어 팀에서 실시한 Benchmark 결과입니다.</p>
-<center id="img">
 <figure>
     <img src="/posts/images/benchmarks.svg"
          alt="Log scale임을 참고하여 보시기 바랍니다. (출처: https://julialang.org/benchmarks/)"/> <figcaption style="text-align:center">
             <p>Log scale임을 참고하여 보시기 바랍니다. (출처: <a href="https://julialang.org/benchmarks/">https://julialang.org/benchmarks/</a>)</p>
         </figcaption>
 </figure>
-</center>
 <p>그림을 보면 Matlab의 오픈소스 격인 Octave는 예외로 치더라도 Mathematica가 생각보단 느리지 않음을 알 수 있습니다. (그래도 C보다 거의 10~100배 느리긴 하지만요.)
 Mathematica도 행렬 계산은 BLAS를 이용하고 갖가지 탁월한 수치 계산 알고리즘을 사용하기에 특정 계산들은 심지어 numpy를 이용한 Python보다 빠르기까지 합니다. 다만, Mathematica에서도 기호적 미분과 수치적인 연산을 서로 오갈때에는 역시나 큰 속도저하가 필연적으로 발생합니다.</p>
 <p>그렇다면 규모가 큰 미분 계산에 대해서는 어떻게 접근해야할까요? 속도 저하를 고려하여 수치적 미분으로 구현하자니 규모가 커서 오차도 그만큼 많이 쌓일테고, 정확도를 고려하여 기호적 미분을 고려하자니 굉장히 오랜 시일이 걸릴 것은 뻔합니다. 심지어 메모리 문제로 게산 도중에 다운될 수도 있습니다. 다행히도 미분에 한해서는 거의 완벽한 해답이 존재합니다. 이에 대해서는 다음 포스트에서 다루도록 하겠습니다.</p>
@@ -502,7 +492,7 @@ Mathematica도 행렬 계산은 BLAS를 이용하고 갖가지 탁월한 수치 
 
 
 
-<script type="text/javascript" src="/bundle.min.188af889e916d7182e7bf4af7bed9ff4c9b70dd61a69188cb044d25745a4ffc32b82cbec846336503520a7716e619cb46848931205cfa3176a691ff9152d4947.js" integrity="sha512-GIr4iekW1xgue/Sve&#43;2f9Mm3DdYaaRiMsETSV0Wk/8MrgsvshGM2UDUgp3FuYZy0aEiTEgXPoxdqaR/5FS1JRw=="></script>
+<script type="text/javascript" src="/bundle.min.8cc3758efe48ef82e2eb9a5f317b44c0805353a43762207be6fe8ffb05815cce7a19d37f6bf387c378a3bdfc3029981668d645374a33db4ee3480e15a4bfdc7c.js" integrity="sha512-jMN1jv5I74Li65pfMXtEwIBTU6Q3YiB75v6P&#43;wWBXM56GdN/a/OHw3ijvfwwKZgWaNZFN0oz207jSA4VpL/cfA=="></script>
     
 <script type="application/javascript">
 var doNotTrack = false;

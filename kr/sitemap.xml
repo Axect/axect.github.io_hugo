@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://axect.github.io/posts/005_decov/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+    <loc>https://axect.github.io/posts/006_prs/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -18,23 +18,17 @@
                 href="https://axect.github.io/"
                 />
   </url><url>
-    <loc>https://axect.github.io/tags/decorrelation/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
-  </url><url>
-    <loc>https://axect.github.io/tags/machine-learning/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
-  </url><url>
-    <loc>https://axect.github.io/tags/paper-review/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+    <loc>https://axect.github.io/tags/piecewise-rejection-sampling/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/posts/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
   </url><url>
-    <loc>https://axect.github.io/tags/pytorch/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+    <loc>https://axect.github.io/tags/statistics/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/tags/</loc>
-    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -45,6 +39,21 @@
                 hreflang="kr"
                 href="https://axect.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://axect.github.io/posts/005_decov/</loc>
+    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/decorrelation/</loc>
+    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/machine-learning/</loc>
+    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/paper-review/</loc>
+    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
+  </url><url>
+    <loc>https://axect.github.io/tags/pytorch/</loc>
+    <lastmod>2022-10-29T17:39:54+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/about/</loc>
     <lastmod>2022-07-23T14:27:50+09:00</lastmod>
@@ -75,9 +84,6 @@
     <lastmod>2021-03-09T22:01:39+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/tags/julia/</loc>
-    <lastmod>2021-03-09T22:01:39+09:00</lastmod>
-  </url><url>
-    <loc>https://axect.github.io/tags/statistics/</loc>
     <lastmod>2021-03-09T22:01:39+09:00</lastmod>
   </url><url>
     <loc>https://axect.github.io/tags/numerical/</loc>
