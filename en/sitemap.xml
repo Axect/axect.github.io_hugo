@@ -2,6 +2,84 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://axect.github.io/en/posts/006_prs/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/posts/006_prs/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/posts/006_prs/"
+                />
+  </url><url>
+    <loc>https://axect.github.io/en/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/"
+                />
+  </url><url>
+    <loc>https://axect.github.io/en/tags/piecewise-rejection-sampling/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/tags/piecewise-rejection-sampling/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/tags/piecewise-rejection-sampling/"
+                />
+  </url><url>
+    <loc>https://axect.github.io/en/posts/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/posts/"
+                />
+  </url><url>
+    <loc>https://axect.github.io/en/tags/statistics/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/tags/statistics/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/tags/statistics/"
+                />
+  </url><url>
+    <loc>https://axect.github.io/en/tags/</loc>
+    <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/tags/"
+                />
+  </url><url>
     <loc>https://axect.github.io/en/about/</loc>
     <lastmod>2022-07-23T14:27:50+09:00</lastmod>
     <xhtml:link
@@ -13,18 +91,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://axect.github.io/en/about/"
-                />
-  </url><url>
-    <loc>https://axect.github.io/en/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="kr"
-                href="https://axect.github.io/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://axect.github.io/en/"
                 />
   </url><url>
     <loc>https://axect.github.io/en/blog/</loc>
@@ -49,18 +115,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://axect.github.io/en/series/"
-                />
-  </url><url>
-    <loc>https://axect.github.io/en/tags/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="kr"
-                href="https://axect.github.io/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://axect.github.io/en/tags/"
                 />
   </url>
 </urlset>

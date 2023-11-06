@@ -4,6 +4,16 @@
   <url>
     <loc>https://axect.github.io/posts/006_prs/</loc>
     <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/posts/006_prs/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/posts/006_prs/"
+                />
   </url><url>
     <loc>https://axect.github.io/</loc>
     <lastmod>2022-11-18T17:49:04+09:00</lastmod>
@@ -20,12 +30,42 @@
   </url><url>
     <loc>https://axect.github.io/tags/piecewise-rejection-sampling/</loc>
     <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/tags/piecewise-rejection-sampling/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/tags/piecewise-rejection-sampling/"
+                />
   </url><url>
     <loc>https://axect.github.io/posts/</loc>
     <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/posts/"
+                />
   </url><url>
     <loc>https://axect.github.io/tags/statistics/</loc>
     <lastmod>2022-11-18T17:49:04+09:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://axect.github.io/en/tags/statistics/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="kr"
+                href="https://axect.github.io/tags/statistics/"
+                />
   </url><url>
     <loc>https://axect.github.io/tags/</loc>
     <lastmod>2022-11-18T17:49:04+09:00</lastmod>
