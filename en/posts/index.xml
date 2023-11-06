@@ -336,5 +336,201 @@ $$</p>
 ]]></content>
         </item>
         
+        <item>
+            <title>💔 Decorrelation &#43; Deep learning = Generalization</title>
+            <link>https://axect.github.io/en/posts/005_decov/</link>
+            <pubDate>Sat, 29 Oct 2022 17:39:54 +0900</pubDate>
+            
+            <guid>https://axect.github.io/en/posts/005_decov/</guid>
+            <description>arXiv: 1511.06068
+The most pervasive challenge in deep learning is Overfitting . This occurs when the dataset is small, and extensive training leads to a model that excels on training datasets but fails to generalize to validation datasets or real-world scenarios. To address this issue, various strategies have been developed. Historically, in statistics, regularization methods like Ridge and LASSO were employed, while deep learning has adopted approaches such as regularizing weights or applying different techniques to neural networks.</description>
+            <content type="html"><![CDATA[<figure>
+    <img src="/posts/images/005_01_paper.png"
+         alt="arXiv: 1511.06068"/> <figcaption style="text-align:center">
+            <p><a href="https://arxiv.org/abs/1511.06068">arXiv: 1511.06068</a></p>
+        </figcaption>
+</figure>
+<p>  The most pervasive challenge in deep learning is <span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>Overfitting</b>
+</span>. This occurs when the dataset is small, and extensive training leads to a model that excels on training datasets but fails to generalize to validation datasets or real-world scenarios. To address this issue, various strategies have been developed. Historically, in statistics, regularization methods like Ridge and LASSO were employed, while deep learning has adopted approaches such as regularizing weights or applying different techniques to neural networks. These techniques encompass a range of methods.</p>
+<figure>
+    <img src="/posts/images/005_02_overfitting.png"
+         alt="Bejani, M.M., Ghatee, M. A systematic review on overfitting control in shallow and deep neural networks. Artif Intell Rev 54, 6391-6438 (2021)"/> <figcaption style="text-align:center">
+            <p>Bejani, M.M., Ghatee, M. <em>A systematic review on overfitting control in shallow and deep neural networks.</em> Artif Intell Rev 54, 6391-6438 (2021)</p>
+        </figcaption>
+</figure>
+<p>Among these, <span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>Dropout</b>
+</span> is perhaps the most well-known, which involves omitting certain neurons in a neural network to prevent their co-adaptation. Practically, this has proven to be an exceedingly effective measure to mitigate overfitting, becoming a standard inclusion in neural network architectures. However, dropout is not universally applicable: with limited training data or few neurons, the random removal of neurons might impede the network&rsquo;s capacity to model complex relationships. Additionally, despite its practicality, dropout&rsquo;s straightforward architecture and the principle may seem less theoretically satisfying. In this context, I wish to present an intriguing paper that offers both theoretical enrichment and practical effectiveness.</p>
+<hr>
+<h2 id="1-why-do-we-need-decorrelation">1. Why do we need decorrelation?</h2>
+<h3 id="11-covariance--correlation">1.1. Covariance &amp; Correlation</h3>
+<p>  The paper under review, <em>Reducing Overfitting in Deep Networks by Decorrelating Representations</em> from 2015, introduces a method termed <span style="background-color: rgba(255, 255, 0, 0.534);">
+    <b>Decorrelation</b>
+</span>. The authors demonstrate how this technique can bolster the performance of Dropout in reducing overfitting. Despite its potential, Decorrelation did not surge in popularity, likely due to its novelty and relative complexity. Nevertheless, it remains a valuable and consistently cited work in the field.</p>
+<p>To grasp the concept of decorrelation, we must first understand what correlation entails. Correlation denotes the relationship between two sets of data, with covariance being a common measure of this relationship. Covariance is defined as the linear association between two random variables, expressed by the formula:</p>
+<p>$$
+\text{Cov}(X,\,Y) \equiv \mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right]
+$$</p>
+<p>It is generally understood that a positive covariance indicates a direct proportional relationship between variables, a negative value suggests an inverse relationship, and a value near zero implies no apparent relationship. A more precise metric for this relationship is the Pearson correlation coefficient, defined as:</p>
+<p>$$
+\text{Corr}(X,\,Y) \equiv \frac{\text{Cov}(X,\,Y)}{\sqrt{\text{Var}(X) \text{Var}(Y)}}
+$$</p>
+<p>This coefficient is constrained within a range from -1 to 1. A value closer to 1 indicates a strong direct relationship, closer to -1 indicates a strong inverse relationship, and a value near 0 suggests no correlation. Consider the following data as an illustration.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>])
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>])
+</span></span></code></pre></div><p>For these two variables, the covariance can be calculated using the following function in Python:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cov</span>(x, y):
+</span></span><span style="display:flex;"><span>    N <span style="color:#f92672">=</span> len(x)
+</span></span><span style="display:flex;"><span>    m_x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>    m_y <span style="color:#f92672">=</span> y<span style="color:#f92672">.</span>mean()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>dot((x <span style="color:#f92672">-</span> m_x), (y <span style="color:#f92672">-</span> m_y)) <span style="color:#f92672">/</span> (N<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>Using this function to compute the covariance for <code>x</code> and <code>y</code> above yields a value of <code>1.6666666666666667</code>. This indicates a positive correlation, but interpreting this raw number can be challenging. To facilitate a clearer interpretation, we employ the Pearson correlation coefficient, as previously mentioned, defined in Python as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pearson_corr</span>(x, y):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ddof=1 for sample variance</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cov(x, y) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sqrt(x<span style="color:#f92672">.</span>var(ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> y<span style="color:#f92672">.</span>var(ddof<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>))
+</span></span></code></pre></div><p>Applying this to the given data reveals a Pearson correlation coefficient of exactly 1, signifying that the two variables have a perfect linear relationship.</p>
+<p>When dealing with multiple features, it is possible to construct a matrix that represents the covariance among them all at once. This is known as the covariance matrix, and is denoted as follows:</p>
+<p>$$
+C_{ij} = \text{Cov}(x_i,\,x_j)
+$$</p>
+<p>Therefore, the covariance matrix is a square matrix with dimensions equal to the number of features, representing the covariance between each pair of features.</p>
+<p> </p>
+<h3 id="12-overfitting--decorrelation">1.2. Overfitting &amp; Decorrelation</h3>
+<p>  The discussion of correlation in the realm of deep learning arises from the issue that significant correlation among variables, or features, can be detrimental to a model&rsquo;s performance. Deep neural networks refine their learning by adjusting weights assigned to each feature; however, when two features yield identical information (high correlation), it creates redundancy. This redundancy can cause a form of degeneracy where altering the weights of either feature doesn&rsquo;t uniquely contribute to the learning process, which in turn can impede accurate learning and introduce bias into the neural network. The aforementioned paper posits that this redundancy is a contributing factor to overfitting.</p>
+<p>In fact, the study demonstrates that by defining the extent of overfitting as the discrepancy between training and validation accuracy and quantifying the level of decorrelation with a metric termed <code>DeCov</code>, a notable pattern emerges:</p>
+<figure>
+    <img src="/posts/images/005_03_decov.png"
+         alt="Correlation between Overfitting and Covariance"/> <figcaption style="text-align:center">
+            <p>Correlation between Overfitting and Covariance</p>
+        </figcaption>
+</figure>
+<p>The graph above illustrates that with an increase in the number of training samples, the degree of overfitting diminishes, concurrently with a decrease in Cross-Covariance. This correlation suggests that by reducing covariance, or in other words, promoting decorrelation, one can potentially reduce the tendency of a model to overfit.</p>
+<hr>
+<h2 id="2-how-to-decorrelate">2. How to decorrelate?</h2>
+<p>  Within the paper, the authors propose that to combat overfitting, one should aim to decorrelate the activation outputs of the hidden layers. This approach is grounded in the logic that these activations are the actual values being multiplied by subsequent weights in the network. Let&rsquo;s consider the activation values of one hidden layer as $h^n \in \mathbb{R}^d$, where $n$ is the batch index. We can then define the covariance matrix of these activations as:</p>
+<p>$$
+C_{ij} = \frac{1}{N} \sum_n (h_i^n - \mu_i)(h_j^n - \mu_j)
+$$</p>
+<p>By reducing the covariance of these activation values, we aim to achieve our objective of decorrelation. However, to integrate this concept into our Loss function, which requires a scalar value, the covariance matrix must be represented in a scalar form. The paper introduces the following Loss function for this purpose:</p>
+<p>$$
+\mathcal{L}_{\text{DeCov}} = \frac{1}{2}(\lVert C \rVert_F^2 - \lVert\text{diag}(C) \rVert_2^2)
+$$</p>
+<p>Here, $\lVert \cdot \rVert_F$ denotes the Frobenius norm of the matrix, and $\lVert \cdot \rVert_2$ denotes the $l^2$ norm. The subtraction of the diagonal components is deliberate since these represent the variance of individual features, which does not contribute to inter-feature correlation. By incorporating this DeCov Loss function into the overall loss, much like a regularization term, we can enforce decorrelation in the learning process.</p>
+<p>Implementing this decorrelation strategy in practical deep learning applications may initially appear daunting, given the complexity of gradient calculations for the covariance matrix and its norms. However, PyTorch simplifies the process considerably with its built-in automatic differentiation capabilities, which can handle gradients for the covariance matrix and norms with ease. Consequently, this DeCov loss function can be integrated into your model with just a few lines of Python code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Python</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decov</span>(h):
+</span></span><span style="display:flex;"><span>    C <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cov(h)
+</span></span><span style="display:flex;"><span>    C_diag <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>diag(C, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (torch<span style="color:#f92672">.</span>norm(C, <span style="color:#e6db74">&#39;fro&#39;</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> torch<span style="color:#f92672">.</span>norm(C_diag, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>By defining a function <code>decov</code>, we calculate the covariance matrix <code>C</code> of the activations <code>h</code>. The function then computes the DeCov loss by taking the Frobenius norm of the entire covariance matrix, squaring it, and subtracting the squared $l^2$ norm of the diagonal elements, which represent the variance of each feature. This DeCov loss can then be added to the primary loss function, thereby enabling the model to learn decorrelated features effectively.</p>
+<hr>
+<h2 id="3-apply-to-regression">3. Apply to Regression</h2>
+<p>  In the original study, the authors applied their decorrelation technique to various sets of image data. However, to more clearly demonstrate its effectiveness, we&rsquo;ll apply it to a simple regression problem. Below is the dataset that will be used to train the neural network:</p>
+<figure>
+    <img src="/posts/images/005_04_data.png"
+         alt="Nonlinear data [Note: Peroxide_Gallery]"/> <figcaption style="text-align:center">
+            <p>Nonlinear data [Note: <a href="https://github.com/Axect/Peroxide_Gallery/tree/master/Machine_Learning/linear_reg_ridge">Peroxide_Gallery</a>]</p>
+        </figcaption>
+</figure>
+<p>To illustrate the impact of the <code>DeCov</code> loss function, we will compare the performance of a standard neural network to one that implements the <code>DeCov</code> function. The architecture of the neural network utilizing <code>DeCov</code> is detailed below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pytorch_lightning <span style="color:#66d9ef">as</span> pl
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torch <span style="color:#f92672">import</span> nn
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn.functional <span style="color:#66d9ef">as</span> F
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DeCovMLP</span>(pl<span style="color:#f92672">.</span>LightningModule):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, hparams<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc_init <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">1</span>, self<span style="color:#f92672">.</span>hidden_nodes),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc_mid <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(self<span style="color:#f92672">.</span>hidden_nodes, self<span style="color:#f92672">.</span>hidden_nodes),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(self<span style="color:#f92672">.</span>hidden_nodes, self<span style="color:#f92672">.</span>hidden_nodes),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>Linear(self<span style="color:#f92672">.</span>hidden_nodes, self<span style="color:#f92672">.</span>hidden_nodes),
+</span></span><span style="display:flex;"><span>            nn<span style="color:#f92672">.</span>ReLU(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>),
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc_final <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(self<span style="color:#f92672">.</span>hidden_nodes, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc_init(x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc_mid(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>fc_final(x)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">training_step</span>(self, batch, batch_idx):
+</span></span><span style="display:flex;"><span>        x, y <span style="color:#f92672">=</span> batch
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        h0 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc_init(x)
+</span></span><span style="display:flex;"><span>        loss_0 <span style="color:#f92672">=</span> decov(h0)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        h1 <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc_mid(h0)
+</span></span><span style="display:flex;"><span>        loss_1 <span style="color:#f92672">=</span> decov(h1)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        y_hat <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc_final(h1)
+</span></span><span style="display:flex;"><span>        loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>mse_loss(y,y_hat) <span style="color:#f92672">+</span> loss_0 <span style="color:#f92672">+</span> loss_1
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> loss
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ...</span>
+</span></span></code></pre></div><p>Upon closer examination, we observe that <code>loss_0</code> is defined as the loss after the initial layer <code>fc_init</code>, and <code>loss_1</code> as the loss after the subsequent three layers <code>fc_mid</code>. These losses are then integrated into the mean squared error (MSE) loss as regularization terms. Before delving into the outcomes, it&rsquo;s insightful to examine the training dynamics of <code>SimpleMLP</code> and <code>DeCovMLP</code>.</p>
+<figure>
+    <img src="/posts/images/005_07_SimpleMLP.png"
+         alt="SimpleMLP losses (wandb.ai)"/> <figcaption style="text-align:center">
+            <p>SimpleMLP losses (<a href="https://wandb.ai/axect/DeCov/runs/2dx8i9b7?workspace=user-axect">wandb.ai</a>)</p>
+        </figcaption>
+</figure>
+<figure>
+    <img src="/posts/images/005_08_DeCovMLP.png"
+         alt="DeCovMLP losses (wandb.ai)"/> <figcaption style="text-align:center">
+            <p>DeCovMLP losses (<a href="https://wandb.ai/axect/DeCov/runs/22ggcfkd?workspace=user-axect">wandb.ai</a>)</p>
+        </figcaption>
+</figure>
+<p>In the <code>SimpleMLP</code> model, <code>decov_1</code> initially increases during training iterations and then plateaus, indicating no further decrease. Contrastingly, within the <code>DeCovMLP</code> model, <code>decov_1</code> consistently decreases, aligning with the paper&rsquo;s hypothesis: as overfitting intensifies, so does the correlation between features. Now, let&rsquo;s consider the results.</p>
+<figure>
+    <img src="/posts/images/005_05_total.png"
+         alt="Results!"/> <figcaption style="text-align:center">
+            <p>Results!</p>
+        </figcaption>
+</figure>
+<p>The red line represents the <code>SimpleMLP</code> outcome, while the blue line depicts <code>DeCovMLP</code>. Noticeably, the red line exhibits overfitting with erratic fluctuations, whereas the blue line maintains closer alignment with the <code>true</code> data and exhibits less jitter. This demonstrates a remarkable improvement, and further extrapolation yields even more compelling insights.</p>
+<figure>
+    <img src="/posts/images/005_06_extrapolate.png"
+         alt="Extrapolate!"/> <figcaption style="text-align:center">
+            <p>Extrapolate!</p>
+        </figcaption>
+</figure>
+<p>When extrapolated, the red line — indicative of overfitting — diverges significantly from the expected trend even with minor deviations, leading to inaccurate predictions. Meanwhile, the blue line remains stable, displaying minimal deviation. This clearly demonstrates the superior generalization capability of the <code>DeCovMLP</code>.</p>
+<hr>
+<h2 id="4-further-more">4. Further more..</h2>
+<p>  The paper, &ldquo;<em>Reducing Overfitting in Deep Networks by Decorrelating Representations,</em>&rdquo; was published in 2015—a notable period ago, especially when considered within the fast-paced advancements of the field up to 2022. Since its publication, there has been a continuous outpouring of research on decorrelation techniques, with studies like <a href="https://arxiv.org/abs/1804.08450">Decorrelated Batch Normalization</a> emerging more recently. Decorrelation, having been extensively explored in the field of statistics, offers a robust theoretical foundation that can render the results of neural networks more intuitive and analytically solid for researchers and practitioners alike.</p>
+<p>For those interested in delving deeper, the regression code discussed earlier can be accessed at the provided link.</p>
+<center>
+<div class="animated-border-quote">
+    <blockquote>
+        <p style="text-align:left"><a href="https://github.com/Axect/DeCov">Axect/DeCov</a></p>
+    </blockquote>
+</div>
+</center>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+]]></content>
+        </item>
+        
     </channel>
 </rss>

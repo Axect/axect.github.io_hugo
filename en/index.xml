@@ -21,6 +21,16 @@ Inverse Transform Sampling Rejection Sampling Inverse Transform Sampling involve
     </item>
     
     <item>
+      <title>💔 Decorrelation &#43; Deep learning = Generalization</title>
+      <link>https://axect.github.io/en/posts/005_decov/</link>
+      <pubDate>Sat, 29 Oct 2022 17:39:54 +0900</pubDate>
+      
+      <guid>https://axect.github.io/en/posts/005_decov/</guid>
+      <description>arXiv: 1511.06068
+The most pervasive challenge in deep learning is Overfitting . This occurs when the dataset is small, and extensive training leads to a model that excels on training datasets but fails to generalize to validation datasets or real-world scenarios. To address this issue, various strategies have been developed. Historically, in statistics, regularization methods like Ridge and LASSO were employed, while deep learning has adopted approaches such as regularizing weights or applying different techniques to neural networks.</description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>https://axect.github.io/en/about/</link>
       <pubDate>Sat, 23 Jul 2022 14:27:50 +0900</pubDate>
