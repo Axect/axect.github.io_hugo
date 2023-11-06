@@ -9,6 +9,17 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Fri, 18 Nov 2022 17:49:04 +0900</lastBuildDate><atom:link href="https://axect.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About</title>
+      <link>https://axect.github.io/about/</link>
+      <pubDate>Mon, 06 Nov 2023 19:03:00 +0900</pubDate>
+      
+      <guid>https://axect.github.io/about/</guid>
+      <description>김태근 (Axect)을 소개합니다.
+저는 수학, 물리학 그리고 프로그래밍을 좋아하는 대학원생입니다.
+학력 Ph.D: 연세대학교 대학원 물리학과 (2020 ~ ) M.S.: 연세대학교 대학원 물리학과 (2017 ~ 2019) B.S.: 연세대학교 천문우주학과 (2012 ~ 2017) 연구분야 입자물리학 현상론 과학계산 및 기계학습 우주론 및 수치 상대론 학문 및 기술 수학 함수해석학 수치해석학 유한차분법 유한요소법 미분기하학 위상수학 물리학 일반상대성이론 양자장이론 수리물리학 기계학습 통계적 기계학습 선형회귀 (LASSO, Ridge) 로지스틱 회귀 선형분류 Kernel Based Methods Kernel Smoothing Kernel Density Estimation 인공신경망 MLP, CNN, RNN (LSTM, GRU), Transformer Spiking Neural Network Graph Neural Network 프로그래밍 주 언어 Rust, Julia, Python 보조 언어 C/C++, Haskell 프레임워크 및 라이브러리 수치 계산 peroxide, BLAS, LAPACK, numpy, scipy 시각화 matplotlib, vegas, ggplot2, plotly 웹 Django, Vue, Firebase, Surge, Hugo, Zola 머신러닝 PyTorch, PyTorch Lightning, Wandb, Flux, Tensorflow, Norse 프로젝트 Peroxide: Rust 수치 계산 라이브러리 (Maintainer)</description>
+    </item>
+    
+    <item>
       <title>📊 Piecewise Rejection Sampling</title>
       <link>https://axect.github.io/posts/006_prs/</link>
       <pubDate>Fri, 18 Nov 2022 17:49:04 +0900</pubDate>
@@ -28,17 +39,6 @@ Inverse Transform Sampling Rejection Sampling Inverse Transform Sampling은 확�
       <guid>https://axect.github.io/posts/005_decov/</guid>
       <description>arXiv: 1511.06068
 딥러닝에서 가장 빈번하게 일어나는 문제로 Overfitting (과적합) 이 있습니다. 이는 데이터가 많지 않을 때, 학습을 많이 할 수록 잘 발생하는 문제이며 이로 인하여 훈련 데이터셋에 대해서는 성능이 좋더라도 검증 데이터셋이나 실제 데이터셋에 대해서는 성능이 안 나오는 문제가 발생합니다. 이를 해결하기 위하여 사람들은 여러 방법을 고안했는데, 통계학에서는 일찌감치 Ridge나 LASSO와 같은 regularization 방법을 사용하였으며 딥러닝에서도 마찬가지로 weight을 regularize하거나 신경망에 여러 기술을 적용하는 것들을 도입하였습니다. 이러한 기술로는 다음과 같은 방법들이 있습니다.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://axect.github.io/about/</link>
-      <pubDate>Sat, 23 Jul 2022 14:27:50 +0900</pubDate>
-      
-      <guid>https://axect.github.io/about/</guid>
-      <description>김태근 (Axect)을 소개합니다.
-저는 수학, 물리학 그리고 프로그래밍을 좋아하는 대학원생입니다.
-학력 Ph.D: 연세대학교 대학원 물리학과 (2020 ~ ) M.S.: 연세대학교 대학원 물리학과 (2017 ~ 2019) B.S.: 연세대학교 천문우주학과 (2012 ~ 2017) 연구분야 입자물리학 현상론 과학계산 및 기계학습 우주론 및 수치 상대론 학문 및 기술 수학 함수해석학 수치해석학 유한차분법 유한요소법 미분기하학 위상수학 물리학 일반상대성이론 양자장이론 수리물리학 기계학습 통계적 기계학습 선형회귀 (LASSO, Ridge) 로지스틱 회귀 선형분류 Kernel Based Methods Kernel Smoothing Kernel Density Estimation 인공신경망 MLP, CNN, RNN (LSTM, GRU), Transformer Spiking Neural Network Graph Neural Network 프로그래밍 주 언어 Rust, Julia, Python 보조 언어 C/C++, Haskell 프레임워크 및 라이브러리 수치 계산 peroxide, BLAS, LAPACK, numpy, scipy 시각화 matplotlib, vegas, ggplot2, plotly 웹 Django, Vue, Firebase, Surge, Hugo, Zola 머신러닝 PyTorch, PyTorch Lightning, Wandb, Flux, Tensorflow, Norse 프로젝트 Peroxide: Rust 수치 계산 라이브러리 (Maintainer)</description>
     </item>
     
     <item>
