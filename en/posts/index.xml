@@ -163,8 +163,8 @@ Our example exhibits a minor discrepancy between $g(x)$ and $f(x)$, which is man
 </span> stands out for its efficiency, though it operates under the assumption that the target function is log-concave. On the other hand, <span style="background-color: rgba(255, 255, 0, 0.534);">
     <b>Adaptive Rejection Metropolis Sampling (ARMS)</b>
 </span> addresses the limitations of ARS by not requiring the log-concavity condition, making it more generalizable, but at the cost of being more complex to implement. While there are comprehensive <a href="https://cran.r-project.org/web/packages/armspp/vignettes/arms.html">R packages</a> available that facilitate the use of these methods, there is a simpler alternative that I would like to present: <span style="background-color: rgba(255, 255, 0, 0.534);">
-     <b>Piecewise Rejection Sampling (PRS)</b>
- </span>.</p>
+    <b>Piecewise Rejection Sampling (PRS)</b>
+</span>.</p>
 <p>PRS was developed as a direct response to a challenge I faced during my physics research. It retains the core principles of rejection sampling but proposes a more tailored approach for the auxiliary function $g(x)$. Rather than employing a simple uniform distribution, PRS uses a <span style="background-color: rgba(255, 255, 0, 0.534);">
     <b>Weighted uniform distribution</b>
 </span> that is specifically optimized for $f(x)$. Let&rsquo;s delve into this method step by step.</p>
